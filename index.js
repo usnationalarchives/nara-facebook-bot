@@ -4,6 +4,7 @@
 
 // Imports dependencies and set up http server
 const
+  PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN,
   express = require('express'),
   bodyParser = require('body-parser'),
   app = express().use(bodyParser.json()); // creates express http server
@@ -44,8 +45,8 @@ app.post('/webhook', (req, res) => {
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
 
-  // Your verify token. Should be a random string.
-  let VERIFY_TOKEN = "testverify"
+  // Your verify token. Should be a random string
+  const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
   // Parse the query params
   let mode = req.query['hub.mode'];
