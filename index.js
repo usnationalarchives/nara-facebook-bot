@@ -2,6 +2,10 @@
 
 'use strict';
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
+
 // Imports dependencies and set up http server
 const
   PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN,
