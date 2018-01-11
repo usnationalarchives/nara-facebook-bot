@@ -252,6 +252,7 @@ function handlePostback(sender_psid, received_postback) {
 
 function newQuestion( sender_psid ) {
 
+  let response;
   response = {
       'text' : 'What kind of text is in this image?',
       'quick_replies' : [
