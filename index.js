@@ -90,12 +90,41 @@ function handleMessage(sender_psid, received_message) {
   // Check if the message contains text
   if ( received_message.text ) {
 
-    console.log( received_message );
+    let text;
+
+    switch( received_message.text ) {
+
+      case 'start' :
+      case 'help' :
+      case 'info' :
+        text = 'Welcome to the National Archives Citizen Archivist Project! Help us identify text in historic images.';
+        break;
+
+      case 'score' :
+      case 'stats' :
+        text = 'Current score - how many images the user has ID\'d this session, or in total - requires db setup';
+        break;
+
+      case 'end' :
+      case 'stop' :
+      case 'exit' :
+      case 'quit' :
+      case 'q' :
+        text = 'Thanks for playing! You helped process X images. Just send us another message to start again.';
+        break;
+
+      default :
+        text = `I do not understand "${received_message.text}". I am just a bot.`;
+        break;
+
+    }
+
+    response = { 'text' : text };
 
     // Create the payload for a basic text message
-    response = {
+    /* response = {
       'text': `You sent the message: "${received_message.text}". Now send me an image!`
-    }
+    } */
 
   } else if (received_message.attachments) {
 
@@ -141,18 +170,121 @@ function handlePostback(sender_psid, received_postback) {
 
   let response;
 
-  console.log( received_postback );
-
-  // Get the payload for the postback
   let payload = received_postback.payload;
-  if ( payload === 'yes' ) {
-    response = { 'text': 'Thanks!' }
-  } else if( payload === 'no' ) {
-    response = { 'text': 'Looks like an error occurred, then.' }
+
+  let text;
+
+  /* if ( payload.indexOf( 'choice' ) !== -1 ) {
+    response = handleChoice( payload );
+  } */
+
+  switch( payload ) {
+
+    case 'continue' :
+      text = 'New question coming up.';
+      break;
+
+    case 'quit' :
+      text = 'Thanks for playing!';
+      break;
+
+    case 'typed' :
+      text = 'Marked as containing typed text.';
+      break;
+
+    case 'handwritten' :
+      text = 'Marked as containing handwritten text.';
+      break;
+
+    case 'mixed' :
+      text = 'Marked as containing both typed and handwritten text.';
+      break;
+
+    case 'none ':
+      text = 'Marked as not containing any text.';
+      break;
+
+    case 'skip' :
+    default :
+      text = 'No problem. Skipping this one.';
+      break;
+
+  }
+
+  if ( payload !== 'continue' && payload !== 'quit' ) {
+    response = {
+      'text' : text,
+      'quick_replies' : [
+        {
+          'content_type': 'text',
+          'title': 'Continue',
+          'payload': 'continue'
+        },
+        {
+          'content_type': 'text',
+          'title': 'Quit',
+          'payload': 'quit'
+        }
+      ]
+    }
+  } else {
+    response = {
+      'text' : text
+    }
   }
 
   // Send the message to acknowledge the postback.
   callSendAPI(sender_psid, response);
+
+  if ( payload === 'continue' ) {
+    newQuestion( sender_psid );
+  }
+
+  if ( payload === 'quit' ) {
+    quitGame( sender_psid );
+  }
+
+}
+
+function newQuestion( sender_psid ) {
+
+  response = {
+      'text' : 'What kind of text is in this image?',
+      'quick_replies' : [
+        {
+          'content_type': 'text',
+          'title': 'Typed',
+          'payload': 'typed'
+        },
+        {
+          'content_type': 'text',
+          'title': 'Handwritten',
+          'payload': 'handwritten'
+        },
+        {
+          'content_type': 'text',
+          'title': 'Mixed',
+          'payload': 'mixed'
+        },
+        {
+          'content_type': 'text',
+          'title': 'No Writing',
+          'payload': 'none'
+        },
+        {
+          'content_type': 'text',
+          'title': 'Skip/Not sure',
+          'payload': 'skip'
+        }
+      ]
+    }
+  callSendAPI( sender_psid, response );
+
+}
+
+function quitGame( sender_psid ) {
+
+  callSendAPI( sender_psid, { 'text': 'Thanks for playing!' } );
 
 }
 
