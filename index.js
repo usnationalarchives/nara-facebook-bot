@@ -161,6 +161,10 @@ function handleMessage(sender_psid, received_message) {
   // Sends the response message
   callSendAPI(sender_psid, response);
 
+  if ( received_message.text && received_message.text === 'start' ) {
+    newQuestion(sender_psid);
+  }
+
 }
 
 /**
