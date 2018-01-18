@@ -72,33 +72,46 @@ const receivePostback = ( user, postback ) => {
 				break;
 
 			case 'new' :
-				response = sendApi.buildResponse( script.new, [
-					{
-						'content_type': 'text',
-						'title': 'Typed',
-						'payload': 'tag_typed'
-					},
-					{
-						'content_type': 'text',
-						'title': 'Handwritten',
-						'payload': 'tag_handwritten'
-					},
-					{
-						'content_type': 'text',
-						'title': 'Mixed',
-						'payload': 'tag_mixed'
-					},
-					{
-						'content_type': 'text',
-						'title': 'No Writing',
-						'payload': 'tag_none'
-					},
-					{
-						'content_type': 'text',
-						'title': 'Skip/Not sure',
-						'payload': 'tag_skip'
+				let imageUrl = '../sample_media/image1.jpg';
+				response = {
+					'attachment': {
+						'type': 'template',
+						'payload': {
+							'template_type': 'generic',
+							'elements':[{
+								'title': script.new,
+								'image_url': imageUrl,
+								'buttons': [
+									{
+										'type': 'postback',
+										'title': 'Typed',
+										'payload': 'tag_typed'
+									},
+									{
+										'type': 'postback',
+										'title': 'Handwritten',
+										'payload': 'tag_handwritten'
+									},
+									{
+										'type': 'postback',
+										'title': 'Mixed',
+										'payload': 'tag_mixed'
+									},
+									{
+										'type': 'postback',
+										'title': 'No Writing',
+										'payload': 'tag_none'
+									},
+									{
+										'type': 'postback',
+										'title': 'Skip/Not sure',
+										'payload': 'tag_skip'
+									}
+								]
+							}]
+						}
 					}
-				] );
+				};
 				sendApi.sendMessage( user, response );
 				break;
 
