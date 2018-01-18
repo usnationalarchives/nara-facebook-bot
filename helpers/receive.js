@@ -1,7 +1,7 @@
 'use strict';
 
 const sendApi = require( './send' );
-const script = require( '../script/script.js' );
+const script = require( '../script/script' );
 
 /**
  * Receive a text message and return a response.
@@ -14,6 +14,7 @@ const receiveMessage = ( user, message ) => {
 
 		let text;
 		let promptContinue = false;
+		let script = script( message.text );
 
 		switch( message.text ) {
 
@@ -70,6 +71,7 @@ const receivePostback = ( user, postback ) => {
 
 		let response;
 		let promptContinue = false;
+		let script = script( postback.payload );
 
 		switch( postback.payload ) {
 

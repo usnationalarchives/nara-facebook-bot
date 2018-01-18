@@ -2,7 +2,7 @@
 
 const request = require( 'request' );
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-const script = require( '../script/script.js' );
+const script = require( '../script/script' );
 
 /**
  * Generic request handler. Attempt to send a response to a user,
@@ -77,7 +77,7 @@ const sendMessage = ( user, response ) => {
 const promptContinue = ( user, startOrContinue = 'continue' ) => {
 
 	let response = {
-		'text': script['loop_'+startOrContinue],
+		'text': script()['loop_'+startOrContinue],
 		'quick_replies': [
 			{
 				'content_type': 'text',
@@ -90,7 +90,7 @@ const promptContinue = ( user, startOrContinue = 'continue' ) => {
 				'payload': 'exit'
 			}
 		]
-	}
+	};
 
 	sendMessage( user, response );
 

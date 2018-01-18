@@ -5,8 +5,8 @@
 // defaults
 
 if ( process.env.NODE_ENV !== 'production' ) {
-  const dotenv = require( 'dotenv' );
-  dotenv.load();
+	const dotenv = require( 'dotenv' );
+	dotenv.load();
 }
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
@@ -30,13 +30,13 @@ app.use( bodyParser.json() );
 app.use( '/', index );
 app.use( '/webhook', webhook );
 app.use( function( req, res, next ) {
-  res.sendStatus( 404 );
+	res.sendStatus( 404 );
 } );
 
 // start
 
 app.listen( app.get( 'port' ), () => {
-  console.log( 'Webhook is listening on port ' + app.get( 'port' ) )
+	console.log( 'Webhook is listening on port ' + app.get( 'port' ) )
 } );
 
 
@@ -44,9 +44,9 @@ app.listen( app.get( 'port' ), () => {
 
 // Set up HTTP server
 /* const
-  express    = require('express'),
-  bodyParser = require('body-parser'),
-  app        = express().use(bodyParser.json()); // creates express http server
+	express    = require('express'),
+	bodyParser = require('body-parser'),
+	app        = express().use(bodyParser.json()); // creates express http server
 app.listen(process.env.PORT || 3000, () => console.log('webhook is listening'));
 */
 /*
@@ -64,93 +64,93 @@ const users = {};
  */
 /*function handleMessage(sender_psid, received_message) {
 
-  if ( users[sender_psid].state === 'inactive' ) {
-    inactiveState();
-  }
+	if ( users[sender_psid].state === 'inactive' ) {
+		inactiveState();
+	}
 
-  if ( users[sender_psid].state === 'active' ) {
+	if ( users[sender_psid].state === 'active' ) {
 
-    let response;
+		let response;
 
-    // Check if the message contains text
-    if ( received_message.text ) {
+		// Check if the message contains text
+		if ( received_message.text ) {
 
-      let text;
+			let text;
 
-      switch( received_message.text ) {
+			switch( received_message.text ) {
 
-        case 'start' :
-        case 'help' :
-        case 'info' :
-          text = 'Welcome to the National Archives Citizen Archivist Project! Help us identify text in historic images.';
-          break;
+				case 'start' :
+				case 'help' :
+				case 'info' :
+					text = 'Welcome to the National Archives Citizen Archivist Project! Help us identify text in historic images.';
+					break;
 
-        case 'score' :
-        case 'stats' :
-          text = 'Current score - how many images the user has ID\'d this session, or in total - requires db setup';
-          break;
+				case 'score' :
+				case 'stats' :
+					text = 'Current score - how many images the user has ID\'d this session, or in total - requires db setup';
+					break;
 
-        case 'end' :
-        case 'stop' :
-        case 'exit' :
-        case 'quit' :
-        case 'q' :
-          text = 'Thanks for playing! You helped process X images. Just send us another message to start again.';
-          break;
+				case 'end' :
+				case 'stop' :
+				case 'exit' :
+				case 'quit' :
+				case 'q' :
+					text = 'Thanks for playing! You helped process X images. Just send us another message to start again.';
+					break;
 
-        default :
-          text = `I do not understand "${received_message.text}". I am just a bot.`;
-          break;
+				default :
+					text = `I do not understand "${received_message.text}". I am just a bot.`;
+					break;
 
-      }
+			}
 
-      response = { 'text' : text };
+			response = { 'text' : text };
 
-      // Create the payload for a basic text message
-      // response = {
-      //        'text': `You sent the message: "${received_message.text}". Now send me an image!`
-      // }
+			// Create the payload for a basic text message
+			// response = {
+			//        'text': `You sent the message: "${received_message.text}". Now send me an image!`
+			// }
 
-    } else if (received_message.attachments) {
+		} else if (received_message.attachments) {
 
-      // Get the URL of the first message attachment
-      let attachment_url = received_message.attachments[0].payload.url;
-      response = {
-        'attachment': {
-          'type':'template',
-          'payload': {
-            'template_type': 'generic',
-            'elements': [{
-              'title': 'Is this the right picture?',
-              'subtitle': 'Tap a button to answer.',
-              'image_url': attachment_url,
-              'buttons': [
-                {
-                  'type': 'postback',
-                  'title': 'Yes!',
-                  'payload': 'yes'
-                },
-                {
-                  'type': 'postback',
-                  'title': 'No way.',
-                  'payload': 'no'
-                }
-              ]
-            }]
-          }
-        }
-      }
+			// Get the URL of the first message attachment
+			let attachment_url = received_message.attachments[0].payload.url;
+			response = {
+				'attachment': {
+					'type':'template',
+					'payload': {
+						'template_type': 'generic',
+						'elements': [{
+							'title': 'Is this the right picture?',
+							'subtitle': 'Tap a button to answer.',
+							'image_url': attachment_url,
+							'buttons': [
+								{
+									'type': 'postback',
+									'title': 'Yes!',
+									'payload': 'yes'
+								},
+								{
+									'type': 'postback',
+									'title': 'No way.',
+									'payload': 'no'
+								}
+							]
+						}]
+					}
+				}
+			}
 
-    }
+		}
 
-    // Sends the response message
-    callSendAPI(sender_psid, response);
+		// Sends the response message
+		callSendAPI(sender_psid, response);
 
-    if ( received_message.text && received_message.text === 'start' ) {
-      newQuestion(sender_psid);
-    }
+		if ( received_message.text && received_message.text === 'start' ) {
+			newQuestion(sender_psid);
+		}
 
-  }
+	}
 
 } */
 
@@ -159,18 +159,18 @@ const users = {};
  */
 /* function inactiveState( sender_psid ) {
 
-  let response = {
-    'text': 'Hello! Nice to hear from you. Tap "Start" to start a session.',
-    'quick_replies': [
-      {
-        'content_type': 'text',
-        'title': 'Start session',
-        'payload': 'start'
-      }
-    ]
-  }
+	let response = {
+		'text': 'Hello! Nice to hear from you. Tap "Start" to start a session.',
+		'quick_replies': [
+			{
+				'content_type': 'text',
+				'title': 'Start session',
+				'payload': 'start'
+			}
+		]
+	}
 
-  sendMessage(sender_psid, response);
+	sendMessage(sender_psid, response);
 
 } */
 
@@ -180,10 +180,10 @@ const users = {};
 /* function startSession( sender_psid ) {
 
 
-  users[sender_psid].state = 'active';
-  callSendAPI( sender_psid, {
-    'text': 'Let\'s play!',
-  }
+	users[sender_psid].state = 'active';
+	callSendAPI( sender_psid, {
+		'text': 'Let\'s play!',
+	}
 } */
 
 /**
