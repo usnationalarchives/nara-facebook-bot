@@ -2,6 +2,7 @@
 
 const request = require( 'request' );
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+const script = require( '../script/script.js' );
 
 /**
  * Generic request handler. Attempt to send a response to a user,
@@ -37,6 +38,22 @@ const sendRequest = ( json, retries = 5 ) => {
 };
 
 /**
+ * Receipt handler. Send the user a read receipt.
+ */
+const sendReceipt = ( user ) => {
+
+	let json = {
+		recipient: {
+			id: user,
+		},
+		sender_action: 'mark_seen',
+	};
+
+	sendRequest( json );
+
+};
+
+/**
  * Message handler. Send a message through sendRequest.
  */
 const sendMessage = ( user, response ) => {
@@ -54,18 +71,27 @@ const sendMessage = ( user, response ) => {
 };
 
 /**
- * Receipt handler. Send the user a read receipt.
+ * Prompt the user to continue the tagging loop.
  */
-const sendReceipt = ( user ) => {
+const promptContinue = ( user, startOrContinue = 'continue' ) => {
 
-	let json = {
-		recipient: {
-			id: user,
-		},
-		sender_action: 'mark_seen',
-	};
+	response = {
+		'text': script['loop_'+startOrContinue],
+		'quick_replies': [
+			{
+				'content_type': 'text',
+				'title': 'Yes',
+				'payload': 'new'
+			},
+			{
+				'content_type': 'text',
+				'title': 'No',
+				'payload': 'exit'
+			}
+		]
+	}
 
-	sendRequest( json );
+	sendMessage( user, response );
 
 };
 
