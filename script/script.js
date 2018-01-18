@@ -5,6 +5,7 @@ const script = {
 	'loop_start': 'Do you wish to begin tagging images?',
 	'loop_continue': 'Do you wish to continue tagging images?',
 	'new': 'What kind of text is in this image?',
+	'promptTap': 'Tap a button to answer.',
 	'tag_typed': 'Tagged as containing typed text.',
 	'tag_handwritten': 'Tagged as containing handwritten text.',
 	'tag_mixed': 'Tagged as containing both typed and handwritten text.',

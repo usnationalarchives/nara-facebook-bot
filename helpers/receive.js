@@ -19,19 +19,19 @@ const receiveMessage = ( user, message ) => {
 			case 'start' :
 			case 'begin' :
 				response = sendApi.buildResponse( script.welcome );
-				sendApi.sendMessage( user, response, followUp( 'start' ) );
+				sendApi.sendMessage( user, response, loop( 'start' ) );
 				break;
 
 			case 'help' :
 			case 'info' :
 				response = sendApi.buildResponse( script.help );
-				sendApi.sendMessage( user, response, followUp( 'continue' ) );
+				sendApi.sendMessage( user, response, loop( 'continue' ) );
 				break;
 
 			case 'score' :
 			case 'stats' :
 				response = sendApi.buildResponse( script.score );
-				sendApi.sendMessage( user, response, followUp( 'continue' ) );
+				sendApi.sendMessage( user, response, loop( 'continue' ) );
 				break;
 
 			case 'end' :
@@ -45,7 +45,7 @@ const receiveMessage = ( user, message ) => {
 
 			default :
 				response = sendApi.buildResponse( script.default );
-				sendApi.sendMessage( user, response, followUp( 'continue' ) );
+				sendApi.sendMessage( user, response, loop( 'continue' ) );
 				break;
 
 		}
@@ -80,39 +80,12 @@ const receivePostback = ( user, postback ) => {
 							'template_type': 'generic',
 							'elements':[{
 								'title': script.new,
-								'image_url': imageUrl,
-								'buttons': [
-									{
-										'type': 'postback',
-										'title': 'Typed',
-										'payload': 'tag_typed'
-									},
-									{
-										'type': 'postback',
-										'title': 'Handwritten',
-										'payload': 'tag_handwritten'
-									},
-									{
-										'type': 'postback',
-										'title': 'Mixed',
-										'payload': 'tag_mixed'
-									},
-									{
-										'type': 'postback',
-										'title': 'No Writing',
-										'payload': 'tag_none'
-									},
-									{
-										'type': 'postback',
-										'title': 'Skip/Not sure',
-										'payload': 'tag_skip'
-									}
-								]
+								'image_url': imageUrl
 							}]
 						}
 					}
 				};
-				sendApi.sendMessage( user, response );
+				sendApi.sendMessage( user, response, loopChoices );
 				break;
 
 			case 'tag_typed' :
@@ -121,7 +94,7 @@ const receivePostback = ( user, postback ) => {
 			case 'tag_none' :
 			case 'tag_skip' :
 				response = sendApi.buildResponse( script[postback.payload] );
-				sendApi.sendMessage( user, response, followUp( 'continue' ) );
+				sendApi.sendMessage( user, response, loop( 'continue' ) );
 				break;
 
 			default:
@@ -136,9 +109,45 @@ const receivePostback = ( user, postback ) => {
 };
 
 /**
- * Queue up a followup message.
+ * Prompt choices within a loop.
  */
-const followUp = ( startOrContinue ) =>  {
+const loopChoices = () => {
+	return {
+		'text': script.promptTap,
+		'quick_replies' : [
+			{
+				'content_type': 'text',
+				'title': 'Typed',
+				'payload': 'tag_typed'
+			},
+			{
+				'content_type': 'text',
+				'title': 'Handwritten',
+				'payload': 'tag_handwritten'
+			},
+			{
+				'content_type': 'text',
+				'title': 'Mixed',
+				'payload': 'tag_mixed'
+			},
+			{
+				'content_type': 'text',
+				'title': 'No Writing',
+				'payload': 'tag_none'
+			},
+			{
+				'content_type': 'text',
+				'title': 'Skip/Not sure',
+				'payload': 'tag_skip'
+			}
+		]
+	};
+}
+
+/**
+ * Prompt to start the loop again.
+ */
+const loop = ( startOrContinue ) =>  {
 	return {
 		'text': script['loop_'+startOrContinue],
 		'quick_replies': [
