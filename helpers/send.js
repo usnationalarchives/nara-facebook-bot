@@ -60,20 +60,23 @@ const sendReceipt = ( user ) => {
 };
 
 /**
- * Message handler. Send a message through sendRequest.
+ * Get the raw json object needed to send a message.
  */
-const sendMessage = ( user, response ) => {
-
-	let json = {
+const getMessageJson = ( user, response ) => {
+	return {
 		'messaging_type': 'RESPONSE',
 		'recipient': {
 			'id': user
 		},
 		'message': response
 	};
+};
 
-	sendRequest( json, 'Message sent' );
-
+/**
+ * Message handler. Send a message through sendRequest.
+ */
+const sendMessage = ( user, response ) => {
+	sendRequest( getMessageJson( user, response ), 'Message sent' );
 };
 
 /**
@@ -81,7 +84,7 @@ const sendMessage = ( user, response ) => {
  */
 const promptContinue = ( startOrContinue = 'continue' ) => {
 
-	let response = {
+	return {
 		'text': script['loop_'+startOrContinue],
 		'quick_replies': [
 			{
@@ -97,10 +100,9 @@ const promptContinue = ( startOrContinue = 'continue' ) => {
 		]
 	};
 
-	return response;
-
 };
 
+module.exports.getMessageJson = getMessageJson;
 module.exports.sendMessage = sendMessage;
 module.exports.sendReceipt = sendReceipt;
 module.exports.promptContinue = promptContinue;
