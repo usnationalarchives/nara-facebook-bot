@@ -58,10 +58,10 @@ const buildJson = ( user, response ) => {
 /**
  * Get a generic text message object.
  */
-const buildResponse = ( response, quick_replies ) =>  {
+const buildResponse = ( text, quick_replies ) =>  {
 	let response = {
-		'text': response
-	}
+		'text': text
+	};
 	if ( quick_replies ) {
 		response.quick_replies = quick_replies;
 	}
