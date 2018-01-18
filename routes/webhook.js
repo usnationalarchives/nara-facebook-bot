@@ -61,11 +61,12 @@ router.post( '/', ( req, res ) => {
 
 				console.log( messagingEvent );
 
-				if ( messagingEvent.quick_reply ) {
-					receiveApi.receivePostback( messagingEvent.sender.id, messagingEvent.quick_reply );
-
-				} else if ( messagingEvent.message ) {
-					receiveApi.receiveMessage( messagingEvent.sender.id, messagingEvent.message );
+				if ( messagingEvent.message ) {
+					if ( messagingEvent.message.quick_reply ) {
+						receiveApi.receivePostback( messagingEvent.sender.id, messagingEvent.message.quick_reply );
+					} else {
+						receiveApi.receiveMessage( messagingEvent.sender.id, messagingEvent.message );
+					}
 
 				} else if ( messagingEvent.postback ) {
 					receiveApi.receivePostback( messagingEvent.sender.id, messagingEvent.postback );
