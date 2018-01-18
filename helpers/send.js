@@ -2,7 +2,6 @@
 
 const request = require( 'request' );
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-const script = require( '../script/script' );
 
 /**
  * Generic request handler. Attempt to send a response to a user,
@@ -44,6 +43,32 @@ const sendRequest = ( json, log = '', followUp = false, retries = 5 ) => {
 };
 
 /**
+ * Get the raw json object needed to send a message.
+ */
+const buildJson = ( user, response ) => {
+	return {
+		'messaging_type': 'RESPONSE',
+		'recipient': {
+			'id': user
+		},
+		'message': response
+	};
+};
+
+/**
+ * Get a generic text message object.
+ */
+const buildResponse = ( response, quick_replies ) =>  {
+	let response = {
+		'text': response
+	}
+	if ( quick_replies ) {
+		response.quick_replies = quick_replies;
+	}
+	return response;
+}
+
+/**
  * Receipt handler. Send the user a read receipt.
  */
 const sendReceipt = ( user ) => {
@@ -60,49 +85,13 @@ const sendReceipt = ( user ) => {
 };
 
 /**
- * Get the raw json object needed to send a message.
- */
-const getMessageJson = ( user, response ) => {
-	return {
-		'messaging_type': 'RESPONSE',
-		'recipient': {
-			'id': user
-		},
-		'message': response
-	};
-};
-
-/**
  * Message handler. Send a message through sendRequest.
  */
 const sendMessage = ( user, response, followUp = false ) => {
-	sendRequest( getMessageJson( user, response ), 'Message sent', followUp );
+	sendRequest( buildJson( user, response ), 'Message sent', followUp );
 };
 
-/**
- * Prompt the user to continue the tagging loop.
- */
-const promptContinue = ( startOrContinue = 'continue' ) => {
-
-	return {
-		'text': script['loop_'+startOrContinue],
-		'quick_replies': [
-			{
-				'content_type': 'text',
-				'title': 'Yes',
-				'payload': 'new'
-			},
-			{
-				'content_type': 'text',
-				'title': 'No',
-				'payload': 'exit'
-			}
-		]
-	};
-
-};
-
-module.exports.getMessageJson = getMessageJson;
-module.exports.sendMessage = sendMessage;
+module.exports.buildJson = buildJson;
+module.exports.buildResponse = buildResponse;
 module.exports.sendReceipt = sendReceipt;
-module.exports.promptContinue = promptContinue;
+module.exports.sendMessage = sendMessage;

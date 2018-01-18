@@ -4,7 +4,7 @@ const sendApi = require( './send' );
 const script = require( '../script/script' );
 
 /**
- * Receive a text message and return a response.
+ * Receive a text message, interpret it, and return a response.
  */
 const receiveMessage = ( user, message ) => {
 
@@ -12,27 +12,26 @@ const receiveMessage = ( user, message ) => {
 
 	if ( message.text ) {
 
-		let text;
-		let promptContinue = false;
+		let response;
 
 		switch( message.text ) {
 
 			case 'start' :
 			case 'begin' :
-				text = script.welcome;
-				promptContinue = true;
+				response = sendApi.buildResponse( script.welcome );
+				sendApi.sendMessage( user, response, followUp( 'start' ) );
 				break;
 
 			case 'help' :
 			case 'info' :
-				text = script.help;
-				promptContinue = true;
+				response = sendApi.buildResponse( script.help );
+				sendApi.sendMessage( user, response, followUp( 'continue' ) );
 				break;
 
 			case 'score' :
 			case 'stats' :
-				text = script.score;
-				promptContinue = true;
+				response = sendApi.buildResponse( script.score );
+				sendApi.sendMessage( user, response, followUp( 'continue' ) );
 				break;
 
 			case 'end' :
@@ -40,21 +39,15 @@ const receiveMessage = ( user, message ) => {
 			case 'exit' :
 			case 'quit' :
 			case 'q' :
-				text = script.exit;
+				response = sendApi.buildResponse( script.exit );
+				sendApi.sendMessage( user, response );
 				break;
 
 			default :
-				text = script.default;
-				promptContinue = true;
+				response = sendApi.buildResponse( script.default );
+				sendApi.sendMessage( user, response, followUp( 'continue' ) );
 				break;
-		}
 
-		let response = { 'text': text };
-
-		if ( promptContinue ) {
-			sendApi.sendMessage( user, response, sendApi.promptContinue( 'continue' ) );
-		} else {
-			sendApi.sendMessage( user, response );
 		}
 
 	}
@@ -62,54 +55,51 @@ const receiveMessage = ( user, message ) => {
 };
 
 /**
- * Receive a postback or quick reply and return a response based on the payload.
+ * Receive a postback or quick reply, interpret it, and
+ * return a response based on the payload.
  */
 const receivePostback = ( user, postback ) => {
 
 	if ( postback.payload ) {
 
 		let response;
-		let promptContinue = false;
 
 		switch( postback.payload ) {
 
 			case 'exit' :
-				response = {
-					'text': script.exit
-				};
+				response = sendApi.buildResponse( script.exit );
+				sendApi.sendMessage( user, response );
 				break;
 
 			case 'new' :
-				response = {
-					'text': script.new,
-					'quick_replies': [
-						{
-							'content_type': 'text',
-							'title': 'Typed',
-							'payload': 'tag_typed'
-						},
-						{
-							'content_type': 'text',
-							'title': 'Handwritten',
-							'payload': 'tag_handwritten'
-						},
-						{
-							'content_type': 'text',
-							'title': 'Mixed',
-							'payload': 'tag_mixed'
-						},
-						{
-							'content_type': 'text',
-							'title': 'No Writing',
-							'payload': 'tag_none'
-						},
-						{
-							'content_type': 'text',
-							'title': 'Skip/Not sure',
-							'payload': 'tag_skip'
-						}
-					]
-				};
+				response = sendApi.buildResponse( script.new, [
+					{
+						'content_type': 'text',
+						'title': 'Typed',
+						'payload': 'tag_typed'
+					},
+					{
+						'content_type': 'text',
+						'title': 'Handwritten',
+						'payload': 'tag_handwritten'
+					},
+					{
+						'content_type': 'text',
+						'title': 'Mixed',
+						'payload': 'tag_mixed'
+					},
+					{
+						'content_type': 'text',
+						'title': 'No Writing',
+						'payload': 'tag_none'
+					},
+					{
+						'content_type': 'text',
+						'title': 'Skip/Not sure',
+						'payload': 'tag_skip'
+					}
+				] );
+				sendApi.sendMessage( user, response );
 				break;
 
 			case 'tag_typed' :
@@ -117,29 +107,41 @@ const receivePostback = ( user, postback ) => {
 			case 'tag_mixed' :
 			case 'tag_none' :
 			case 'tag_skip' :
-				response = {
-					'text': script[postback.payload]
-				}
-				promptContinue = true;
+				response = sendApi.buildResponse( script[postback.payload] );
+				sendApi.sendMessage( user, response, followUp( 'continue' ) );
 				break;
 
 			default:
-				response = {
-					'text': `You sent the postback: $(postback.payload)`
-				};
+				response = sendApi.buildResponse( `You sent the postback: $(postback.payload)` );
+				sendApi.sendMessage( user, response );
 				break;
 
-		}
-
-		sendApi.sendMessage( user, response );
-
-		if ( promptContinue ) {
-			sendApi.promptContinue( user, 'continue' );
 		}
 
 	}
 
 };
+
+/**
+ * Queue up a followup message.
+ */
+const followUp = ( startOrContinue ) =>  {
+	return {
+		'text': script['loop_'+startOrContinue],
+		'quick_replies': [
+			{
+				'content_type': 'text',
+				'title': 'Yes',
+				'payload': 'new'
+			},
+			{
+				'content_type': 'text',
+				'title': 'No',
+				'payload': 'exit'
+			}
+		]
+	};
+}
 
 module.exports.receiveMessage = receiveMessage;
 module.exports.receivePostback = receivePostback;
