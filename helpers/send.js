@@ -75,7 +75,7 @@ const sendMessage = ( user, response ) => {
  */
 const promptContinue = ( user, startOrContinue = 'continue' ) => {
 
-	response = {
+	let response = {
 		'text': script['loop_'+startOrContinue],
 		'quick_replies': [
 			{
