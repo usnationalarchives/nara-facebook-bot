@@ -8,7 +8,7 @@ const script = require( '../script/script.js' );
  * Generic request handler. Attempt to send a response to a user,
  * retrying up to 5 times.
  */
-const sendRequest = ( json, retries = 5 ) => {
+const sendRequest = ( json, log = '', retries = 5 ) => {
 
 	// error if we're out of retries
 	if ( retries < 0 ) {
@@ -25,12 +25,13 @@ const sendRequest = ( json, retries = 5 ) => {
 	}, ( err, res, body ) => {
 
 		if ( !err ) {
-			console.log( 'Message sent' );
+			console.log( log );
+			console.log( json );
 		} else {
 			// retry if the message failed
 			console.error( 'Unable to send message: ', err );
 			console.log( `Retrying request: $(retries) left` );
-			sendRequest( json, retries - 1 );
+			sendRequest( json, log, retries - 1 );
 		}
 
 	} );
@@ -49,7 +50,7 @@ const sendReceipt = ( user ) => {
 		sender_action: 'mark_seen',
 	};
 
-	sendRequest( json );
+	sendRequest( json, 'Read receipt sent' );
 
 };
 
@@ -66,7 +67,7 @@ const sendMessage = ( user, response ) => {
 		'message': response
 	};
 
-	sendRequest( json );
+	sendRequest( json, 'Message sent' );
 
 };
 
