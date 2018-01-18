@@ -51,9 +51,6 @@ const receiveMessage = ( user, message ) => {
 
 		let response = { 'text': text };
 
-		console.log( promptContinue );
-		console.log( sendApi.promptContinue( 'continue' ) );
-
 		if ( promptContinue ) {
 			sendApi.sendMessage( user, response, sendApi.promptContinue( 'continue' ) );
 		} else {

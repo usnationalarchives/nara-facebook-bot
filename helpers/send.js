@@ -75,8 +75,8 @@ const getMessageJson = ( user, response ) => {
 /**
  * Message handler. Send a message through sendRequest.
  */
-const sendMessage = ( user, response ) => {
-	sendRequest( getMessageJson( user, response ), 'Message sent' );
+const sendMessage = ( user, response, followUp = false ) => {
+	sendRequest( getMessageJson( user, response ), 'Message sent', followUp );
 };
 
 /**
