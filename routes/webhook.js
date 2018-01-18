@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require( 'express' );
-const router = express.Router();
 const receiveApi = require( '../helpers/receive' );
+const router = express.Router();
 
 /**
  * Create webhook endpoint for GET requests. This is used specifically

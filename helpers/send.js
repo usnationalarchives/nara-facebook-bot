@@ -7,7 +7,7 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
  * Generic request handler. Attempt to send a response to a user,
  * retrying up to 5 times.
  */
-const sendRequest = ( response, retries = 5 ) => {
+const sendRequest = ( json, retries = 5 ) => {
 
 	// error if we're out of retries
 	if ( retries < 0 ) {
@@ -20,8 +20,8 @@ const sendRequest = ( response, retries = 5 ) => {
 		'uri': 'https://graph.facebook.com/v2.6/me/messages',
 		'qs': { 'access_token': PAGE_ACCESS_TOKEN },
 		'method': 'POST',
-		'json': response,
-	}, ( err, res, body ) {
+		'json': json,
+	}, ( err, res, body ) => {
 
 		if ( !err ) {
 			console.log( 'Message sent' );
@@ -29,7 +29,7 @@ const sendRequest = ( response, retries = 5 ) => {
 			// retry if the message failed
 			console.error( 'Unable to send message: ', err );
 			console.log( `Retrying request: $(retries) left` );
-			sendRequest( response, retries - 1 );
+			sendRequest( json, retries - 1 );
 		}
 
 	} );
@@ -39,35 +39,35 @@ const sendRequest = ( response, retries = 5 ) => {
 /**
  * Message handler. Send a message through sendRequest.
  */
-const sendMessage = ( user, message ) => {
+const sendMessage = ( user, response ) => {
 
-	let response = {
+	let json = {
 		'messaging_type': 'RESPONSE',
 		'recipient': {
 			'id': user
 		},
-		'message': message
+		'message': response
 	};
 
-	sendRequest( response );
+	sendRequest( json );
 
-}
+};
 
 /**
  * Receipt handler. Send the user a read receipt.
  */
 const sendReceipt = ( user ) => {
 
-	let response = {
+	let json = {
 		recipient: {
 			id: user,
 		},
 		sender_action: 'mark_seen',
 	};
 
-	sendRequest( response );
+	sendRequest( json );
 
-} );
+};
 
 module.exports.sendMessage = sendMessage;
 module.exports.sendReceipt = sendReceipt;

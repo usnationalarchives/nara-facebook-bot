@@ -2,19 +2,38 @@
 
 const sendApi = require( './send' );
 
-const receiveMessage = ( sender, message ) => {
+/**
+ * Receive a text message and return a response.
+ */
+const receiveMessage = ( user, message ) => {
 
-	if ( !message.text ) {
-		return;
-	}
+	sendApi.sendReceipt( user );
 
-	let response = {
-		'text' : 'You '
+	if ( message.text ) {
+		let response = {
+			'text' : `You sent the message: $(message.text)`
+		};
+		sendApi.sendMessage( user, response );
 	}
 
 };
 
-const receivePostback = ( sender, postback ) => {
+/**
+ * Receive a postback and return a response based on the payload.
+ */
+const receivePostback = ( user, postback ) => {
+
+	let response;
+
+	switch( postback.payload ) {
+		default:
+			response = {
+				'text': `You sent the postback: $(postback.payload)`
+			};
+			break;
+	}
+
+	sendApi.sendMessage( user, response );
 
 };
 
