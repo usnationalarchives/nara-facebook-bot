@@ -87,7 +87,7 @@ const receivePostback = ( user, postback ) => {
 									'type': 'web_url',
 									'url': imageUrl,
 								},
-								'buttons' [
+								'buttons': [
 									{
 										'type':'web_url',
 										'url':imageUrl,
