@@ -25,6 +25,7 @@ const sendRequest = ( json, log = '', followUp = false, retries = 5 ) => {
 
 		if ( !err ) {
 			console.log( log );
+			console.log( json );
 
 			// send a follow-up message
 			if ( followUp ) {
