@@ -73,6 +73,8 @@ const receivePostback = ( user, postback ) => {
 
 			case 'new' :
 				let imageUrl = 'https://catalog.archives.gov/OpaAPI/media/44266074/content/stillpix/044-pf/44-pf-31-2016-001-ac.jpg';
+				let imageThumb = 'https://catalog.archives.gov/OpaAPI/media/44266074//opa-renditions/thumbnails/44-pf-31-2016-001-ac.jpg-thumb.jpg';
+				let imagePage = 'https://catalog.archives.gov/id/44266074';
 				response = {
 					'attachment': {
 						'type': 'template',
@@ -80,7 +82,23 @@ const receivePostback = ( user, postback ) => {
 							'template_type': 'generic',
 							'elements':[{
 								'title': script.new,
-								'image_url': imageUrl
+								'image_url': imageThumb,
+								'default_action': {
+									'type': 'web_url',
+									'url': imageUrl,
+								},
+								'buttons' [
+									{
+										'type':'web_url',
+										'url':imageUrl,
+										'title':'View larger size'
+									},
+									{
+										'type':'web_url',
+										'url':imagePage,
+										'title':'About this image'
+									}
+								]
 							}]
 						}
 					}
@@ -114,7 +132,7 @@ const receivePostback = ( user, postback ) => {
 const loopChoices = () => {
 	return {
 		'text': script.promptTap,
-		'quick_replies' : [
+		'quick_replies': [
 			{
 				'content_type': 'text',
 				'title': 'Typed',
