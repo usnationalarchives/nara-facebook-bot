@@ -51,10 +51,10 @@ const receiveMessage = ( user, message ) => {
 
 		let response = { 'text': text };
 
-		sendApi.sendMessage( user, response );
-
 		if ( promptContinue ) {
-			sendApi.promptContinue( user, 'continue' );
+			sendApi.sendMessage( user, response, sendApi.promptContinue( 'continue' ) );
+		} else {
+			sendApi.sendMessage( user, response );
 		}
 
 	}

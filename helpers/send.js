@@ -8,7 +8,7 @@ const script = require( '../script/script' );
  * Generic request handler. Attempt to send a response to a user,
  * retrying up to 5 times.
  */
-const sendRequest = ( json, log = '', retries = 5 ) => {
+const sendRequest = ( json, log = '', followUp = false, retries = 5 ) => {
 
 	// error if we're out of retries
 	if ( retries < 0 ) {
@@ -26,12 +26,17 @@ const sendRequest = ( json, log = '', retries = 5 ) => {
 
 		if ( !err ) {
 			console.log( log );
-			console.log( json );
+
+			// send a follow-up message
+			if ( followUp ) {
+				sendRequest( followUp, 'Follow-up message sent', false );
+			}
+
 		} else {
 			// retry if the message failed
 			console.error( 'Unable to send message: ', err );
 			console.log( `Retrying request: $(retries) left` );
-			sendRequest( json, log, retries - 1 );
+			sendRequest( json, log, followUp, retries - 1 );
 		}
 
 	} );
@@ -74,7 +79,7 @@ const sendMessage = ( user, response ) => {
 /**
  * Prompt the user to continue the tagging loop.
  */
-const promptContinue = ( user, startOrContinue = 'continue' ) => {
+const promptContinue = ( startOrContinue = 'continue' ) => {
 
 	let response = {
 		'text': script['loop_'+startOrContinue],
@@ -92,7 +97,7 @@ const promptContinue = ( user, startOrContinue = 'continue' ) => {
 		]
 	};
 
-	sendMessage( user, response );
+	return response;
 
 };
 
