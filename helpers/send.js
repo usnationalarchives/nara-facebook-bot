@@ -97,3 +97,4 @@ const promptContinue = ( user, startOrContinue = 'continue' ) => {
 
 module.exports.sendMessage = sendMessage;
 module.exports.sendReceipt = sendReceipt;
+module.exports.promptContinue = promptContinue;
