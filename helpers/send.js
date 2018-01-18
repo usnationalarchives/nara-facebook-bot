@@ -27,11 +27,9 @@ const sendRequest = ( json, log = '', followUp = false, retries = 5 ) => {
 		if ( !err ) {
 			console.log( log );
 
-			console.log( followUp );
-
 			// send a follow-up message
 			if ( followUp ) {
-				sendRequest( followUp, 'Follow-up message sent', false );
+				sendMessage( json.recipient.id, followUp );
 			}
 
 		} else {
