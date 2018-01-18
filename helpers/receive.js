@@ -62,7 +62,7 @@ const receiveMessage = ( user, message ) => {
 };
 
 /**
- * Receive a postback and return a response based on the payload.
+ * Receive a postback or quick reply and return a response based on the payload.
  */
 const receivePostback = ( user, postback ) => {
 

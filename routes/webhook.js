@@ -61,10 +61,15 @@ router.post( '/', ( req, res ) => {
 
 				console.log( messagingEvent );
 
-				if ( messagingEvent.message ) {
+				if ( messagingEvent.quick_reply ) {
+					receiveApi.receivePostback( messagingEvent.sender.id, messagingEvent.quick_reply );
+
+				} else if ( messagingEvent.message ) {
 					receiveApi.receiveMessage( messagingEvent.sender.id, messagingEvent.message );
+
 				} else if ( messagingEvent.postback ) {
 					receiveApi.receivePostback( messagingEvent.sender.id, messagingEvent.postback );
+
 				} else {
 					console.error( 'Webhook received unknown messagingEvent: ', messagingEvent );
 				}
