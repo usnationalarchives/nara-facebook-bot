@@ -103,7 +103,7 @@ const receivePostback = ( user, postback ) => {
 						}
 					}
 				};
-				sendApi.sendMessage( user, response, loopChoices );
+				sendApi.sendMessage( user, response, loopChoices() );
 				break;
 
 			case 'tag_typed' :
