@@ -72,7 +72,7 @@ const receivePostback = ( user, postback ) => {
 				break;
 
 			case 'new' :
-				let imageUrl = '../sample_media/image1.jpg';
+				let imageUrl = 'https://catalog.archives.gov/OpaAPI/media/44266074/content/stillpix/044-pf/44-pf-31-2016-001-ac.jpg';
 				response = {
 					'attachment': {
 						'type': 'template',
