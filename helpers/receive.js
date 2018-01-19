@@ -11,58 +11,63 @@ const receiveMessage = ( user, message ) => {
 
 	sendApi.sendReceipt( user );
 
+	let response;
+
 	// start session?
 	if ( !users.user ) {
+
 		users[user] = { 'currentState': 'active' };
 		response = sendApi.buildResponse( script.welcome );
 		sendApi.sendMessage( user, response, loop( 'start' ) );
-		return;
+
 	} else if ( users[user].currentState === 'inactive' ) {
+
 		users[user].currentState = 'active';
 		response = sendApi.buildResponse( script.welcomeBack );
 		sendApi.sendMessage( user, response, loop( 'start' ) );
 		return;
-	}
 
-	// general loop
-	if ( message.text ) {
+	} else {
 
-		let response;
+		// general loop
+		if ( message.text ) {
 
-		switch( message.text ) {
+			switch( message.text ) {
 
-			case 'start' :
-			case 'begin' :
-				response = sendApi.buildResponse( script.welcome );
-				sendApi.sendMessage( user, response, loop( 'start' ) );
-				break;
+				case 'start' :
+				case 'begin' :
+					response = sendApi.buildResponse( script.welcome );
+					sendApi.sendMessage( user, response, loop( 'start' ) );
+					break;
 
-			case 'help' :
-			case 'info' :
-				response = sendApi.buildResponse( script.help );
-				sendApi.sendMessage( user, response, loop( 'continue' ) );
-				break;
+				case 'help' :
+				case 'info' :
+					response = sendApi.buildResponse( script.help );
+					sendApi.sendMessage( user, response, loop( 'continue' ) );
+					break;
 
-			case 'score' :
-			case 'stats' :
-				response = sendApi.buildResponse( script.score );
-				sendApi.sendMessage( user, response, loop( 'continue' ) );
-				break;
+				case 'score' :
+				case 'stats' :
+					response = sendApi.buildResponse( script.score );
+					sendApi.sendMessage( user, response, loop( 'continue' ) );
+					break;
 
-			case 'end' :
-			case 'stop' :
-			case 'exit' :
-			case 'quit' :
-			case 'q' :
-				response = sendApi.buildResponse( script.exit );
-				sendApi.sendMessage( user, response );
-				users[user].currentState = 'inactive';
-				break;
+				case 'end' :
+				case 'stop' :
+				case 'exit' :
+				case 'quit' :
+				case 'q' :
+					response = sendApi.buildResponse( script.exit );
+					sendApi.sendMessage( user, response );
+					users[user].currentState = 'inactive';
+					break;
 
-			default :
-				response = sendApi.buildResponse( script.default );
-				sendApi.sendMessage( user, response, loop( 'continue' ) );
-				break;
+				default :
+					response = sendApi.buildResponse( script.default );
+					sendApi.sendMessage( user, response, loop( 'continue' ) );
+					break;
+
+			}
 
 		}
 
