@@ -2,6 +2,7 @@
 
 const sendApi = require( './send' );
 const script = require( '../script/script' );
+const users = {};
 
 /**
  * Receive a text message, interpret it, and return a response.
@@ -10,6 +11,20 @@ const receiveMessage = ( user, message ) => {
 
 	sendApi.sendReceipt( user );
 
+	// start session?
+	if ( !users.user ) {
+		users[user] = { 'currentState': 'active' };
+		response = sendApi.buildResponse( script.welcome );
+		sendApi.sendMessage( user, response, loop( 'start' ) );
+		return;
+	} else if ( users[user].currentState === 'inactive' ) {
+		users[user].currentState = 'active';
+		response = sendApi.buildResponse( script.welcomeBack );
+		sendApi.sendMessage( user, response, loop( 'start' ) );
+		return;
+	}
+
+	// general loop
 	if ( message.text ) {
 
 		let response;
@@ -41,6 +56,7 @@ const receiveMessage = ( user, message ) => {
 			case 'q' :
 				response = sendApi.buildResponse( script.exit );
 				sendApi.sendMessage( user, response );
+				users[user].currentState = 'inactive';
 				break;
 
 			default :
