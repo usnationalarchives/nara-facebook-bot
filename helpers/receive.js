@@ -1,3 +1,8 @@
+/**
+ * Logic for what to do when receiving messages from users. Parse
+ * messages/postbacks and send a response with the sendApi.
+ */
+
 'use strict';
 
 const sendApi = require( './send' );

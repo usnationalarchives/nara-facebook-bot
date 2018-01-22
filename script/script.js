@@ -1,3 +1,7 @@
+/**
+ * The textual script used by the bot to interact with users.
+ */
+
 'use strict';
 
 const script = {

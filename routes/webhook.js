@@ -1,3 +1,9 @@
+/**
+ * Route for /webhook.
+ *
+ * Create endpoints for GET and POST requests.
+ */
+
 'use strict';
 
 const express = require( 'express' );

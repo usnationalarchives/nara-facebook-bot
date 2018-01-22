@@ -1,3 +1,7 @@
+/**
+ * Helper functionality to send responses to users.
+ */
+
 'use strict';
 
 const request = require( 'request' );
