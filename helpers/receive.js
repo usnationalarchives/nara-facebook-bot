@@ -6,7 +6,7 @@
 'use strict';
 
 const sendApi = require( './send' );
-const script = require( '../script/script' );
+const script = require( './script' );
 
 /**
  * Receive a text message, interpret it, and return a response.
