@@ -17,6 +17,13 @@ const receiveMessage = ( user, message ) => {
 
 	if ( message.text ) {
 
+		// send typing indicator
+		sendApi.showTyping( user );
+
+		// clean up message
+		message.text = message.text.trim();
+		message.text = message.text.toLowerCase();
+
 		let response;
 
 		switch( message.text ) {

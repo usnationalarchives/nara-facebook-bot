@@ -89,6 +89,22 @@ const sendReceipt = ( user ) => {
 };
 
 /**
+ * Send the user a typing indicator.
+ */
+const showTyping = ( user ) =>  {
+
+	let json = {
+		recipient: {
+			id: user,
+		},
+		sender_action: 'typing_on',
+	};
+
+	sendRequest( json, '[typing indicator]' );
+
+}
+
+/**
  * Message handler. Send a message through sendRequest.
  */
 const sendMessage = ( user, response, followUp = false ) => {
@@ -98,4 +114,5 @@ const sendMessage = ( user, response, followUp = false ) => {
 module.exports.buildJson = buildJson;
 module.exports.buildResponse = buildResponse;
 module.exports.sendReceipt = sendReceipt;
+module.exports.showTyping = showTyping;
 module.exports.sendMessage = sendMessage;
