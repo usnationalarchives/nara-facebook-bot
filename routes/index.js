@@ -10,7 +10,6 @@
 
 const express = require( 'express' );
 const router = express.Router();
-const axios = require( 'axios' );
 
 /**
  * Display a Forbidden error for anyone accessing the
