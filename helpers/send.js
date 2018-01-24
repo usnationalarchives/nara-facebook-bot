@@ -100,7 +100,7 @@ const showTyping = ( user ) =>  {
  * Message handler. Send a message through sendRequest.
  */
 const sendMessage = ( user, response, followUp = false ) => {
-	showTyping( params.recipient.id );
+	showTyping( user );
 	sendRequest( buildParams( user, response ), 'Message sent', followUp );
 };
 
