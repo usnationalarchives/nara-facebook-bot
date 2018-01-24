@@ -13,9 +13,6 @@ const script = require( './script' );
  */
 const receiveMessage = ( user, message ) => {
 
-	sendApi.sendReceipt( user );
-	sendApi.showTyping( user );
-
 	if ( message.text ) {
 
 		// clean up message
@@ -70,9 +67,6 @@ const receiveMessage = ( user, message ) => {
  */
 const receivePostback = ( user, postback ) => {
 
-	sendApi.sendReceipt( user );
-	sendApi.showTyping( user );
-
 	if ( postback.payload ) {
 
 		let response;
@@ -85,37 +79,7 @@ const receivePostback = ( user, postback ) => {
 				break;
 
 			case 'new' :
-				let imageUrl = 'https://catalog.archives.gov/OpaAPI/media/44266074/content/stillpix/044-pf/44-pf-31-2016-001-ac.jpg';
-				let imageThumb = 'https://catalog.archives.gov/OpaAPI/media/44266074//opa-renditions/thumbnails/44-pf-31-2016-001-ac.jpg-thumb.jpg';
-				let imagePage = 'https://catalog.archives.gov/id/44266074';
-				response = {
-					'attachment': {
-						'type': 'template',
-						'payload': {
-							'template_type': 'generic',
-							'elements':[{
-								'title': script.new,
-								'image_url': imageThumb,
-								'default_action': {
-									'type': 'web_url',
-									'url': imageUrl,
-								},
-								'buttons': [
-									{
-										'type':'web_url',
-										'url':imageUrl,
-										'title':'View larger size'
-									},
-									{
-										'type':'web_url',
-										'url':imagePage,
-										'title':'About this image'
-									}
-								]
-							}]
-						}
-					}
-				};
+				let response = getNaraItem();
 				sendApi.sendMessage( user, response, loopChoices() );
 				break;
 
@@ -194,6 +158,75 @@ const loop = ( startOrContinue ) =>  {
 			}
 		]
 	};
+}
+
+/**
+ * Query NARA catalog and return an item.
+ */
+const getNaraItem = () => {
+
+	// let imageUrl = 'https://catalog.archives.gov/OpaAPI/media/44266074/content/stillpix/044-pf/44-pf-31-2016-001-ac.jpg';
+	// let imageThumb = 'https://catalog.archives.gov/OpaAPI/media/44266074//opa-renditions/thumbnails/44-pf-31-2016-001-ac.jpg-thumb.jpg';
+	// let imagePage = 'https://catalog.archives.gov/id/44266074';
+
+	// randomize result - @todo need to get 4586 dynamically
+	let offset = Math.floor( Math.random() * Math.floor( 4586 ) ) + 1;
+
+	let url = 'https://catalog.archives.gov/api/v1'
+			  + '?q=speeches'
+			  + '&resultTypes=item'
+			  + '&description.item.generalRecordsTypeArray.generalRecordsType.naId=10035676' // Textual Records
+			  + '&rows=1'
+			  + '&offset=' + offset;
+
+	// testable url:
+	// https://catalog.archives.gov/api/v1?q=speeches&resultTypes=item&description.item.generalRecordsTypeArray.generalRecordsType.naId=10035676&rows=1&offset=796
+
+	axios.get( url )
+		.then( function( res ) {
+			console.log( res.data.opaResponse.results );
+
+			let result = res.data.opaResponse.results.result[0];
+			let objects = result.objects.object;
+
+			sendApi.sendMessage( user, result.description.item.title + ':' );
+
+			let elements = [];
+
+			objects.forEach( ( object ) => {
+				elements.push( {
+					'image_url': object.thumbnail['@path'],
+					'default_action': {
+						'type': 'web_url',
+						'url': object.file['@url']
+					},
+					'buttons': [
+						{
+							'type': 'web_url',
+							'url': object.file['@url'],
+							'title': 'View larger size'
+						}
+					]
+				} );
+			} );
+
+			let response = {
+				'attachment': {
+					'type': 'template',
+					'payload': {
+						'template_type': 'generic',
+						'elements': elements
+					}
+				}
+			};
+
+			return response;
+
+		} )
+		.catch( function( error ) {
+			return error.response.data;
+		} );
+
 }
 
 module.exports.receiveMessage = receiveMessage;

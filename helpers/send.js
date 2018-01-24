@@ -13,6 +13,8 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
  */
 const sendRequest = ( params, log = '', followUp = false, retries = 5 ) => {
 
+	sendApi.showTyping( params.recipient.id );
+
 	// error if we're out of retries
 	if ( retries < 0 ) {
 		console.error( 'No more retries left.', body );
