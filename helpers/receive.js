@@ -80,8 +80,7 @@ const receivePostback = ( user, postback ) => {
 				break;
 
 			case 'new' :
-				let response = getNaraItem();
-				sendApi.sendMessage( user, response, loopChoices() );
+				getNaraItem( user );
 				break;
 
 			case 'tag_typed' :
@@ -164,11 +163,7 @@ const loop = ( startOrContinue ) =>  {
 /**
  * Query NARA catalog and return an item.
  */
-const getNaraItem = () => {
-
-	// let imageUrl = 'https://catalog.archives.gov/OpaAPI/media/44266074/content/stillpix/044-pf/44-pf-31-2016-001-ac.jpg';
-	// let imageThumb = 'https://catalog.archives.gov/OpaAPI/media/44266074//opa-renditions/thumbnails/44-pf-31-2016-001-ac.jpg-thumb.jpg';
-	// let imagePage = 'https://catalog.archives.gov/id/44266074';
+const getNaraItem = ( user ) => {
 
 	// randomize result - @todo need to get 4586 dynamically
 	let offset = Math.floor( Math.random() * Math.floor( 4586 ) ) + 1;
@@ -221,7 +216,7 @@ const getNaraItem = () => {
 				}
 			};
 
-			return response;
+			sendApi.sendMessage( user, response, loopChoices() );
 
 		} )
 		.catch( function( error ) {
