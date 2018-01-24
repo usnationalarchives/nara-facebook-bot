@@ -14,11 +14,9 @@ const script = require( './script' );
 const receiveMessage = ( user, message ) => {
 
 	sendApi.sendReceipt( user );
+	sendApi.showTyping( user );
 
 	if ( message.text ) {
-
-		// send typing indicator
-		sendApi.showTyping( user );
 
 		// clean up message
 		message.text = message.text.trim();
@@ -71,6 +69,9 @@ const receiveMessage = ( user, message ) => {
  * return a response based on the payload.
  */
 const receivePostback = ( user, postback ) => {
+
+	sendApi.sendReceipt( user );
+	sendApi.showTyping( user );
 
 	if ( postback.payload ) {
 
