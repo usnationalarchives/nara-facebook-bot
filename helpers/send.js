@@ -4,14 +4,14 @@
 
 'use strict';
 
-const request = require( 'request' );
+const axios = require( 'axios' );
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 /**
  * Generic request handler. Attempt to send a response to a user,
  * retrying up to 5 times.
  */
-const sendRequest = ( json, log = '', followUp = false, retries = 5 ) => {
+const sendRequest = ( params, log = '', followUp = false, retries = 5 ) => {
 
 	// error if we're out of retries
 	if ( retries < 0 ) {
@@ -19,37 +19,29 @@ const sendRequest = ( json, log = '', followUp = false, retries = 5 ) => {
 		return;
 	}
 
+	params.access_token = PAGE_ACCESS_TOKEN;
+
 	// attempt to send response
-	request( {
-		'uri': 'https://graph.facebook.com/v2.6/me/messages',
-		'qs': { 'access_token': PAGE_ACCESS_TOKEN },
-		'method': 'POST',
-		'json': json,
-	}, ( err, res, body ) => {
-
-		if ( !err ) {
+	axios.post( 'https://graph.facebook.com/v2.6/me/messages', params )
+		.then( function( res ) {
 			console.log( log );
-
-			// send a follow-up message
 			if ( followUp ) {
-				sendMessage( json.recipient.id, followUp );
+				sendMessage( params.recipient.id, followUp );
 			}
-
-		} else {
+		} )
+		.catch( function( err ) {
 			// retry if the message failed
 			console.error( 'Unable to send message: ', err );
 			console.log( `Retrying request: $(retries) left` );
-			sendRequest( json, log, followUp, retries - 1 );
-		}
-
-	} );
+			sendRequest( params, log, followUp, retries - 1 );
+		} );
 
 };
 
 /**
- * Get the raw json object needed to send a message.
+ * Get the raw json params needed to send a message.
  */
-const buildJson = ( user, response ) => {
+const buildParams = ( user, response ) => {
 	return {
 		'messaging_type': 'RESPONSE',
 		'recipient': {
@@ -77,14 +69,14 @@ const buildResponse = ( text, quick_replies ) =>  {
  */
 const sendReceipt = ( user ) => {
 
-	let json = {
+	let params = {
 		recipient: {
 			id: user,
 		},
 		sender_action: 'mark_seen',
 	};
 
-	sendRequest( json, 'Read receipt sent' );
+	sendRequest( params, 'Read receipt sent' );
 
 };
 
@@ -93,14 +85,14 @@ const sendReceipt = ( user ) => {
  */
 const showTyping = ( user ) =>  {
 
-	let json = {
+	let params = {
 		recipient: {
 			id: user,
 		},
 		sender_action: 'typing_on',
 	};
 
-	sendRequest( json, '[typing indicator]' );
+	sendRequest( params, '[typing indicator]' );
 
 }
 
@@ -108,10 +100,9 @@ const showTyping = ( user ) =>  {
  * Message handler. Send a message through sendRequest.
  */
 const sendMessage = ( user, response, followUp = false ) => {
-	sendRequest( buildJson( user, response ), 'Message sent', followUp );
+	sendRequest( buildParams( user, response ), 'Message sent', followUp );
 };
 
-module.exports.buildJson = buildJson;
 module.exports.buildResponse = buildResponse;
 module.exports.sendReceipt = sendReceipt;
 module.exports.showTyping = showTyping;
