@@ -196,7 +196,7 @@ const getNaraItem = ( user ) => {
 
 			objects.forEach( ( object ) => {
 				elements.push( {
-					'image_url': object.thumbnail['@path'],
+					'image_url': object.thumbnail['@url'],
 					'default_action': {
 						'type': 'web_url',
 						'url': object.file['@url']
