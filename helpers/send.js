@@ -21,6 +21,8 @@ const sendRequest = ( params, log = '', followUp = false, retries = 5 ) => {
 
 	params.access_token = PAGE_ACCESS_TOKEN;
 
+	console.log( 'PARAMS: ', params );
+
 	// attempt to send response
 	axios.post( 'https://graph.facebook.com/v2.6/me/messages', params )
 		.then( function( res ) {
