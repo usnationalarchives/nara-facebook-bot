@@ -14,6 +14,8 @@ const axios = require( 'axios' );
  */
 const receiveMessage = ( user, message ) => {
 
+	showTyping( user );
+
 	if ( message.text ) {
 
 		// clean up message
@@ -194,7 +196,7 @@ const getNaraItem = ( user ) => {
 
 			return;
 
-			/* let elements = [];
+			let elements = [];
 
 			objects.forEach( ( object ) => {
 				elements.push( {
@@ -223,7 +225,7 @@ const getNaraItem = ( user ) => {
 				}
 			};
 
-			sendApi.sendMessage( user, response, loopChoices() ); */
+			sendApi.sendMessage( user, response, loopChoices() );
 
 		} )
 		.catch( function( error ) {
