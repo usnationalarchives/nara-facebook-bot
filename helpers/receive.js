@@ -185,6 +185,11 @@ const getNaraItem = ( user ) => {
 			let result = res.data.opaResponse.results.result[0];
 			let objects = result.objects.object;
 
+			// standardize objects
+			if ( ! Array.isArray( objects ) ) {
+				objects = [ objects ];
+			}
+
 			sendApi.sendMessage( user, result.description.item.title + ':' );
 
 			let elements = [];
@@ -220,7 +225,8 @@ const getNaraItem = ( user ) => {
 
 		} )
 		.catch( function( error ) {
-			return error.response.data;
+			console.log( error.response.data );
+			// @todo send error message to user?
 		} );
 
 }
