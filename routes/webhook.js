@@ -69,6 +69,7 @@ router.post( '/', ( req, res ) => {
 				console.log( messagingEvent );
 
 				sendApi.sendReceipt( messagingEvent.sender.id );
+				sendApi.showTyping( messagingEvent.sender.id );
 
 				if ( messagingEvent.message ) {
 					if ( messagingEvent.message.quick_reply ) {

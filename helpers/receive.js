@@ -14,8 +14,6 @@ const axios = require( 'axios' );
  */
 const receiveMessage = ( user, message ) => {
 
-	sendApi.showTyping( user );
-
 	if ( message.text ) {
 
 		// clean up message
@@ -193,8 +191,6 @@ const getNaraItem = ( user ) => {
 			}
 
 			sendApi.sendMessage( user, sendApi.buildResponse( result.description.item.title + ':' ) );
-
-			return;
 
 			let elements = [];
 
