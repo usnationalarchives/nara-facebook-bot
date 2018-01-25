@@ -190,7 +190,7 @@ const getNaraItem = ( user ) => {
 				objects = [ objects ];
 			}
 
-			sendApi.sendMessage( user, result.description.item.title + ':' );
+			sendApi.sendMessage( user, sendApi.buildResponse( result.description.item.title + ':' ) );
 
 			return;
 
