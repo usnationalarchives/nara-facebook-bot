@@ -196,10 +196,13 @@ const getNaraItem = ( user ) => {
 			sendApi.sendMessage( user, sendApi.buildResponse( result.description.item.title + ':' ) );
 
 			let elements = [];
+			let count = 0;
+			let total = objects.length;
 
 			objects.forEach( ( object ) => {
+				count++;
 				elements.push( {
-					'title': object.file['@name'],
+					'title': ( total > 1 ) ? count + ' of ' + total : result.description.item.title,
 					'image_url': object.thumbnail['@url'],
 					'default_action': {
 						'type': 'web_url',
@@ -220,6 +223,8 @@ const getNaraItem = ( user ) => {
 					'type': 'template',
 					'payload': {
 						'template_type': 'generic',
+						'sharable': true,
+						'image_aspect_ratio': 'square',
 						'elements': elements
 					}
 				}
