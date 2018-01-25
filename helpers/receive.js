@@ -14,7 +14,7 @@ const axios = require( 'axios' );
  */
 const receiveMessage = ( user, message ) => {
 
-	showTyping( user );
+	sendApi.showTyping( user );
 
 	if ( message.text ) {
 
