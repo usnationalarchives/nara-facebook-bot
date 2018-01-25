@@ -190,7 +190,13 @@ const getNaraItem = ( user ) => {
 				objects = [ objects ];
 			}
 
+			console.log( 'USER: ', user );
+			console.log( 'TITLE: ', result.description.item.title, ':' );
+
 			sendApi.sendMessage( user, result.description.item.title + ':' );
+
+			console.log( 'DONE SENDING TITLE' );
+			console.log( 'ITEM', result.description.item );
 
 			let elements = [];
 
