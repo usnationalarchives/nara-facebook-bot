@@ -5,7 +5,6 @@
 'use strict';
 
 const axios = require( 'axios' );
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 /**
  * Generic request handler. Attempt to send a response to a user,
@@ -19,7 +18,7 @@ const sendRequest = ( params, log = '', followUp = false, retries = 5 ) => {
 		return;
 	}
 
-	params.access_token = PAGE_ACCESS_TOKEN;
+	params.access_token = process.env.PAGE_ACCESS_TOKEN;
 
 	// attempt to send response
 	axios.post( 'https://graph.facebook.com/v2.6/me/messages', params )
