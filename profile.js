@@ -4,13 +4,13 @@
  * This module sends basic bot configuration like the greeting message
  * and the persistent menu to Facebook using the Messenger Profile API.
  *
- * Not loaded with the app - use `npm update-profile`.
+ * Not loaded with the app - use `npm run-script update-profile`.
  */
 
 'use strict';
 
-const sendApi = require( './send' );
-const script = require( './script' );
+const sendApi = require( './helpers/send' );
+const script = require( './helpers/script' );
 const axios = require( 'axios' );
 
 const messengerProfileParams = {
@@ -35,7 +35,7 @@ const messengerProfileParams = {
 				'title':   script.menu.tag,
 				'type':    'postback',
 				'payload': 'tag'
-			}
+			},
 			{
 				'title': 'More fun stuff',
 				'type':  'nested',
