@@ -79,7 +79,7 @@ const script = {
 		},
 	},
 	'facts': [
-		'In true pop culture fashion, the most requested photo from The Archives is of Nixon and The King.'
+		'In true pop culture fashion, the most requested photo from The Archives is of Nixon and The King.',
 		'The National Archives Building in downtown Washington, DC, is built above an underground stream, the Tiber Creek.',
 		'The Archives was established in 1934 by President Franklin Roosevelt, but you could say it started with the birth of our great nation. Our documents date back to 1775.',
 		'We\'re more than the Declaration of Independence (my eye is on you, Nicolas Cage wannabe). There are just about 10 billion (BILLION) pages of textual records. To read that many pages, you\'d have to read the entire Harry Potter series 3,197,953 times!',
@@ -96,7 +96,7 @@ const script = {
 		{
 			'q': 'What is The Archives',
 			'a': 'We are country\'s official record keeper. Along with making sure you have access to essential documents and preserving artifacts that tell the story of our history, we keep our nation\'s most precious documents safe from people like Nicolas Cage.',
-		}
+		},
 		{
 			'q': 'How do I reach The Archives?',
 			'a': 'Call us! (866) 272-6272',
@@ -117,7 +117,7 @@ const script = {
 			'options': {
 				'a1': 'I slept during that lecture.',
 				'a2': 'No idea',
-			}
+			},
 			'a': 'So that he could see at night, were you expecting a joke?'
 		},
 		{
