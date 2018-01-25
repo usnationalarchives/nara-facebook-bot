@@ -190,13 +190,7 @@ const getNaraItem = ( user ) => {
 				objects = [ objects ];
 			}
 
-			console.log( 'USER: ', user );
-			console.log( 'TITLE: ', result.description.item.title, ':' );
-
-			sendApi.sendMessage( user, result.description.item.title + ':' );
-
-			console.log( 'DONE SENDING TITLE' );
-			console.log( 'ITEM', result.description.item );
+			// sendApi.sendMessage( user, result.description.item.title + ':' );
 
 			let elements = [];
 
@@ -217,6 +211,8 @@ const getNaraItem = ( user ) => {
 				} );
 			} );
 
+			console.log( 'ELEMENTS: ', elements );
+
 			let response = {
 				'attachment': {
 					'type': 'template',
@@ -226,6 +222,8 @@ const getNaraItem = ( user ) => {
 					}
 				}
 			};
+
+			console.log( 'RESPONSE: ', response );
 
 			sendApi.sendMessage( user, response, loopChoices() );
 
