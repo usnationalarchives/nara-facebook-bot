@@ -9,6 +9,7 @@ const script = {
 	'welcomeBack': 'Welcome back!',
 	'loop_start': 'Do you wish to begin tagging images?',
 	'loop_continue': 'Do you wish to continue tagging images?',
+	'loop_load': 'Great! Give me a second to dig through the archive...',
 	'new': 'What kind of text is in this image?',
 	'promptTap': 'What kind of text is in this image?',
 	'tag_typed': 'Tagged as containing typed text.',

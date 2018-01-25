@@ -165,6 +165,9 @@ const loop = ( startOrContinue ) =>  {
  */
 const getNaraItem = ( user ) => {
 
+	// friendly message
+	sendApi.sendMessage( user, sendApi.buildResponse( script.loop_load ) );
+
 	// randomize result - @todo need to get 4586 dynamically
 	let offset = Math.floor( Math.random() * Math.floor( 4586 ) ) + 1;
 
@@ -196,6 +199,7 @@ const getNaraItem = ( user ) => {
 
 			objects.forEach( ( object ) => {
 				elements.push( {
+					'title': object.file['@name'],
 					'image_url': object.thumbnail['@url'],
 					'default_action': {
 						'type': 'web_url',
