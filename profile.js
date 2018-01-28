@@ -29,12 +29,12 @@ const messengerProfileParams = {
 			{
 				'title':   script.menu.ask,
 				'type':    'postback',
-				'payload': 'ask'
+				'payload': 'menu.ask'
 			},
 			{
 				'title':   script.menu.tag,
 				'type':    'postback',
-				'payload': 'tag'
+				'payload': 'menu.tag'
 			},
 			{
 				'title': 'More fun stuff',
@@ -43,17 +43,17 @@ const messengerProfileParams = {
 					{
 						'title':   script.menu.facts,
 						'type':    'postback',
-						'payload': 'facts'
+						'payload': 'menu.facts'
 					},
 					{
 						'title':   script.menu.jokes,
 						'type':    'postback',
-						'payload': 'jokes'
+						'payload': 'menu.jokes'
 					},
 					{
 						'title':   script.menu.photos,
 						'type':    'postback',
-						'payload': 'photos'
+						'payload': 'menu.photos'
 					}
 				]
 			}

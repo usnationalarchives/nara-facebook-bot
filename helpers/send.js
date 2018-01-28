@@ -10,7 +10,7 @@ const axios = require( 'axios' );
  * Generic request handler. Attempt to send a response to a user,
  * retrying up to 5 times.
  */
-const sendRequest = ( params, log = '', followUp = false, retries = 5 ) => {
+const sendRequest = ( params, log = '', followUps = false, retries = 5 ) => {
 
 	// error if we're out of retries
 	if ( retries < 0 ) {
@@ -24,9 +24,22 @@ const sendRequest = ( params, log = '', followUp = false, retries = 5 ) => {
 	axios.post( 'https://graph.facebook.com/v2.6/me/messages', params )
 		.then( function( res ) {
 			console.log( log );
-			if ( followUp ) {
-				sendMessage( params.recipient.id, followUp );
+
+			if ( followUps ) {
+
+				// ensure followUps is array
+				if ( ! Array.isArray( followUps ) ) {
+					followUps = [ followUps ];
+				}
+
+				// take first followUp
+				let followUp = followUps.shift();
+
+				// send as new message
+				sendMessage( params.recipient.id, followUp, followUps );
+
 			}
+
 		} )
 		.catch( function( err ) {
 			// retry if the message failed
@@ -38,30 +51,29 @@ const sendRequest = ( params, log = '', followUp = false, retries = 5 ) => {
 };
 
 /**
- * Get the raw json params needed to send a message.
+ * Message handler. Send a message through sendRequest.
  */
-const buildParams = ( user, response ) => {
-	return {
+const sendMessage = ( user, response, followUps = false ) => {
+
+	// if response is just a string, assume it's a basic text message
+	if ( typeof response === 'string' || response instanceof String ) {
+		response = {
+			'text': response
+		};
+	}
+
+	// wrap response in message syntax
+	let message = {
 		'messaging_type': 'RESPONSE',
 		'recipient': {
 			'id': user
 		},
 		'message': response
-	};
-};
-
-/**
- * Get a generic text message object.
- */
-const buildResponse = ( text, quick_replies ) =>  {
-	let response = {
-		'text': text
-	};
-	if ( quick_replies ) {
-		response.quick_replies = quick_replies;
 	}
-	return response;
-}
+
+	sendRequest( message, 'Message sent', followUps );
+
+};
 
 /**
  * Receipt handler. Send the user a read receipt.
@@ -91,18 +103,10 @@ const showTyping = ( user ) =>  {
 		sender_action: 'typing_on',
 	};
 
-	sendRequest( params, '[typing indicator]' );
+	sendRequest( params, 'Typing shown' );
 
 }
 
-/**
- * Message handler. Send a message through sendRequest.
- */
-const sendMessage = ( user, response, followUp = false ) => {
-	sendRequest( buildParams( user, response ), 'Message sent', followUp );
-};
-
-module.exports.buildResponse = buildResponse;
+module.exports.sendMessage = sendMessage;
 module.exports.sendReceipt = sendReceipt;
 module.exports.showTyping = showTyping;
-module.exports.sendMessage = sendMessage;

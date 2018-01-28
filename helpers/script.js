@@ -23,7 +23,8 @@ const script = {
 	'exit': 'Thanks for playing! You tagged X images. Type "start" any time to start again.',
 
 	// updated
-	'greeting': 'Hello {{user_first_name}}!',
+	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
+	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click the menu icon to do something. You can become a citizen archivist by helping us tag records, find answers, and see interesting facts and photos.',
 	'menu': {
 		'facts':  'Fun The Archives Facts',
 		'ask':    'Ask the Archives a question',
@@ -45,24 +46,27 @@ const script = {
 		{
 			'message': 'Nailed it!',
 			'options': {
-				'learn':    'Learn more about this document',
-				'continue': 'Let\'s keep moving',
+				'learn': 'Learn more about this document',
+				'new':   'Let\'s keep moving',
+				'stop':  'Stop'
 			},
 			'followup': 'You got it! Here\'s the next document.'
 		},
 		{
 			'message': 'Very good, {{user_first_name}}. Do you want to know more or are you ready for another?',
 			'options': {
-				'learn':    'Learn more about this document',
-				'continue': 'Let\'s keep moving',
+				'learn': 'Learn more about this document',
+				'new':   'Let\'s keep moving',
+				'stop':  'Stop'
 			},
 			'followup': 'You got it! Here\'s the next document.'
 		},
 		{
-			'message': 'Shall I ramble on about this or do you want to move on?',
+			'message': 'Thanks! Shall I ramble on about this or do you want to move on?',
 			'options': {
-				'learn':    'Tell me all about it',
-				'continue': 'Let\'s keep moving',
+				'learn': 'Tell me all about it',
+				'new':   'Let\'s keep moving',
+				'stop':  'Stop'
 			},
 			'followup': 'Here is the next document.'
 		}
@@ -89,7 +93,6 @@ const script = {
 		'message': 'Want another?',
 		'options': {
 			'continue': 'Yes',
-			'quit':     'See other options'
 		}
 	},
 	'ask': [
@@ -130,6 +133,12 @@ const script = {
 			'a2': 'Great, I\'m coming with you.'
 		}
 	],
+	'jokes_reply': {
+		'message': 'Want to hear another joke?',
+		'options': {
+			'continue': 'Yes',
+		}
+	},
 	'quit': {
 		'stop': [
 			'Leaving us already? Join us again soon! Visit the Archives blog to find more images, and select an option from the menu to start up again.',
