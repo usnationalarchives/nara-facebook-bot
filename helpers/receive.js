@@ -205,7 +205,7 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.learn' :
 				// @todo
 				sendApi.sendMessage( user, 'Learn more placeholder', {
-					'text': scrpt.tag_learn_reply.message,
+					'text': script.tag_learn_reply.message,
 					'quick_replies': [
 						{
 							'content_type': 'text',
