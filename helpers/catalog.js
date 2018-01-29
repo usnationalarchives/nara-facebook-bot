@@ -19,6 +19,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 	// randomize result - @todo need to get 4586 dynamically
 	let offset = Math.floor( Math.random() * 4586 ) + 1;
 
+	// @todo avoid responses with too many elements
+
 	let url = 'https://catalog.archives.gov/api/v1'
 			  + '?q=speeches'
 			  + '&resultTypes=item'
@@ -89,7 +91,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.handwritten',
 								'type': 'JSON',
-								'tag_round_count': tagRoundCount++
+								'tag_round_count': ++tagRoundCount
 							} )
 						},
 						{
@@ -98,7 +100,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.typed',
 								'type': 'JSON',
-								'tag_round_count': tagRoundCount++
+								'tag_round_count': ++tagRoundCount
 							} )
 						},
 						{
@@ -107,7 +109,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.mixed',
 								'type': 'JSON',
-								'tag_round_count': tagRoundCount++
+								'tag_round_count': ++tagRoundCount
 							} )
 						},
 						{
@@ -116,7 +118,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.none',
 								'type': 'JSON',
-								'tag_round_count': tagRoundCount++
+								'tag_round_count': ++tagRoundCount
 							} )
 						},
 						{
