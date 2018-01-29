@@ -5,7 +5,7 @@
 'use strict';
 
 const script = {
-	'default': 'Sorry, I didn\'t understand that. For more options, type "help".',
+	'default': 'Sorry, I didn\'t understand that. For more info, type "help". You can also click the menu icon for more options.',
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
 	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click the menu icon to do something. You can become a citizen archivist by helping us categorize documents, find answers, and see interesting facts and photos.',
 	'menu': {
