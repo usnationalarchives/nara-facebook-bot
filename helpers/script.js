@@ -32,7 +32,7 @@ const script = {
 		'jokes':  'Tell a joke',
 		'photos': 'Show me interesting photos'
 	},
-	'tag_start': 'Digging through the Archive...',
+	'tag_start': 'Let\'s go! Digging through the Archive...',
 	'tag_prompt': {
 		'message': 'Help us categorize this document. What kind of text is in this image?',
 		'options': {

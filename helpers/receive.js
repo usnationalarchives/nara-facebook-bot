@@ -113,6 +113,8 @@ const receivePostback = ( user, postback ) => {
 						'subtitle': 'Click to select',
 						'default_action': {
 							'type': 'postback',
+							'title': 'Click to select',
+							'messenger_extensions': true,
 							'payload': 'joke_replies.' + jokeNum + '.' + replyKey
 						}
 					} );
