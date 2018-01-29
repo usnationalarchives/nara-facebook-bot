@@ -90,6 +90,10 @@ const script = {
 			'new': 'Keep going'
 		},
 	},
+	'tag_learn': {
+		'message': 'More info about this document can be found in the Archives Catalog.',
+		'button': 'View in catalog'
+	},
 	'tag_stop': 'Thank you for the help! Only 500,000,000 more to go! Select an option from the menu if you\'d like to do something else.',
 	'facts': [
 		'In true pop culture fashion, the most requested photo from The Archives is of Nixon and The King.',

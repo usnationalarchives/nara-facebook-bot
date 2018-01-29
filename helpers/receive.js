@@ -171,7 +171,11 @@ const receivePostback = ( user, postback ) => {
 							{
 								'content_type': 'text',
 								'title': script.tag_intermission.options.learn,
-								'payload': 'tag.learn'
+								'payload': {
+									'name': 'tag.learn',
+									'type': 'JSON',
+									'naId': payloadObj.naId
+								}
 							},
 							{
 								'content_type': 'text',
@@ -197,7 +201,8 @@ const receivePostback = ( user, postback ) => {
 								'payload': JSON.stringify( {
 									'name': 'tag.learn',
 									'type': 'JSON',
-									'tag_round_count': payloadObj.tag_round_count
+									'tag_round_count': payloadObj.tag_round_count,
+									'naId': payloadObj.naId
 								} )
 							},
 							{
@@ -222,8 +227,20 @@ const receivePostback = ( user, postback ) => {
 				break;
 
 			case 'tag.learn' :
-				// @todo
-				sendApi.sendMessage( user, 'Learn more placeholder', {
+
+				sendApi.sendMessage( user, {
+					'text': script.tag_learn.message,
+					'buttons': [
+						{
+							'type': 'web_url',
+							'url': 'https://catalog.archives.gov/id/' + payloadObj.naId,
+							'title': script.tag_learn.button,
+							'webview_height_ratio': 'tall',
+							'messenger_extensions': true
+						}
+					]
+				},
+				{
 					'text': script.tag_learn_reply.message,
 					'quick_replies': [
 						{

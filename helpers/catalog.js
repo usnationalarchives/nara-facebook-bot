@@ -67,6 +67,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 				} );
 			} );
 
+			let naId = result.description.item.naId;
+
 			let newTagRoundCount = tagRoundCount + 1;
 
 			// send title, with follow-up catalog object and answer prompt
@@ -91,7 +93,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.handwritten',
 								'type': 'JSON',
-								'tag_round_count': newTagRoundCount
+								'tag_round_count': newTagRoundCount,
+								'naId':naId
 							} )
 						},
 						{
@@ -100,7 +103,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.typed',
 								'type': 'JSON',
-								'tag_round_count': newTagRoundCount
+								'tag_round_count': newTagRoundCount,
+								'naId':naId
 							} )
 						},
 						{
@@ -109,7 +113,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.mixed',
 								'type': 'JSON',
-								'tag_round_count': newTagRoundCount
+								'tag_round_count': newTagRoundCount,
+								'naId':naId
 							} )
 						},
 						{
@@ -118,7 +123,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.none',
 								'type': 'JSON',
-								'tag_round_count': newTagRoundCount
+								'tag_round_count': newTagRoundCount,
+								'naId':naId
 							} )
 						},
 						{
@@ -127,7 +133,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.skip',
 								'type': 'JSON',
-								'tag_round_count': tagRoundCount // don't increment skipped items
+								'tag_round_count': tagRoundCount, // don't increment skipped items
+								'naId':naId
 							} )
 						}
 					]
