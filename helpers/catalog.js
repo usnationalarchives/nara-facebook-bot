@@ -69,6 +69,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 
 			console.log( 'IN CATALOG BEFORE INCREMENT', tagRoundCount );
 
+			let newTagRoundCount = tagRoundCount + 1;
+
 			// send title, with follow-up catalog object and answer prompt
 			sendApi.sendMessage( user, result.description.item.title + ':', [
 				{
@@ -91,7 +93,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.handwritten',
 								'type': 'JSON',
-								'tag_round_count': ++tagRoundCount
+								'tag_round_count': newTagRoundCount
 							} )
 						},
 						{
@@ -100,7 +102,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.typed',
 								'type': 'JSON',
-								'tag_round_count': ++tagRoundCount
+								'tag_round_count': newTagRoundCount
 							} )
 						},
 						{
@@ -109,7 +111,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.mixed',
 								'type': 'JSON',
-								'tag_round_count': ++tagRoundCount
+								'tag_round_count': newTagRoundCount
 							} )
 						},
 						{
@@ -118,7 +120,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'payload': JSON.stringify( {
 								'name': 'tag.options.none',
 								'type': 'JSON',
-								'tag_round_count': ++tagRoundCount
+								'tag_round_count': newTagRoundCount
 							} )
 						},
 						{
