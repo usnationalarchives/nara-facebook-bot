@@ -54,17 +54,13 @@ const getItem = ( user ) => {
 					'image_url': object.thumbnail['@url'],
 					'default_action': {
 						'type': 'web_url',
-						'url': object.file['@url'],
-						'messenger_extensions': true,
-						'webview_height_ratio': 'tall'
+						'url': object.file['@url']
 					},
 					'buttons': [
 						{
 							'type': 'web_url',
 							'url': object.file['@url'],
-							'title': 'View larger size',
-							'messenger_extensions': true,
-							'webview_height_ratio': 'tall'
+							'title': 'View larger size'
 						}
 					]
 				} );
