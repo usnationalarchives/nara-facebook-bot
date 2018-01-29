@@ -69,13 +69,11 @@ const receivePostback = ( user, postback ) => {
 			//
 
 			case 'menu.ask' :
-				// question categories
-				// (drilling down to more question categories)
+				sendApi.sendMessage( user, script.ask_temp );
 				break;
 
 			case 'menu.photos' :
-				// just show a photo + facts
-				// prompt to continue
+				sendApi.sendMessage( user, script.photos_temp );
 				break;
 
 			//

@@ -117,6 +117,7 @@ const script = {
 			'a': 'Call us! (866) 272-6272',
 		}
 	],
+	'ask_temp': 'Ask a question section placeholder.',
 	'jokes': [
 		{
 			'q': 'How would you look up Lincoln\'s location in Pennsylvania?',
@@ -151,6 +152,7 @@ const script = {
 			'continue': 'Yes',
 		}
 	},
+	'photos_temp': 'Photos section placeholder.',
 	'quit': {
 		'stop': [
 			'Leaving us already? Join us again soon! Visit the Archives blog to find more images, and select an option from the menu to start up again.',
