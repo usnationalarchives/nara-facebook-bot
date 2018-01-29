@@ -67,6 +67,8 @@ const receivePostback = ( user, postback ) => {
 			postback.payload = payloadObj.name;
 		}
 
+		console.log( 'TAG ROUND COUNT', payloadObj.tag_round_count );
+
 		switch( postback.payload ) {
 
 			case 'get_started' :
@@ -163,10 +165,10 @@ const receivePostback = ( user, postback ) => {
 				if ( payloadObj.tag_round_count === 3 ) {
 
 					let interMessage = script.tag_intermission.message;
-					interMessage = interMessage.replace( 'ROUND_COUNT', 3 );
+					interMessage = interMessage.replace( 'ROUND_COUNT', '3' );
 
 					sendApi.sendMessage( user, {
-						'text': script.tag_intermission.message,
+						'text': interMessage,
 						'quick_replies': [
 							{
 								'content_type': 'text',
@@ -185,7 +187,6 @@ const receivePostback = ( user, postback ) => {
 							}
 						]
 					} );
-
 
 				} else {
 

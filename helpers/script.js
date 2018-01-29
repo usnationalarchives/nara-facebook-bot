@@ -5,9 +5,9 @@
 'use strict';
 
 const script = {
-	'default': 'Sorry, I didn\'t understand that. For more info, type "help". You can also click the menu icon for more options.',
+	'default': 'Sorry, I didn\'t understand that. For more info, type "help". You can also click the menu below for more options.',
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
-	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click the menu icon to do something. You can become a citizen archivist by helping us categorize documents, find answers, and see interesting facts and photos.',
+	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click the menu below to do something. You can become a citizen archivist by helping us categorize documents, find answers, and see interesting facts and photos.',
 	'menu': {
 		'tag':    'Help categorize documents',
 		'facts':  'Fun The Archives Facts',
@@ -83,7 +83,7 @@ const script = {
 		}
 	},
 	'tag_intermission': {
-		'message': 'You just did ROUND_COUNT documents in a row, and a total of TOTAL_COUNT documents. How are you feeling?',
+		'message': 'You just did ROUND_COUNT documents in a row. How are you feeling?',
 		'options': {
 			'learn': 'Learn more',
 			'stop': 'I need a break',
