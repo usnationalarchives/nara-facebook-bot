@@ -101,11 +101,11 @@ const receivePostback = ( user, postback ) => {
 					if ( !script.jokes[jokeNum].options.hasOwnProperty( replyKey ) ) {
 						continue;
 					}
-					jokeReplies[] = {
+					jokeReplies.push({
 						'content_type': 'text',
 						'title': script.jokes[jokeNum].options[replyKey],
 						'payload': 'joke_replies.' + jokeNum + '.' + replyKey
-					}
+					});
 				}
 
 				// show the joke & responses
