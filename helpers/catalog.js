@@ -5,6 +5,7 @@
 'use strict';
 
 const axios = require( 'axios' );
+const script = require( './script' );
 const sendApi = require( './send' );
 
 /**
