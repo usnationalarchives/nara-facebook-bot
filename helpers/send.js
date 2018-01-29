@@ -25,17 +25,24 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 		.then( function( res ) {
 			console.log( type );
 
-			if ( followUps ) {
+			switch( type ) {
 
-				switch( type ) {
-
-					// if there's a followUp message, turn typing on and pass it along
-					case 'message' :
+				// if there's a followUp message, turn typing on and pass it along
+				case 'message' :
+					if ( followUps ) {
 						typingOn( params.recipient.id, followUps );
-						break;
+					} else {
 
-					// if typing is on, output the first followup message
-					case 'typing_on' :
+						// if we're done, ensure typing is off
+						typingOff( params.recipient.id );
+
+					}
+					break;
+
+				// if typing is on, output the first followup message
+				case 'typing_on' :
+
+					if ( followUps ) {
 
 						// if followUps true but unspecified, just end with the typing indicator still on
 						if ( followUps === true ) {
@@ -52,14 +59,9 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 
 						// send new message
 						sendMessage( params.recipient.id, followUp, followUps );
-						break;
 
-				}
-
-			} else {
-
-				// since there's nothing to follow up, ensure typing is off
-				typingOff( params.recipient.id );
+					}
+					break;
 
 			}
 
