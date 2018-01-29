@@ -27,6 +27,8 @@ const sendRequest = ( params, log = '', followUps = false, retries = 5 ) => {
 
 			if ( followUps ) {
 
+				showTyping( params.recipient.id );
+
 				// ensure followUps is array
 				if ( ! Array.isArray( followUps ) ) {
 					followUps = [ followUps ];
