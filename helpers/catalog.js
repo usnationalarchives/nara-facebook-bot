@@ -120,7 +120,11 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 						{
 							'content_type': 'text',
 							'title': script.tag_prompt.options.skip,
-							'payload': 'tag.options.skip'
+							'payload': JSON.stringify( {
+								'name': 'tag.options.skip',
+								'type': 'JSON',
+								'tag_round_count': tagRoundCount // don't increment skipped items
+							} )
 						}
 					]
 				}

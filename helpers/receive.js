@@ -59,15 +59,15 @@ const receivePostback = ( user, postback ) => {
 		let response;
 
 		// check for json
-		let payloadObj = {
-			'tag_round_count': 0
-		};
+		let payloadObj;
 		if ( postback.payload.includes( 'JSON' ) ) {
 			payloadObj = JSON.parse( postback.payload );
 			postback.payload = payloadObj.name;
+		} else {
+			payloadObj.tag_round_count = 0;
 		}
 
-		console.log( 'TAG ROUND COUNT', payloadObj.tag_round_count );
+		console.log( 'PAYLOADOBJ ', payloadObj );
 
 		switch( postback.payload ) {
 
