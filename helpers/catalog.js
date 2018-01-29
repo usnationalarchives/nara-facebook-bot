@@ -65,6 +65,8 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 				} );
 			} );
 
+			console.log( 'IN CATALOG BEFORE INCREMENT', tagRoundCount );
+
 			// send title, with follow-up catalog object and answer prompt
 			sendApi.sendMessage( user, result.description.item.title + ':', [
 				{
