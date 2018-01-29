@@ -25,17 +25,9 @@ const receiveMessage = ( user, message ) => {
 
 			case 'start' :
 			case 'begin' :
-				sendApi.sendMessage( user, script.welcome, loop( 'start' ) );
-				break;
-
 			case 'help' :
 			case 'info' :
-				sendApi.sendMessage( user, script.help, loop( 'continue' ) );
-				break;
-
-			case 'score' :
-			case 'stats' :
-				sendApi.sendMessage( user, script.score, loop( 'continue' ) );
+				sendApi.sendMessage( user, script.get_started );
 				break;
 
 			case 'end' :
@@ -43,11 +35,11 @@ const receiveMessage = ( user, message ) => {
 			case 'exit' :
 			case 'quit' :
 			case 'q' :
-				sendApi.sendMessage( user, script.exit );
+				sendApi.sendMessage( user, script.quit.stop );
 				break;
 
 			default :
-				sendApi.sendMessage( user, script.default, loop( 'continue' ) );
+				sendApi.sendMessage( user, script.default );
 				break;
 
 		}
@@ -276,27 +268,6 @@ const receivePostback = ( user, postback ) => {
 	}
 
 };
-
-/**
- * Prompt to start the loop again.
- */
-const loop = ( startOrContinue ) =>  {
-	return {
-		'text': script['loop_'+startOrContinue],
-		'quick_replies': [
-			{
-				'content_type': 'text',
-				'title': 'Yes',
-				'payload': 'new'
-			},
-			{
-				'content_type': 'text',
-				'title': 'No',
-				'payload': 'exit'
-			}
-		]
-	};
-}
 
 module.exports.receiveMessage = receiveMessage;
 module.exports.receivePostback = receivePostback;
