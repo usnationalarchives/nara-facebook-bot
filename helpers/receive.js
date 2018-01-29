@@ -229,16 +229,22 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.learn' :
 
 				sendApi.sendMessage( user, {
-					'text': script.tag_learn.message,
-					'buttons': [
-						{
-							'type': 'web_url',
-							'url': 'https://catalog.archives.gov/id/' + payloadObj.naId,
-							'title': script.tag_learn.button,
-							'webview_height_ratio': 'tall',
-							'messenger_extensions': true
+					'attachment': {
+						'type': 'template',
+						'payload': {
+							'template_type': 'button',
+							'text': script.tag_learn.message,
+							'buttons': [
+								{
+									'type': 'web_url',
+									'url': 'https://catalog.archives.gov/id/' + payloadObj.naId,
+									'title': script.tag_learn.button,
+									'webview_height_ratio': 'tall',
+									'messenger_extensions': true
+								}
+							]
 						}
-					]
+					}
 				},
 				{
 					'text': script.tag_learn_reply.message,
