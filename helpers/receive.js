@@ -170,11 +170,14 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.options.none' :
 			case 'tag.options.skip' :
 
+				let parts = postback.payload.split( '.' );
+				let choice = parts[2];
+
 				// get a random number
 				let replyNum = Math.floor( Math.random() * 3 );
 
 				sendApi.sendMessage( user, {
-					'text': script.tag_reply[replyNum].message,
+					'text': script.tag_reply[replyNum].message[choice],
 					'quick_replies': [
 						{
 							'content_type': 'text',

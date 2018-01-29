@@ -29,7 +29,13 @@ const script = {
 	'tag_error': 'Something went wrong. Open the menu again to try again or choose another option.',
 	'tag_reply': [
 		{
-			'message': 'Nailed it!',
+			'message': {
+				'handwritten': 'Nailed it! Marked as handwritten.',
+				'typed': 'Nailed it! Marked as typed.',
+				'mixed': 'Nailed it! Marked as containing typed and handwritten text.',
+				'none': 'Nailed it! Marked as containing no writing.',
+				'skip': 'No problem! Skipping this one.'
+			},
 			'options': {
 				'learn': 'Learn more',
 				'new':   'Let\'s keep moving',
@@ -38,7 +44,13 @@ const script = {
 			'followup': 'You got it! Here\'s the next document.'
 		},
 		{
-			'message': 'Very good! Do you want to know more or are you ready for another?',
+			'message': {
+				'handwritten': 'Very good! Marked as handwritten. Do you want to know more or are you ready for another?',
+				'typed': 'Very good! Marked as typed. Do you want to know more or are you ready for another?',
+				'mixed': 'Very good! Marked as containing typed and handwritten text. Do you want to know more or are you ready for another?',
+				'none': 'Very good! Marked as containing no writing. Do you want to know more or are you ready for another?',
+				'skip': 'Sure, we can skip this. Do you want to know more or are you ready for another?'
+			},
 			'options': {
 				'learn': 'Learn more',
 				'new':   'Let\'s keep moving',
@@ -48,6 +60,13 @@ const script = {
 		},
 		{
 			'message': 'Thanks! Shall I ramble on about this or do you want to move on?',
+			'message': {
+				'handwritten': 'Thanks! Marked as handwritten. Shall I ramble on about this or do you want to move on?',
+				'typed': 'Thanks! Marked as typed. Shall I ramble on about this or do you want to move on?',
+				'mixed': 'Thanks! Marked as containing typed and handwritten text. Shall I ramble on about this or do you want to move on?',
+				'none': 'Thanks! Marked as containing no writing. Shall I ramble on about this or do you want to move on?',
+				'skip': 'Sure, you don\'t have to tag this one. Shall I ramble on about it or do you want to move on?'
+			},
 			'options': {
 				'learn': 'Tell me all about it',
 				'new':   'Let\'s keep moving',
