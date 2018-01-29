@@ -67,8 +67,6 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 				} );
 			} );
 
-			console.log( 'IN CATALOG BEFORE INCREMENT', tagRoundCount );
-
 			let newTagRoundCount = tagRoundCount + 1;
 
 			// send title, with follow-up catalog object and answer prompt

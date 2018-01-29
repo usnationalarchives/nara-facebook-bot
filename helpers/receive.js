@@ -67,8 +67,6 @@ const receivePostback = ( user, postback ) => {
 			payloadObj.tag_round_count = 0;
 		}
 
-		console.log( 'PAYLOADOBJ ', payloadObj );
-
 		switch( postback.payload ) {
 
 			case 'get_started' :
