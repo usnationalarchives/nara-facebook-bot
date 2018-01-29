@@ -83,14 +83,11 @@ const script = {
 		}
 	},
 	'tag_intermission': {
-		'message': 'You just did five documents in a row. How are you feeling?',
+		'message': 'You just did ROUND_COUNT documents in a row, and a total of TOTAL_COUNT documents. How are you feeling?',
 		'options': {
-			'break':  'I need a break',
-			'facts':  'Fun The Archives Facts',
-			'ask':    'Ask the Archives a question',
-			'jokes':  'Tell a joke',
-			'photos': 'Show me interesting photos',
-			'tag':    'Keep going'
+			'learn': 'Learn more'
+			'stop': 'I need a break',
+			'new': 'Keep going'
 		},
 	},
 	'tag_stop': 'Thank you for the help! Only 500,000,000 more to go! Select an option from the menu if you\'d like to do something else.',

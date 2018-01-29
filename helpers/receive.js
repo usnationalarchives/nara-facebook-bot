@@ -58,6 +58,15 @@ const receivePostback = ( user, postback ) => {
 
 		let response;
 
+		// check for json
+		let payloadObj = {
+			'tag_round_count': 0
+		};
+		if ( postback.payload.includes( 'JSON' ) ) {
+			payloadObj = JSON.parse( postback.payload );
+			postback.payload = payloadObj.name;
+		}
+
 		switch( postback.payload ) {
 
 			case 'get_started' :
@@ -136,7 +145,7 @@ const receivePostback = ( user, postback ) => {
 			//
 
 			case 'menu.tag' :
-				catalogApi.getItem( user );
+				catalogApi.getItem( user, payloadObj.tag_round_count );
 				break;
 
 			case 'tag.options.typed' :
@@ -151,26 +160,64 @@ const receivePostback = ( user, postback ) => {
 				// get a random number
 				let replyNum = Math.floor( Math.random() * 3 );
 
-				sendApi.sendMessage( user, {
-					'text': script.tag_reply[replyNum].message[choice],
-					'quick_replies': [
-						{
-							'content_type': 'text',
-							'title': script.tag_reply[replyNum].options.learn,
-							'payload': 'tag.learn'
-						},
-						{
-							'content_type': 'text',
-							'title': script.tag_reply[replyNum].options.new,
-							'payload': 'menu.tag'
-						},
-						{
-							'content_type': 'text',
-							'title': script.tag_reply[replyNum].options.stop,
-							'payload': 'tag.stop'
-						}
-					]
-				} );
+				if ( payloadObj.tag_round_count === 3 ) {
+
+					let interMessage = script.tag_intermission.message;
+					interMessage = interMessage.replace( 'ROUND_COUNT', 3 );
+
+					sendApi.sendMessage( user, {
+						'text': script.tag_intermission.message,
+						'quick_replies': [
+							{
+								'content_type': 'text',
+								'title': script.tag_intermission.options.learn,
+								'payload': 'tag.learn'
+							},
+							{
+								'content_type': 'text',
+								'title': script.tag_intermission.options.new,
+								'payload': 'menu.tag'
+							{
+								'content_type': 'text',
+								'title': script.tag_intermission.options.stop,
+								'payload': 'tag.stop'
+							}
+						]
+					} );
+
+
+				} else {
+
+					sendApi.sendMessage( user, {
+						'text': script.tag_reply[replyNum].message[choice],
+						'quick_replies': [
+							{
+								'content_type': 'text',
+								'title': script.tag_reply[replyNum].options.learn,
+								'payload': JSON.stringify( {
+									'name': 'tag.learn',
+									'type': 'JSON',
+									'tag_round_count': payloadObj.tag_round_count
+								} )
+							},
+							{
+								'content_type': 'text',
+								'title': script.tag_reply[replyNum].options.new,
+								'payload': JSON.stringify( {
+									'name': 'menu.tag',
+									'type': 'JSON',
+									'tag_round_count': payloadObj.tag_round_count
+								} )
+							},
+							{
+								'content_type': 'text',
+								'title': script.tag_reply[replyNum].options.stop,
+								'payload': 'tag.stop'
+							}
+						]
+					} );
+
+				}
 
 				break;
 
@@ -182,7 +229,11 @@ const receivePostback = ( user, postback ) => {
 						{
 							'content_type': 'text',
 							'title': script.tag_learn_reply.options.new,
-							'payload': 'menu.tag'
+							'payload': JSON.stringify( {
+								'name': 'menu.tag',
+								'type': 'JSON',
+								'tag_round_count': payloadObj.tag_round_count
+							} )
 						},
 						{
 							'content_type': 'text',

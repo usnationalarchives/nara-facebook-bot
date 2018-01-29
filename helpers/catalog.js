@@ -11,7 +11,7 @@ const sendApi = require( './send' );
 /**
  * Query NARA catalog and return an item.
  */
-const getItem = ( user ) => {
+const getItem = ( user, tagRoundCount = 0 ) => {
 
 	// friendly message
 	sendApi.sendMessage( user, script.tag_start, true );
@@ -84,22 +84,38 @@ const getItem = ( user ) => {
 						{
 							'content_type': 'text',
 							'title': script.tag_prompt.options.handwritten,
-							'payload': 'tag.options.handwritten'
+							'payload': JSON.stringify( {
+								'name': 'tag.options.handwritten',
+								'type': 'JSON',
+								'tag_round_count': tagRoundCount++
+							} )
 						},
 						{
 							'content_type': 'text',
 							'title': script.tag_prompt.options.typed,
-							'payload': 'tag.options.typed'
+							'payload': JSON.stringify( {
+								'name': 'tag.options.typed',
+								'type': 'JSON',
+								'tag_round_count': tagRoundCount++
+							} )
 						},
 						{
 							'content_type': 'text',
 							'title': script.tag_prompt.options.mixed,
-							'payload': 'tag.options.mixed'
+							'payload': JSON.stringify( {
+								'name': 'tag.options.mixed',
+								'type': 'JSON',
+								'tag_round_count': tagRoundCount++
+							} )
 						},
 						{
 							'content_type': 'text',
 							'title': script.tag_prompt.options.none,
-							'payload': 'tag.options.none'
+							'payload': JSON.stringify( {
+								'name': 'tag.options.none',
+								'type': 'JSON',
+								'tag_round_count': tagRoundCount++
+							} )
 						},
 						{
 							'content_type': 'text',
