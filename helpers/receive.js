@@ -69,7 +69,7 @@ const receivePostback = ( user, postback ) => {
 		switch( postback.payload ) {
 
 			case 'get_started' :
-				sendApi.sendMessage( user, script.welcome );
+				sendApi.sendMessage( user, script.get_started );
 				break;
 
 			//
