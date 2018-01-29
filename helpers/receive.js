@@ -227,11 +227,13 @@ const receivePostback = ( user, postback ) => {
 					// send punchline and followup
 					sendApi.sendMessage( user, answer, {
 						'text': script.jokes_reply.message,
-						'quick_replies': {
-							'content_type': 'text',
-							'title': script.jokes_reply.options.continue,
-							'payload': 'menu.jokes'
-						}
+						'quick_replies': [
+							{
+								'content_type': 'text',
+								'title': script.jokes_reply.options.continue,
+								'payload': 'menu.jokes'
+							}
+						]
 					} );
 
 				//
