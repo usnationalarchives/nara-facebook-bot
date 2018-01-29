@@ -73,6 +73,13 @@ const script = {
 			'followup': 'Here is the next document.'
 		}
 	],
+	'tag_learn_reply': {
+		'message': 'Are you ready for another?',
+		'options': {
+			'new': 'Let\'s keep moving',
+			'stop': 'Stop'
+		}
+	},
 	'tag_intermission': {
 		'message': 'You just did five documents in a row. How are you feeling?',
 		'options': {
