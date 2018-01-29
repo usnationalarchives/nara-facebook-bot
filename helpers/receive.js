@@ -101,17 +101,40 @@ const receivePostback = ( user, postback ) => {
 					if ( !script.jokes[jokeNum].options.hasOwnProperty( replyKey ) ) {
 						continue;
 					}
-					jokeReplies.push({
+
+					/* jokeReplies.push({
 						'content_type': 'text',
 						'title': script.jokes[jokeNum].options[replyKey],
 						'payload': 'joke_replies.' + jokeNum + '.' + replyKey
-					});
+					} ); */
+
+					jokeReplies.push({
+						'title': script.jokes[jokeNum].options[replyKey],
+						'subtitle': 'Click to select',
+						'default_action': {
+							'type': 'postback',
+							'payload': 'joke_replies.' + jokeNum + '.' + replyKey
+						}
+					} );
+
 				}
 
 				// show the joke & responses
-				sendApi.sendMessage( user, {
+				/* sendApi.sendMessage( user, {
 					'text': script.jokes[jokeNum].q,
 					'quick_replies': jokeReplies
+				} ); */
+
+				sendApi.sendMessage( user, {
+					'attachment': {
+						'type': 'template',
+						'payload': {
+							'template_type': 'list',
+							'top_element_style': 'compact',
+							'elements': jokeReplies
+						}
+					}
+
 				} );
 
 				break;
