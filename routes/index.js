@@ -17,8 +17,12 @@ const sendApi = require( '../helpers/send' );
  * Display a Forbidden error for anyone accessing the
  * root level of the webserver.
  */
-router.get( '/', ( req, routerResponse ) => {
+router.get( '/', ( req, res ) => {
+
+	// testing sandbox
+
 	res.sendStatus( 403 );
+
 } );
 
 module.exports = router;
