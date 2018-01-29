@@ -59,7 +59,7 @@ const receivePostback = ( user, postback ) => {
 		let response;
 
 		// check for json
-		let payloadObj;
+		let payloadObj = {};
 		if ( postback.payload.includes( 'JSON' ) ) {
 			payloadObj = JSON.parse( postback.payload );
 			postback.payload = payloadObj.name;
