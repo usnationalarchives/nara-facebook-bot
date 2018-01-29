@@ -57,6 +57,11 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 						// extract first followUp
 						let followUp = followUps.shift();
 
+						// if leftover array is empty, set to false
+						if ( !followUps.length ) {
+							followUps = false;
+						}
+
 						// send new message
 						sendMessage( params.recipient.id, followUp, followUps );
 
