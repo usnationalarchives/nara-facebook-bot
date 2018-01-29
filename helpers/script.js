@@ -85,7 +85,7 @@ const script = {
 	'tag_intermission': {
 		'message': 'You just did ROUND_COUNT documents in a row, and a total of TOTAL_COUNT documents. How are you feeling?',
 		'options': {
-			'learn': 'Learn more'
+			'learn': 'Learn more',
 			'stop': 'I need a break',
 			'new': 'Keep going'
 		},

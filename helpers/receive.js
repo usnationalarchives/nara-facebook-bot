@@ -177,6 +177,7 @@ const receivePostback = ( user, postback ) => {
 								'content_type': 'text',
 								'title': script.tag_intermission.options.new,
 								'payload': 'menu.tag'
+							},
 							{
 								'content_type': 'text',
 								'title': script.tag_intermission.options.stop,
