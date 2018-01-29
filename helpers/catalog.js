@@ -19,8 +19,6 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 	// randomize result - @todo need to get 4586 dynamically
 	let offset = Math.floor( Math.random() * 4586 ) + 1;
 
-	// @todo avoid responses with too many elements
-
 	let url = 'https://catalog.archives.gov/api/v1'
 			  + '?q=speeches'
 			  + '&resultTypes=item'
@@ -41,6 +39,11 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 			// standardize objects
 			if ( ! Array.isArray( objects ) ) {
 				objects = [ objects ];
+			}
+
+			// limit to 10 if more than 10
+			if ( objects.length > 10 ) {
+				objects.length = 10;
 			}
 
 			let elements = [];
