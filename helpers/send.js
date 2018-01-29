@@ -44,7 +44,7 @@ const sendRequest = ( params, log = '', followUps = false, retries = 5 ) => {
 		.catch( function( err ) {
 			// retry if the message failed
 			console.error( 'Unable to send message: ', err );
-			console.log( `Retrying request: $(retries) left` );
+			console.log( 'Retrying request: ' + retries + ' left' );
 			sendRequest( params, log, followUp, retries - 1 );
 		} );
 

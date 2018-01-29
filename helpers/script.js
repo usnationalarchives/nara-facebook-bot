@@ -48,16 +48,16 @@ const script = {
 		{
 			'message': 'Nailed it!',
 			'options': {
-				'learn': 'Learn more about this document',
+				'learn': 'Learn more',
 				'new':   'Let\'s keep moving',
 				'stop':  'Stop'
 			},
 			'followup': 'You got it! Here\'s the next document.'
 		},
 		{
-			'message': 'Very good, {{user_first_name}}. Do you want to know more or are you ready for another?',
+			'message': 'Very good! Do you want to know more or are you ready for another?',
 			'options': {
-				'learn': 'Learn more about this document',
+				'learn': 'Learn more',
 				'new':   'Let\'s keep moving',
 				'stop':  'Stop'
 			},

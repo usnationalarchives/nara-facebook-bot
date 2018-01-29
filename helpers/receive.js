@@ -186,12 +186,12 @@ const receivePostback = ( user, postback ) => {
 					'quick_replies': [
 						{
 							'content_type': 'text',
-							'title': script.tag_reply[replyNum].options.new,
+							'title': script.tag_reply[0].options.new,
 							'payload': 'menu.tag'
 						},
 						{
 							'content_type': 'text',
-							'title': script.tag_reply[replyNum].options.stop,
+							'title': script.tag_reply[0].options.stop,
 							'payload': 'tag.stop'
 						}
 					]
