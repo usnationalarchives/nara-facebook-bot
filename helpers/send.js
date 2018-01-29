@@ -31,7 +31,7 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 
 					// if there's a followUp message, turn typing on and pass it along
 					case 'message' :
-						typingOn( params.receipient.id, followUps );
+						typingOn( params.recipient.id, followUps );
 						break;
 
 					// if typing is on, output the first followup message
@@ -59,7 +59,7 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 			} else {
 
 				// since there's nothing to follow up, ensure typing is off
-				typingOff( params.receipient.id );
+				typingOff( params.recipient.id );
 
 			}
 
@@ -68,7 +68,7 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 			// retry if the message failed
 			console.error( 'Unable to send message: ', err );
 			console.log( 'Retrying request: ' + retries + ' left' );
-			sendRequest( type, params, followUp, retries - 1 );
+			sendRequest( type, params, followUps, retries - 1 );
 		} );
 
 };
