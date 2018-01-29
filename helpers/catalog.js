@@ -14,8 +14,7 @@ const sendApi = require( './send' );
 const getItem = ( user ) => {
 
 	// friendly message
-	sendApi.sendMessage( user, script.tag_start );
-	sendApi.showTyping( user );
+	sendApi.sendMessage( user, script.tag_start, true );
 
 	// randomize result - @todo need to get 4586 dynamically
 	let offset = Math.floor( Math.random() * 4586 ) + 1;

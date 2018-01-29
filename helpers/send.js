@@ -10,7 +10,7 @@ const axios = require( 'axios' );
  * Generic request handler. Attempt to send a response to a user,
  * retrying up to 5 times.
  */
-const sendRequest = ( params, log = '', followUps = false, retries = 5 ) => {
+const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 
 	// error if we're out of retries
 	if ( retries < 0 ) {
@@ -23,22 +23,43 @@ const sendRequest = ( params, log = '', followUps = false, retries = 5 ) => {
 	// attempt to send response
 	axios.post( 'https://graph.facebook.com/v2.6/me/messages', params )
 		.then( function( res ) {
-			console.log( log );
+			console.log( type );
 
 			if ( followUps ) {
 
-				showTyping( params.recipient.id );
+				switch( type ) {
 
-				// ensure followUps is array
-				if ( ! Array.isArray( followUps ) ) {
-					followUps = [ followUps ];
+					// if there's a followUp message, turn typing on and pass it along
+					case 'message' :
+						typingOn( params.receipient.id, followUps );
+						break;
+
+					// if typing is on, output the first followup message
+					case 'typing_on' :
+
+						// if followUps true but unspecified, just end with the typing indicator still on
+						if ( followUps === true ) {
+							break;
+						}
+
+						// ensure followUps is array
+						if ( ! Array.isArray( followUps ) ) {
+							followUps = [ followUps ];
+						}
+
+						// extract first followUp
+						let followUp = followUps.shift();
+
+						// send new message
+						sendMessage( params.recipient.id, followUp, followUps );
+						break;
+
 				}
 
-				// take first followUp
-				let followUp = followUps.shift();
+			} else {
 
-				// send as new message
-				sendMessage( params.recipient.id, followUp, followUps );
+				// since there's nothing to follow up, ensure typing is off
+				typingOff( params.receipient.id );
 
 			}
 
@@ -47,7 +68,7 @@ const sendRequest = ( params, log = '', followUps = false, retries = 5 ) => {
 			// retry if the message failed
 			console.error( 'Unable to send message: ', err );
 			console.log( 'Retrying request: ' + retries + ' left' );
-			sendRequest( params, log, followUp, retries - 1 );
+			sendRequest( type, params, followUp, retries - 1 );
 		} );
 
 };
@@ -64,8 +85,7 @@ const sendMessage = ( user, response, followUps = false ) => {
 		};
 	}
 
-	// wrap response in message syntax
-	let message = {
+	let params = {
 		'messaging_type': 'RESPONSE',
 		'recipient': {
 			'id': user
@@ -73,7 +93,7 @@ const sendMessage = ( user, response, followUps = false ) => {
 		'message': response
 	}
 
-	sendRequest( message, 'Message sent', followUps );
+	sendRequest( 'message', params, followUps );
 
 };
 
@@ -83,32 +103,49 @@ const sendMessage = ( user, response, followUps = false ) => {
 const sendReceipt = ( user ) => {
 
 	let params = {
-		recipient: {
-			id: user,
+		'recipient': {
+			'id': user,
 		},
-		sender_action: 'mark_seen',
+		'sender_action': 'mark_seen',
 	};
 
-	sendRequest( params, 'Read receipt sent' );
+	sendRequest( 'receipt', params );
 
 };
 
 /**
  * Send the user a typing indicator.
  */
-const showTyping = ( user ) =>  {
+const typingOn = ( user, followUps = false ) =>  {
 
 	let params = {
-		recipient: {
-			id: user,
+		'recipient': {
+			'id': user,
 		},
-		sender_action: 'typing_on',
+		'sender_action': 'typing_on',
 	};
 
-	sendRequest( params, 'Typing shown' );
+	sendRequest( 'typing_on', params, followUps );
+
+}
+
+/**
+ * Turn off the typing indicator.
+ */
+const typingOff = ( user ) =>  {
+
+	let params = {
+		'recipient': {
+			'id': user,
+		},
+		'sender_action': 'typing_off',
+	};
+
+	sendRequest( 'typing_off', params );
 
 }
 
 module.exports.sendMessage = sendMessage;
 module.exports.sendReceipt = sendReceipt;
-module.exports.showTyping = showTyping;
+module.exports.typingOn = typingOn;
+module.exports.typingOff = typingOff;
