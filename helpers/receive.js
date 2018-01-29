@@ -127,7 +127,7 @@ const receivePostback = ( user, postback ) => {
 
 				// show the fact & followup
 				sendApi.sendMessage( user, script.facts[factNum], {
-					'text': script.facts_reply.new,
+					'text': script.facts_reply.message,
 					'quick_replies': [
 						{
 							'content_type': 'text',
