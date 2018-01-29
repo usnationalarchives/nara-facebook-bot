@@ -32,7 +32,7 @@ const getItem = ( user ) => {
 
 	axios.get( url )
 		.then( function( res ) {
-			console.log( res.data.opaResponse.results );
+			console.log( 'Request response', res.data.opaResponse.results );
 
 			let result = res.data.opaResponse.results.result[0];
 			let objects = result.objects.object;
@@ -56,6 +56,7 @@ const getItem = ( user ) => {
 						'type': 'web_url',
 						'url': object.file['@url'],
 						'messenger_extensions': true,
+						'webview_height_ratio': 'tall'
 					},
 					'buttons': [
 						{
@@ -63,6 +64,7 @@ const getItem = ( user ) => {
 							'url': object.file['@url'],
 							'title': 'View larger size',
 							'messenger_extensions': true,
+							'webview_height_ratio': 'tall'
 						}
 					]
 				} );
@@ -115,7 +117,7 @@ const getItem = ( user ) => {
 
 		} )
 		.catch( function( error ) {
-			console.log( error.response.data );
+			console.log( 'Request error', error.response.data );
 			sendApi.sendMessage( user, script.tag_error );
 		} );
 
