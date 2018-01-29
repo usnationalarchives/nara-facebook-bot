@@ -24,24 +24,26 @@ const script = {
 
 	// updated
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
-	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click the menu icon to do something. You can become a citizen archivist by helping us tag records, find answers, and see interesting facts and photos.',
+	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click the menu icon to do something. You can become a citizen archivist by helping us categorize documents, find answers, and see interesting facts and photos.',
 	'menu': {
+		'tag':    'Help categorize documents',
 		'facts':  'Fun The Archives Facts',
 		'ask':    'Ask the Archives a question',
 		'jokes':  'Tell a joke',
-		'photos': 'Show me interesting photos',
-		'tag':    'Help categorize documents'
+		'photos': 'Show me interesting photos'
 	},
+	'tag_start': 'Digging through the Archive...',
 	'tag_prompt': {
-		'message': 'Help us categorize this document.',
+		'message': 'Help us categorize this document. What kind of text is in this image?',
 		'options': {
 			'handwritten': 'Handwritten',
-			'typed':       'Types',
+			'typed':       'Typed',
 			'mixed':       'Mixed',
 			'none':        'No writing',
 			'skip':        'No idea'
 		}
 	},
+	'tag_error': 'Something went wrong. Open the menu again to try again or choose another option.',
 	'tag_reply': [
 		{
 			'message': 'Nailed it!',
@@ -82,6 +84,7 @@ const script = {
 			'tag':    'Keep going'
 		},
 	},
+	'tag_stop': 'Thank you for the help! Only 500,000,000 more to go! Select an option from the menu if you\'d like to do something else.',
 	'facts': [
 		'In true pop culture fashion, the most requested photo from The Archives is of Nixon and The King.',
 		'The National Archives Building in downtown Washington, DC, is built above an underground stream, the Tiber Creek.',
@@ -142,7 +145,6 @@ const script = {
 	'quit': {
 		'stop': [
 			'Leaving us already? Join us again soon! Visit the Archives blog to find more images, and select an option from the menu to start up again.',
-			'Thank you for the help! Only 500,000,000 more to go! Select an option from the menu to start up again.',
 		],
 		'break': 'Me too! Select an option from the menu to start up again.',
 	}

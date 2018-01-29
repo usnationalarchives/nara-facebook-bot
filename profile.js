@@ -27,14 +27,14 @@ const messengerProfileParams = {
 		'composer_input_disabled': false,
 		'call_to_actions': [
 			{
-				'title':   script.menu.ask,
-				'type':    'postback',
-				'payload': 'menu.ask'
-			},
-			{
 				'title':   script.menu.tag,
 				'type':    'postback',
 				'payload': 'menu.tag'
+			},
+			{
+				'title':   script.menu.ask,
+				'type':    'postback',
+				'payload': 'menu.ask'
 			},
 			{
 				'title': 'More fun stuff',

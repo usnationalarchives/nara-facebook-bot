@@ -13,7 +13,7 @@ const sendApi = require( './send' );
 const getItem = ( user ) => {
 
 	// friendly message
-	sendApi.sendMessage( user, script.loop_load );
+	sendApi.sendMessage( user, script.tag_start );
 	sendApi.showTyping( user );
 
 	// randomize result - @todo need to get 4586 dynamically
@@ -41,12 +41,11 @@ const getItem = ( user ) => {
 				objects = [ objects ];
 			}
 
-			sendApi.sendMessage( user, result.description.item.title + ':' );
-
 			let elements = [];
 			let count = 0;
 			let total = objects.length;
 
+			// create elements of the object
 			objects.forEach( ( object ) => {
 				count++;
 				elements.push( {
@@ -66,24 +65,55 @@ const getItem = ( user ) => {
 				} );
 			} );
 
-			let response = {
-				'attachment': {
-					'type': 'template',
-					'payload': {
-						'template_type': 'generic',
-						'sharable': true,
-						'image_aspect_ratio': 'square',
-						'elements': elements
+			// send title, with follow-up catalog object and answer prompt
+			sendApi.sendMessage( user, result.description.item.title + ':', [
+				{
+					'attachment': {
+						'type': 'template',
+						'payload': {
+							'template_type': 'generic',
+							'sharable': true,
+							'image_aspect_ratio': 'square',
+							'elements': elements
+						}
 					}
+				},
+				{
+					'text': script.tag_prompt.message,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.tag_prompt.options.handwritten,
+							'payload': 'tag.options.handwritten'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_prompt.options.typed,
+							'payload': 'tag.options.typed'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_prompt.options.mixed,
+							'payload': 'tag.options.mixed'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_prompt.options.none,
+							'payload': 'tag.options.none'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_prompt.options.skip,
+							'payload': 'tag.options.skip'
+						}
+					]
 				}
-			};
-
-			sendApi.sendMessage( user, response, loopChoices() );
+			] );
 
 		} )
 		.catch( function( error ) {
 			console.log( error.response.data );
-			// @todo send error message to user?
+			sendApi.sendMessage( user, script.tag_error );
 		} );
 
 }

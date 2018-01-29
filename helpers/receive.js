@@ -98,13 +98,12 @@ const receivePostback = ( user, postback ) => {
 				// build quick_replies
 				let jokeReplies = [];
 				for ( var replyKey in script.jokes[jokeNum].options ) {
-					if ( !script.jokes[jokeNum].options.hasOwnProperty( key ) ) {
+					if ( !script.jokes[jokeNum].options.hasOwnProperty( replyKey ) ) {
 						continue;
 					}
-					let reply = script.jokes[jokeNum].options[replyKey];
 					jokeReplies[] = {
 						'content_type': 'text',
-						'title': reply,
+						'title': script.jokes[jokeNum].options[replyKey],
 						'payload': 'joke_replies.' + jokeNum + '.' + replyKey
 					}
 				}
@@ -145,17 +144,7 @@ const receivePostback = ( user, postback ) => {
 			//
 
 			case 'menu.tag' :
-				// welcome message
-				// instructions on arbitrary commands
-				// prompt to continue
-				break;
-
-			case 'tag.options.new' :
 				catalogApi.getItem( user );
-				break;
-
-			case 'tag.options.stop' :
-				sendApi.sendMessage( user, script.exit );
 				break;
 
 			case 'tag.options.typed' :
@@ -163,7 +152,54 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.options.mixed' :
 			case 'tag.options.none' :
 			case 'tag.options.skip' :
-				sendApi.sendMessage( user, script[postback.payload], loop( 'continue' ) );
+
+				// get a random number
+				let replyNum = Math.floor( Math.random() * 3 );
+
+				sendApi.sendMessage( user, {
+					'text': script.tag_reply[replyNum].message,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.tag_reply[replyNum].options.learn,
+							'payload': 'tag.learn'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_reply[replyNum].options.new,
+							'payload': 'menu.tag'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_reply[replyNum].options.stop,
+							'payload': 'tag.stop'
+						}
+					]
+				} );
+
+				break;
+
+			case 'tag.learn' :
+				// @todo
+				sendApi.sendMessage( user, {
+					'text': 'Learn more placeholder',
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.tag_reply[replyNum].options.new,
+							'payload': 'menu.tag'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_reply[replyNum].options.stop,
+							'payload': 'tag.stop'
+						}
+					]
+				} );
+				break;
+
+			case 'tag.stop' :
+				sendApi.sendMessage( user, script.tag_stop );
 				break;
 
 			// default
@@ -213,42 +249,6 @@ const receivePostback = ( user, postback ) => {
 	}
 
 };
-
-/**
- * Prompt choices within a loop.
- */
-const loopChoices = () => {
-	return {
-		'text': script.promptTap,
-		'quick_replies': [
-			{
-				'content_type': 'text',
-				'title': 'Typed',
-				'payload': 'tag_typed'
-			},
-			{
-				'content_type': 'text',
-				'title': 'Handwritten',
-				'payload': 'tag_handwritten'
-			},
-			{
-				'content_type': 'text',
-				'title': 'Mixed',
-				'payload': 'tag_mixed'
-			},
-			{
-				'content_type': 'text',
-				'title': 'No Writing',
-				'payload': 'tag_none'
-			},
-			{
-				'content_type': 'text',
-				'title': 'Skip/Not sure',
-				'payload': 'tag_skip'
-			}
-		]
-	};
-}
 
 /**
  * Prompt to start the loop again.
