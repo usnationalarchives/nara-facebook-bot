@@ -7,13 +7,20 @@
 const script = {
 	'default': 'Sorry, I didn\'t understand that. For more info, type "help". You can also click the menu below for more options.',
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
-	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click the menu below to do something. You can become a citizen archivist by helping us categorize documents, find answers, and see interesting facts and photos.',
+	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click an option to do something. You can become a citizen archivist by helping us categorize documents, find answers, and see interesting facts and photos. You can access these options at any time from the menu icon below.',
 	'menu': {
 		'tag':    'Help categorize documents',
 		'facts':  'Fun The Archives Facts',
 		'ask':    'Ask the Archives a question',
 		'jokes':  'Tell a joke',
 		'photos': 'Show me interesting photos'
+	},
+	'quick_menu': {
+		'tag':    'Categorize Documents',
+		'ask':    'About the Archives',
+		'facts':  'Fun Facts',
+		'jokes':  'Tell a Joke',
+		'photos': 'Interesting Photos'
 	},
 	'tag_start': 'Let\'s go! Digging through the Archive...',
 	'tag_prompt': {

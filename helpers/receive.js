@@ -70,7 +70,36 @@ const receivePostback = ( user, postback ) => {
 		switch( postback.payload ) {
 
 			case 'get_started' :
-				sendApi.sendMessage( user, script.get_started );
+				sendApi.sendMessage( user, {
+					'text': script.get_started,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.quick_menu.tag,
+							'payload': 'menu.tag'
+						},
+						{
+							'content_type': 'text',
+							'title': script.quick_menu.ask,
+							'payload': 'menu.ask'
+						},
+						{
+							'content_type': 'text',
+							'title': script.quick_menu.facts,
+							'payload': 'menu.facts'
+						},
+						{
+							'content_type': 'text',
+							'title': script.quick_menu.jokes,
+							'payload': 'menu.jokes'
+						},
+						{
+							'content_type': 'text',
+							'title': script.quick_menu.photos,
+							'payload': 'menu.photos'
+						}
+					]
+				} );
 				break;
 
 			//
