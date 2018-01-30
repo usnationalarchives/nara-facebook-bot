@@ -200,11 +200,11 @@ const receivePostback = ( user, postback ) => {
 							{
 								'content_type': 'text',
 								'title': script.tag_intermission.options.learn,
-								'payload': {
+								'payload': JSON.stringify( {
 									'name': 'tag.learn',
 									'type': 'JSON',
 									'naId': payloadObj.naId
-								}
+								} )
 							},
 							{
 								'content_type': 'text',
