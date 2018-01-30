@@ -131,7 +131,7 @@ const script = {
 			'q': 'How would you look up Lincoln\'s location in Pennsylvania?',
 			'options': {
 				'a1': 'No idea',
-				'a2': 'What\'s he doing in Pennsylvania?'
+				'a2': 'Why\'s he in PA?'
 			},
 			'a1': 'He\'s at the Gettysburg Address.',
 			'a2': 'I think it\'s time to go back to 5th grade.'
@@ -139,8 +139,7 @@ const script = {
 		{
 			'q': 'Why did Edison invent the light bulb?',
 			'options': {
-				'a1': 'I slept during that lecture.',
-				'a2': 'No idea',
+				'a1': 'No idea',
 			},
 			'a': 'So that he could see at night, were you expecting a joke?'
 		},
