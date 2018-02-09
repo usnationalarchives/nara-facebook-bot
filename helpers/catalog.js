@@ -40,39 +40,21 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 			let result = res.data.opaResponse.results.result[0];
 			let objects = result.objects.object;
 
-			// standardize objects
+			// ensure objects is an array
 			if ( ! Array.isArray( objects ) ) {
 				objects = [ objects ];
 			}
 
-			// limit to 10 if more than 10
-			if ( objects.length > 10 ) {
-				objects.length = 10;
+			let thisObject;
+
+			// get one specific object
+			if ( objects.length > 1 ) {
+				// choose at random if more than one
+				let objNum = Math.floor( Math.random() * objects.length ) + 1;
+				thisObject = objects[objNum];
+			} else {
+				thisObject = objects[0];
 			}
-
-			let elements = [];
-			let count = 0;
-			let total = objects.length;
-
-			// create elements of the object
-			objects.forEach( ( object ) => {
-				count++;
-				elements.push( {
-					'title': ( total > 1 ) ? count + ' of ' + total : result.description.item.title,
-					'image_url': object.thumbnail['@url'],
-					'default_action': {
-						'type': 'web_url',
-						'url': object.file['@url']
-					},
-					'buttons': [
-						{
-							'type': 'web_url',
-							'url': object.file['@url'],
-							'title': 'View larger size'
-						}
-					]
-				} );
-			} );
 
 			let naId = result.description.item.naId;
 
@@ -87,7 +69,23 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'template_type': 'generic',
 							'sharable': true,
 							'image_aspect_ratio': 'square',
-							'elements': elements
+							'elements': [
+								{
+									'title': result.description.item.title,
+									'image_url': thisObj.thumbnail['@url'],
+									'default_action': {
+										'type': 'web_url',
+										'url': thisObj.file['@url']
+									},
+									'buttons': [
+										{
+											'type': 'web_url',
+											'url': thisObj.file['@url'],
+											'title': 'View larger size'
+										}
+									]
+								}
+							]
 						}
 					}
 				},
