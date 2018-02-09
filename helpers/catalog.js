@@ -73,15 +73,15 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'elements': [
 								{
 									'title': result.description.item.title,
-									'image_url': thisObj.thumbnail['@url'],
+									'image_url': thisObject.thumbnail['@url'],
 									'default_action': {
 										'type': 'web_url',
-										'url': thisObj.file['@url']
+										'url': thisObject.file['@url']
 									},
 									'buttons': [
 										{
 											'type': 'web_url',
-											'url': thisObj.file['@url'],
+											'url': thisObject.file['@url'],
 											'title': 'View larger size'
 										}
 									]
