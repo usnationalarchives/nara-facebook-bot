@@ -73,7 +73,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 							'elements': [
 								{
 									'title': result.description.item.title,
-									'image_url': thisObject.thumbnail['@url'],
+									'image_url': thisObject.file['@url'],
 									'default_action': {
 										'type': 'web_url',
 										'url': thisObject.file['@url']
