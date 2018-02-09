@@ -16,18 +16,22 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 	// friendly message
 	sendApi.sendMessage( user, script.tag_start, true );
 
-	// randomize result - @todo need to get 4586 dynamically
-	let offset = Math.floor( Math.random() * 4586 ) + 1;
+	// randomize result - @todo need to get total dynamically
+	let offset = Math.floor( Math.random() * 200000 ) + 1;
 
 	let url = 'https://catalog.archives.gov/api/v1'
-			  + '?q=speeches'
-			  + '&resultTypes=item'
-			  + '&description.item.generalRecordsTypeArray.generalRecordsType.naId=10035676' // Textual Records
-			  + '&rows=1'
-			  + '&offset=' + offset;
+			+ '?resultTypes=item'
+			// textual records
+			+ '&description.item.generalRecordsTypeArray.generalRecordsType.naId=10035676'
+			// ...with jpegs
+			+ '&objects.object.technicalMetadata.mime_is=image/jpeg'
+			// ...without pdfs
+			+ '&objects.object.technicalMetadata.mime_not=application/pdf'
+			+ '&rows=1'
+			+ '&offset=' + offset;
 
 	// testable url:
-	// https://catalog.archives.gov/api/v1?q=speeches&resultTypes=item&description.item.generalRecordsTypeArray.generalRecordsType.naId=10035676&rows=1&offset=796
+	// https://catalog.archives.gov/api/v1?resultTypes=item&objects.object.technicalMetadata.mime_is=image/jpeg&objects.object.technicalMetadata.mime_not=application/pdf&rows=5&description.item.generalRecordsTypeArray.generalRecordsType.naId=10035676
 
 	axios.get( url )
 		.then( function( res ) {
