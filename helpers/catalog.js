@@ -17,7 +17,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 	sendApi.sendMessage( user, script.tag_start, true );
 
 	// randomize result - @todo need to get total dynamically
-	let offset = Math.floor( Math.random() * 200000 ) + 1;
+	let offset = Math.floor( Math.random() * 170 ) + 1;
 
 	let url = 'https://catalog.archives.gov/api/v1'
 			+ '?resultTypes=item'
@@ -28,6 +28,7 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 			// ...without pdfs
 			+ '&objects.object.technicalMetadata.mime_not=application/pdf'
 			+ '&rows=1'
+			+ '&q=speeches'
 			+ '&offset=' + offset;
 
 	// testable url:
