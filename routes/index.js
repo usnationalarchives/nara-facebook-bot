@@ -21,6 +21,33 @@ router.get( '/', ( req, res ) => {
 
 	// testing sandbox
 
+	let objects = [
+		{
+			'mykey': 'myval'
+		},
+		{
+			'key2': 'val2'
+		},
+		{
+			'key3': 'val3'
+		},
+		{
+			'key4': 'val4'
+		}
+	];
+
+	// ensure objects is an array
+	if ( ! Array.isArray( objects ) ) {
+		objects = [ objects ];
+	}
+
+	// choose an array item at random
+	let objNum = Math.floor( Math.random() * objects.length );
+
+	console.log( objNum );
+
+	let thisObject = objects[objNum];
+
 	res.sendStatus( 403 );
 
 } );

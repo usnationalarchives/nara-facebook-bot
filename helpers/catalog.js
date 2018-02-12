@@ -42,23 +42,38 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 			console.log( 'Request response', res );
 
 			let result = res.data.opaResponse.results.result[0];
+
+			console.log( "!RESULT", result );
+
 			let objects = result.objects.object;
+
+			console.log( "!OBJECTS", objects );
 
 			// ensure objects is an array
 			if ( ! Array.isArray( objects ) ) {
 				objects = [ objects ];
 			}
 
+			console.log( "!OBJECTS-AGAIN", objects );
+
 			// choose an array item at random
 			let objNum = Math.floor( Math.random() * objects.length );
+
+			console.log( "!OBJNUM", objNum );
+
 			let thisObject = objects[objNum];
+
+			console.log( "!THISOBJECT", thisObject );
 
 			let naId = result.description.item.naId;
 
+			console.log( "!NAID", naId );
+
 			let newTagRoundCount = tagRoundCount + 1;
 
-			console.log( 'ATTEMPTED TITLE' );
-			console.log( result.description.item.title + ':' );
+			console.log( "!NEWTAGROUNDCOUNT", newTagRoundCount );
+
+			console.log( '!ATTEMPTED TITLE', result.description.item.title + ':' );
 
 			// send title, with follow-up catalog object and answer prompt
 			sendApi.sendMessage( user, result.description.item.title + ':', [
