@@ -58,13 +58,22 @@ const receivePostback = ( user, postback ) => {
 
 		let response;
 
-		// check for json
-		let payloadObj = {};
+		// default config
+		let payloadObj = {
+			'tag_round_count': 0,
+			'new_message': script.tag_start,
+			'stop_message': script.tag_stop,
+		};
+
+		// check for json in payload
 		if ( postback.payload.includes( 'JSON' ) ) {
-			payloadObj = JSON.parse( postback.payload );
+
+			// merge passed object into payloadObj
+			payloadObj = Object.assign( payloadObj, JSON.parse( postback.payload ) );
+
+			// set postback.payload back to a string
 			postback.payload = payloadObj.name;
-		} else {
-			payloadObj.tag_round_count = 0;
+
 		}
 
 		switch( postback.payload ) {
@@ -82,21 +91,6 @@ const receivePostback = ( user, postback ) => {
 							'content_type': 'text',
 							'title': script.quick_menu.ask,
 							'payload': 'menu.ask'
-						},
-						{
-							'content_type': 'text',
-							'title': script.quick_menu.facts,
-							'payload': 'menu.facts'
-						},
-						{
-							'content_type': 'text',
-							'title': script.quick_menu.jokes,
-							'payload': 'menu.jokes'
-						},
-						{
-							'content_type': 'text',
-							'title': script.quick_menu.photos,
-							'payload': 'menu.photos'
 						}
 					]
 				} );
@@ -174,7 +168,7 @@ const receivePostback = ( user, postback ) => {
 			//
 
 			case 'menu.tag' :
-				catalogApi.getItem( user, payloadObj.tag_round_count );
+				catalogApi.getItem( user, payloadObj.tag_round_count, payloadObj.new_message );
 				break;
 
 			case 'tag.options.typed' :
@@ -186,121 +180,86 @@ const receivePostback = ( user, postback ) => {
 				let parts = postback.payload.split( '.' );
 				let choice = parts[2];
 
-				// get a random number
-				let replyNum = Math.floor( Math.random() * 3 );
+				let roundLength = 5;
 
-				if ( payloadObj.tag_round_count === 3 ) {
+				let replyObj;
 
-					let interMessage = script.tag_intermission.message;
-					interMessage = interMessage.replace( 'ROUND_COUNT', '3' );
+				if ( payloadObj.tag_round_count === 1 ) {
 
-					sendApi.sendMessage( user, {
-						'text': interMessage,
-						'quick_replies': [
-							{
-								'content_type': 'text',
-								'title': script.tag_intermission.options.learn,
-								'payload': JSON.stringify( {
-									'name': 'tag.learn',
-									'type': 'JSON',
-									'naId': payloadObj.naId
-								} )
-							},
-							{
-								'content_type': 'text',
-								'title': script.tag_intermission.options.new,
-								'payload': 'menu.tag'
-							},
-							{
-								'content_type': 'text',
-								'title': script.tag_intermission.options.stop,
-								'payload': 'tag.stop'
-							}
-						]
-					} );
+					replyObj = script.tag_reply_first;
+
+				} else if ( payloadObj.tag_round_count === roundLength ) {
+
+					replyObj = script.tag_intermission;
+
+					// insert in the correct round length
+					replyObj.message = replyObj.message.replace( 'ROUND_COUNT', roundLength );
+
+					// reset tag count
+					payloadObj.tag_round_count = 0;
 
 				} else {
 
-					sendApi.sendMessage( user, {
-						'text': script.tag_reply[replyNum].message[choice],
-						'quick_replies': [
-							{
-								'content_type': 'text',
-								'title': script.tag_reply[replyNum].options.learn,
-								'payload': JSON.stringify( {
-									'name': 'tag.learn',
-									'type': 'JSON',
-									'tag_round_count': payloadObj.tag_round_count,
-									'naId': payloadObj.naId
-								} )
-							},
-							{
-								'content_type': 'text',
-								'title': script.tag_reply[replyNum].options.new,
-								'payload': JSON.stringify( {
-									'name': 'menu.tag',
-									'type': 'JSON',
-									'tag_round_count': payloadObj.tag_round_count
-								} )
-							},
-							{
-								'content_type': 'text',
-								'title': script.tag_reply[replyNum].options.stop,
-								'payload': 'tag.stop'
-							}
-						]
-					} );
+					// get a random number based on number of reply options
+					let replyNum = Math.floor( Math.random() * script.tag_reply.length );
+
+					replyObj = script.tag_reply[replyNum];
 
 				}
 
-				break;
-
-			case 'tag.learn' :
-
-				sendApi.sendMessage( user, {
-					'attachment': {
-						'type': 'template',
-						'payload': {
-							'template_type': 'button',
-							'text': script.tag_learn.message,
-							'buttons': [
-								{
-									'type': 'web_url',
-									'url': 'https://catalog.archives.gov/id/' + payloadObj.naId,
-									'title': script.tag_learn.button,
-									'webview_height_ratio': 'tall',
-									'messenger_extensions': true
-								}
-							]
-						}
-					}
-				},
-				{
-					'text': script.tag_learn_reply.message,
+				sendApi.sendMessage( user, script.tag_acknowledgment[choice], {
+					'text': replyObj.message,
 					'quick_replies': [
 						{
 							'content_type': 'text',
-							'title': script.tag_learn_reply.options.new,
+							'title': replyObj.options.new,
 							'payload': JSON.stringify( {
 								'name': 'menu.tag',
 								'type': 'JSON',
-								'tag_round_count': payloadObj.tag_round_count
+								'tag_round_count': payloadObj.tag_round_count,
+								'new_message': replyObj.followup.new,
 							} )
 						},
 						{
 							'content_type': 'text',
-							'title': script.tag_learn_reply.options.stop,
-							'payload': 'tag.stop'
+							'title': replyObj.options.stop,
+							'payload': JSON.stringify( {
+								'name': 'tag.stop',
+								'type': 'JSON',
+								'stop_message': replyObj.followup.stop
+							} )
+						}
+					]
+				} );
+
+				break;
+
+			case 'tag.stop' :
+				sendApi.sendMessage( user, {
+					'text': payloadObj.stop_message,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.tag_stop_prompts.facts,
+							'payload': 'menu.facts'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_stop_prompts.ask,
+							'payload': 'menu.ask'
+						},
+						{
+							'content_type': 'text',
+							'title': script.tag_stop_prompts.photos,
+							'payload': 'menu.photos'
 						}
 					]
 				} );
 				break;
 
-			case 'tag.stop' :
-				sendApi.sendMessage( user, script.tag_stop );
-				break;
-
-			// default
+			//
+			// default responses
+			//
 
 			default:
 

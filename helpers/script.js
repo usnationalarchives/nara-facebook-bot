@@ -5,9 +5,12 @@
 'use strict';
 
 const script = {
-	'default': 'Sorry, I didn\'t understand that. For more info, type "help". You can also click the menu below for more options.',
+	//
+	// general
+	//
+	'default': 'Sorry, I didn\'t understand that. For more info, tap the menu below for more options.',
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
-	'get_started': 'Hello! I\'m a bot for the U.S. National Archives and Records Administration. Click an option to do something. You can become a citizen archivist by helping us categorize documents, find answers, and see interesting facts and photos. You can access these options at any time from the menu icon below.',
+	'get_started': 'Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
 	'menu': {
 		'tag':    'Help categorize documents',
 		'facts':  'Fun The Archives Facts',
@@ -16,92 +19,90 @@ const script = {
 		'photos': 'Show me interesting photos'
 	},
 	'quick_menu': {
-		'tag':    'Categorize Documents',
-		'ask':    'About the Archives',
-		'facts':  'Fun Facts',
-		'jokes':  'Tell a Joke',
-		'photos': 'Interesting Photos'
+		'tag':    'Tag a document',
+		'ask':    'Ask a question',
 	},
-	'tag_start': 'Let\'s go! Digging through the Archive...',
+	//
+	// tagging
+	//
+	'tag_start': 'Let\'s go! I’m retrieving a document from the virtual stacks...',
+	'tag_image_options': {
+		'big':   'View larger size',
+		'learn': 'Learn more'
+	},
 	'tag_prompt': {
-		'message': 'Help us categorize this document. What kind of text is in this image?',
+		'message': 'Tag it! Select what kind of writing you see in the document.',
 		'options': {
 			'handwritten': 'Handwritten',
 			'typed':       'Typed',
-			'mixed':       'Mixed',
+			'mixed':       'Both',
 			'none':        'No writing',
 			'skip':        'No idea'
 		}
 	},
-	'tag_error': 'Something went wrong. Open the menu again to try again or choose another option.',
+	'tag_error': 'Something went wrong. Open the menu to try again or choose another option.',
+	'tag_acknowledgment': {
+		'handwritten': 'Tagged as handwritten.',
+		'typed': 'Tagged as typed.',
+		'mixed': 'Tagged as containing typed and handwritten text.',
+		'none': 'Tagged as containing no writing.',
+		'skip': 'No problem! Skipping this one.'
+	},
+	'tag_reply_first': {
+		'message': 'Congrats on your first tag! Every tag you provide makes American history more accessible.',
+		'options': {
+			'new':   'Tag another document',
+			'stop':  'Stop tagging',
+		},
+		'followup': {
+			'new': 'You got it! Heading back to the virtual stacks to retrieve the next document...',
+			'stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+		}
+	}
 	'tag_reply': [
 		{
-			'message': {
-				'handwritten': 'Nailed it! Marked as handwritten.',
-				'typed': 'Nailed it! Marked as typed.',
-				'mixed': 'Nailed it! Marked as containing typed and handwritten text.',
-				'none': 'Nailed it! Marked as containing no writing.',
-				'skip': 'No problem! Skipping this one.'
-			},
+			'message': 'Good eye! Isn’t this fun? Want to tag another?',
 			'options': {
-				'learn': 'Learn more',
-				'new':   'Let\'s keep moving',
-				'stop':  'Stop'
+				'new':   'Tag another document',
+				'stop':  'Stop tagging'
 			},
-			'followup': 'You got it! Here\'s the next document.'
+			'followup': {
+				'new': 'You got it! Let me find you a good one...',
+				'stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+			}
 		},
 		{
-			'message': {
-				'handwritten': 'Very good! Marked as handwritten. Do you want to know more or are you ready for another?',
-				'typed': 'Very good! Marked as typed. Do you want to know more or are you ready for another?',
-				'mixed': 'Very good! Marked as containing typed and handwritten text. Do you want to know more or are you ready for another?',
-				'none': 'Very good! Marked as containing no writing. Do you want to know more or are you ready for another?',
-				'skip': 'Sure, we can skip this. Do you want to know more or are you ready for another?'
-			},
+			'message': 'You’re on a roll! Only 38,999,999 more to go. (Just kidding!) Want to tag some more?',
 			'options': {
-				'learn': 'Learn more',
 				'new':   'Let\'s keep moving',
-				'stop':  'Stop'
+				'stop':  'Stop tagging'
 			},
-			'followup': 'You got it! Here\'s the next document.'
-		},
-		{
-			'message': 'Thanks! Shall I ramble on about this or do you want to move on?',
-			'message': {
-				'handwritten': 'Thanks! Marked as handwritten. Shall I ramble on about this or do you want to move on?',
-				'typed': 'Thanks! Marked as typed. Shall I ramble on about this or do you want to move on?',
-				'mixed': 'Thanks! Marked as containing typed and handwritten text. Shall I ramble on about this or do you want to move on?',
-				'none': 'Thanks! Marked as containing no writing. Shall I ramble on about this or do you want to move on?',
-				'skip': 'Sure, you don\'t have to tag this one. Shall I ramble on about it or do you want to move on?'
-			},
-			'options': {
-				'learn': 'Tell me all about it',
-				'new':   'Let\'s keep moving',
-				'stop':  'Stop'
-			},
-			'followup': 'Here is the next document.'
+			'followup': {
+				'new': 'Grabbing another document for you...',
+				'stop': 'Every bit counts! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+			}
 		}
 	],
-	'tag_learn_reply': {
-		'message': 'Are you ready for another?',
-		'options': {
-			'new': 'Let\'s keep moving',
-			'stop': 'Stop'
-		}
-	},
 	'tag_intermission': {
 		'message': 'You just did ROUND_COUNT documents in a row. How are you feeling?',
 		'options': {
-			'learn': 'Learn more',
-			'stop': 'I need a break',
-			'new': 'Keep going'
+			'new': 'Keep going',
+			'stop': 'I need a break'
 		},
+		'followup': {
+			'new': 'I like your attitude. Grabbing another document for you...',
+			'stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+		}
 	},
-	'tag_learn': {
-		'message': 'More info about this document can be found in the Archives Catalog.',
-		'button': 'View in catalog'
+	'tag_stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
+	'tag_stop_prompts': {
+		'facts':  'Fun Facts',
+		'ask':    'Ask a question',
+		'photos': 'Interesting photos'
 	},
-	'tag_stop': 'Thank you for the help! Only 499,999,997 more to go! Select an option from the menu if you\'d like to do something else.',
+	//
+	// extras
+	//
 	'facts': [
 		'In true pop culture fashion, the most requested photo from The Archives is of Nixon and The King.',
 		'The National Archives Building in downtown Washington, DC, is built above an underground stream, the Tiber Creek.',

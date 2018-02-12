@@ -11,10 +11,13 @@ const sendApi = require( './send' );
 /**
  * Query NARA catalog and return an item.
  */
-const getItem = ( user, tagRoundCount = 0 ) => {
+const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 
 	// friendly message
-	sendApi.sendMessage( user, script.tag_start, true );
+	if ( ! startMessage ) {
+		startMessage = script.tag_start;
+	}
+	sendApi.sendMessage( user, startMessage, true );
 
 	// randomize result - @todo need to get total dynamically
 	let offset = Math.floor( Math.random() * 170 ) + 1;
@@ -82,7 +85,14 @@ const getItem = ( user, tagRoundCount = 0 ) => {
 										{
 											'type': 'web_url',
 											'url': thisObject.file['@url'],
-											'title': 'View larger size'
+											'title': script.tag_image_options.big,
+										},
+										{
+											'type': 'web_url',
+											'url': 'https://catalog.archives.gov/id/' + thisObject.naId,
+											'title': script.tag_image_options.learn,
+											'webview_height_ratio': 'tall',
+											'messenger_extensions': true
 										}
 									]
 								}
