@@ -39,7 +39,7 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 
 	axios.get( url )
 		.then( function( res ) {
-			console.log( 'Request response', res.data.opaResponse.results );
+			console.log( 'Request response', res );
 
 			// the api has been known to return empty results for unclear reasons
 			if ( ! res.data.opaResponse.results.result.length ) {
