@@ -104,13 +104,24 @@ const script = {
 	// extras
 	//
 	'facts': [
-		'In true pop culture fashion, the most requested photo from The Archives is of Nixon and The King.',
-		'The National Archives Building in downtown Washington, DC, is built above an underground stream, the Tiber Creek.',
-		'The Archives was established in 1934 by President Franklin Roosevelt, but you could say it started with the birth of our great nation. Our documents date back to 1775.',
-		'We\'re more than the Declaration of Independence (my eye is on you, Nicolas Cage wannabe). There are just about 10 billion (BILLION) pages of textual records. To read that many pages, you\'d have to read the entire Harry Potter series 3,197,953 times!',
-		'Our most searched inquiry is asking about UFOs.'
+		{
+			'message': 'In true pop culture fashion, the most requested photo from the National Archives is of Nixon and The King.',
+			'image': 'https://catalog.archives.gov/OpaAPI/media/1634221/content/arcmedia/Public_Vaults/5598_2004_a.jpg'
+		},
+		'The National Archives Building in downtown Washington, DC is built above an underground stream, the Old Tiber Creek.',
+		'The National Archives was established in 1934 by President Franklin Roosevelt, but you could say it started with the birth of our great nation. Our documents date back to 1774.',
+		'We\'re more than the Declaration of Independence (my eye is on you, Nicolas Cage wannabe). In Washington, DC, there are just about 10 billion (BILLION) pieces of paper alone. To read that many pages, you\'d have to read the entire Harry Potter series 3,197,953 times!',
+		'You can be a virtual volunteer! Become a Citizen Archivist by transcribing and tagging records in our Catalog.',
 	],
 	'facts_reply': {
+		'message': 'Want another?',
+		'options': {
+			'continue': 'Yes',
+		}
+	},
+	'get_photo': 'Grabbing a photo...',
+	'photos': [ 6011716, 1126974, 535579, 522880, 533758, 522888, 74249694, 532376, 6883309, 548550, 641627, 594412, 523373, 7387550, 2803422, 6816402, 75856835, 7348582, 16685274 ],
+	'photos_reply': {
 		'message': 'Want another?',
 		'options': {
 			'continue': 'Yes',
@@ -160,7 +171,6 @@ const script = {
 			'continue': 'Yes',
 		}
 	},
-	'photos_temp': 'Photos section placeholder.',
 	'quit': {
 		'stop': [
 			'Leaving us already? Join us again soon! Visit the Archives blog to find more images, and select an option from the menu to start up again.',

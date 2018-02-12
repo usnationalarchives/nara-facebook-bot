@@ -104,39 +104,17 @@ const receivePostback = ( user, postback ) => {
 				sendApi.sendMessage( user, script.ask_temp );
 				break;
 
+			//
+			// photos
+			//
+
 			case 'menu.photos' :
-				sendApi.sendMessage( user, script.photos_temp );
-				break;
-
-			//
-			// jokes
-			//
-
-			case 'menu.jokes' :
 
 				// get a random number
-				let jokeNum = Math.floor( Math.random() * 3 );
+				let photoNum = Math.floor( Math.random() * script.photos.length );
 
-				// build quick_replies
-				let jokeReplies = [];
-				for ( var replyKey in script.jokes[jokeNum].options ) {
-					if ( !script.jokes[jokeNum].options.hasOwnProperty( replyKey ) ) {
-						continue;
-					}
-
-					jokeReplies.push({
-						'content_type': 'text',
-						'title': script.jokes[jokeNum].options[replyKey],
-						'payload': 'joke_replies.' + jokeNum + '.' + replyKey
-					} );
-
-				}
-
-				// show the joke & responses
-				sendApi.sendMessage( user, {
-					'text': script.jokes[jokeNum].q,
-					'quick_replies': jokeReplies
-				} );
+				// get a photo
+				catalogApi.getPhoto( user, script.photos[photoNum] );
 
 				break;
 
@@ -147,19 +125,59 @@ const receivePostback = ( user, postback ) => {
 			case 'menu.facts' :
 
 				// get a random number
-				let factNum = Math.floor( Math.random() * 5 );
+				let factNum = Math.floor( Math.random() * script.facts.length );
 
-				// show the fact & followup
-				sendApi.sendMessage( user, script.facts[factNum], {
-					'text': script.facts_reply.message,
-					'quick_replies': [
+				// is string?
+				if ( typeof script.facts[factNum] === 'string' || script.facts[factNum] instanceof String ) {
+
+					// show the fact & followup
+					sendApi.sendMessage( user, script.facts[factNum], {
+						'text': script.facts_reply.message,
+						'quick_replies': [
+							{
+								'content_type': 'text',
+								'title': script.facts_reply.options.continue,
+								'payload': 'menu.facts'
+							}
+						]
+					} );
+
+				} else {
+
+					// show the fact, image, & followup
+					sendApi.sendMessage( user, script.facts[factNum].message, [
 						{
-							'content_type': 'text',
-							'title': script.facts_reply.options.continue,
-							'payload': 'menu.facts'
+							'attachment': {
+								'type': 'template',
+								'payload': {
+									'template_type': 'generic',
+									'sharable': true,
+									'image_aspect_ratio': 'square',
+									'elements': [
+										{
+											'title': 'Image',
+											'image_url': script.facts[factNum].image,
+											'default_action': {
+												'type': 'web_url',
+												'url': script.facts[factNum].image
+											}
+										}
+									]
+								}
+							}
+						},
+						{
+							'text': script.facts_reply.message,
+							'quick_replies': [
+								{
+									'content_type': 'text',
+									'title': script.facts_reply.options.continue,
+									'payload': 'menu.facts'
+								}
+							]
 						}
-					]
-				} );
+					] );
+				}
 
 				break;
 
