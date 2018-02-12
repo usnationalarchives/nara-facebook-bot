@@ -13,10 +13,10 @@ const script = {
 	'get_started': 'Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
 	'menu': {
 		'tag':    'Tag a document',
-		'facts':  'Fun The Archives Facts',
-		'ask':    'Ask the Archives a question',
-		'jokes':  'Tell a joke',
-		'photos': 'Show me interesting photos'
+		'facts':  'Fun facts',
+		'ask':    'Ask a question',
+		'photos': 'Interesting photos',
+		'submenu': 'More fun stuff',
 	},
 	'quick_menu': {
 		'tag':    'Tag a document',
@@ -138,39 +138,6 @@ const script = {
 		}
 	],
 	'ask_temp': 'Ask a question section placeholder.',
-	'jokes': [
-		{
-			'q': 'How would you look up Lincoln\'s location in Pennsylvania?',
-			'options': {
-				'a1': 'No idea',
-				'a2': 'Why\'s he in PA?'
-			},
-			'a1': 'He\'s at the Gettysburg Address.',
-			'a2': 'I think it\'s time to go back to 5th grade.'
-		},
-		{
-			'q': 'Why did Edison invent the light bulb?',
-			'options': {
-				'a1': 'No idea',
-			},
-			'a': 'So that he could see at night, were you expecting a joke?'
-		},
-		{
-			'q': 'The year is 1924, where do you go for a drink?',
-			'options': {
-				'a1': 'No idea',
-				'a2': 'At Gatsby\'s?'
-			},
-			'a1': 'I don\'t know either, but if you figure it out, speakeasy about it.',
-			'a2': 'Great, I\'m coming with you.'
-		}
-	],
-	'jokes_reply': {
-		'message': 'Want to hear another joke?',
-		'options': {
-			'continue': 'Yes',
-		}
-	},
 	'quit': {
 		'stop': [
 			'Leaving us already? Join us again soon! Visit the Archives blog to find more images, and select an option from the menu to start up again.',

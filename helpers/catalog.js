@@ -250,3 +250,4 @@ const getPhoto = ( user, naId ) => {
 }
 
 module.exports.getItem = getItem;
+module.exports.getPhoto = getPhoto;

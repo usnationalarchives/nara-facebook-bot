@@ -37,18 +37,13 @@ const messengerProfileParams = {
 				'payload': 'menu.ask'
 			},
 			{
-				'title': 'More fun stuff',
+				'title': script.menu.submenu,
 				'type':  'nested',
 				'call_to_actions': [
 					{
 						'title':   script.menu.facts,
 						'type':    'postback',
 						'payload': 'menu.facts'
-					},
-					{
-						'title':   script.menu.jokes,
-						'type':    'postback',
-						'payload': 'menu.jokes'
 					},
 					{
 						'title':   script.menu.photos,
