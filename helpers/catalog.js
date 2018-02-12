@@ -32,7 +32,7 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 			+ '&objects.object.technicalMetadata.mime_not=application/pdf'
 			+ '&rows=1'
 			+ '&q=speeches'
-			+ '&offset=' + offset;
+			+ '&offset=' + 133;
 
 	// testable url:
 	// https://catalog.archives.gov/api/v1?resultTypes=item&objects.object.technicalMetadata.mime_is=image/jpeg&objects.object.technicalMetadata.mime_not=application/pdf&rows=1&description.item.generalRecordsTypeArray.generalRecordsType.naId=10035676&offset=1&q=speeches
@@ -56,6 +56,9 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 			let naId = result.description.item.naId;
 
 			let newTagRoundCount = tagRoundCount + 1;
+
+			console.log( 'ATTEMPTED TITLE' );
+			console.log( result.description.item.title + ':' );
 
 			// send title, with follow-up catalog object and answer prompt
 			sendApi.sendMessage( user, result.description.item.title + ':', [
