@@ -12,7 +12,7 @@ const script = {
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
 	'get_started': 'Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
 	'menu': {
-		'tag':    'Help categorize documents',
+		'tag':    'Tag a document',
 		'facts':  'Fun The Archives Facts',
 		'ask':    'Ask the Archives a question',
 		'jokes':  'Tell a joke',

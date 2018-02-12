@@ -175,7 +175,6 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.options.handwritten' :
 			case 'tag.options.mixed' :
 			case 'tag.options.none' :
-			case 'tag.options.skip' :
 
 				let parts = postback.payload.split( '.' );
 				let choice = parts[2];
@@ -232,6 +231,29 @@ const receivePostback = ( user, postback ) => {
 					]
 				} );
 
+				break;
+
+			// when skipping, we don't need to check tag count or pass along custom messages
+			case 'tag.options.skip' :
+				sendApi.sendMessage( user, {
+					'text': script.tag_acknowledgment.skip,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': replyObj.options.new,
+							'payload': JSON.stringify( {
+								'name': 'menu.tag',
+								'type': 'JSON',
+								'tag_round_count': payloadObj.tag_round_count
+							} )
+						},
+						{
+							'content_type': 'text',
+							'title': replyObj.options.stop,
+							'payload': 'tag.stop'
+						}
+					]
+				} );
 				break;
 
 			case 'tag.stop' :
