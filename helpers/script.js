@@ -58,7 +58,7 @@ const script = {
 			'new': 'You got it! Heading back to the virtual stacks to retrieve the next document...',
 			'stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
 		}
-	}
+	},
 	'tag_reply': [
 		{
 			'message': 'Good eye! Isn’t this fun? Want to tag another?',
