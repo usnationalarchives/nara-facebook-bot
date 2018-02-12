@@ -95,13 +95,13 @@ const script = {
 		}
 	},
 	'tag_stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
-	'tag_stop_prompts': {
-		'facts':  'Fun Facts',
+	'stop_prompts': {
+		'facts':  'Fun facts',
 		'ask':    'Ask a question',
 		'photos': 'Interesting photos'
 	},
 	//
-	// extras
+	// facts
 	//
 	'facts': [
 		{
@@ -117,14 +117,35 @@ const script = {
 		'message': 'Want another?',
 		'options': {
 			'continue': 'Yes',
+			'stop': 'No'
 		}
 	},
+	'facts_switch': {
+		'message': 'Would you like to do something else?',
+		'options': {
+			'tag': 'Tag documents',
+			'ask': 'Ask a question',
+			'photos': 'Interesting photos',
+		}
+	},
+	//
+	// photos
+	//
 	'get_photo': 'Grabbing a photo...',
 	'photos': [ 6011716, 1126974, 535579, 522880, 533758, 522888, 74249694, 532376, 6883309, 548550, 641627, 594412, 523373, 7387550, 2803422, 6816402, 75856835, 7348582, 16685274 ],
 	'photos_reply': {
 		'message': 'Want another?',
 		'options': {
 			'continue': 'Yes',
+			'stop': 'No'
+		}
+	},
+	'photos_switch': {
+		'message': 'Would you like to do something else?',
+		'options': {
+			'tag': 'Tag documents',
+			'ask': 'Ask a question',
+			'facts': 'Fun facts',
 		}
 	},
 	'ask': [

@@ -230,12 +230,17 @@ const getPhoto = ( user, naId ) => {
 					}
 				},
 				{
-					'text': script.facts_reply.message,
+					'text': script.photos_reply.message,
 					'quick_replies': [
 						{
 							'content_type': 'text',
-							'title': script.facts_reply.options.continue,
-							'payload': 'menu.facts'
+							'title': script.photos_reply.options.continue,
+							'payload': 'menu.photos'
+						},
+						{
+							'content_type': 'text',
+							'title': script.photos_reply.options.stop,
+							'payload': 'switch.photos'
 						}
 					]
 				}

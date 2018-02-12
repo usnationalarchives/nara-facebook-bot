@@ -118,6 +118,29 @@ const receivePostback = ( user, postback ) => {
 
 				break;
 
+			case 'switch.photos' :
+				sendApi.sendMessage( user, {
+					'text': script.photos_switch.message,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.photos_switch.tag,
+							'payload': 'menu.tag',
+						},
+						{
+							'content_type': 'text',
+							'title': script.photos_switch.ask,
+							'payload': 'menu.ask',
+						},
+						{
+							'content_type': 'text',
+							'title': script.photos_switch.facts,
+							'payload': 'menu.facts',
+						}
+					]
+				} );
+				break;
+
 			//
 			// fun facts
 			//
@@ -138,6 +161,11 @@ const receivePostback = ( user, postback ) => {
 								'content_type': 'text',
 								'title': script.facts_reply.options.continue,
 								'payload': 'menu.facts'
+							},
+							{
+								'content_type': 'text',
+								'title': script.facts_reply.options.stop,
+								'payload': 'switch.facts',
 							}
 						]
 					} );
@@ -179,6 +207,29 @@ const receivePostback = ( user, postback ) => {
 					] );
 				}
 
+				break;
+
+			case 'switch.facts':
+				sendApi.sendMessage( user, {
+					'text': script.facts_switch.message,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.facts_switch.tag,
+							'payload': 'menu.tag',
+						},
+						{
+							'content_type': 'text',
+							'title': script.facts_switch.ask,
+							'payload': 'menu.ask',
+						},
+						{
+							'content_type': 'text',
+							'title': script.facts_switch.photos,
+							'payload': 'menu.photos',
+						}
+					]
+				} );
 				break;
 
 			//
@@ -280,17 +331,17 @@ const receivePostback = ( user, postback ) => {
 					'quick_replies': [
 						{
 							'content_type': 'text',
-							'title': script.tag_stop_prompts.facts,
+							'title': script.stop_prompts.facts,
 							'payload': 'menu.facts'
 						},
 						{
 							'content_type': 'text',
-							'title': script.tag_stop_prompts.ask,
+							'title': script.stop_prompts.ask,
 							'payload': 'menu.ask'
 						},
 						{
 							'content_type': 'text',
-							'title': script.tag_stop_prompts.photos,
+							'title': script.stop_prompts.photos,
 							'payload': 'menu.photos'
 						}
 					]
