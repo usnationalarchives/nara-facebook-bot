@@ -20,7 +20,7 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 	sendApi.sendMessage( user, startMessage, true );
 
 	// randomize result - @todo need to get total dynamically
-	let offset = Math.floor( Math.random() * 170 ) + 1;
+	let offset = Math.floor( Math.random() * 650 ) + 1;
 
 	let url = 'https://catalog.archives.gov/api/v1'
 			+ '?resultTypes=item'
@@ -29,10 +29,10 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 			// ...with jpegs
 			+ '&objects.object.technicalMetadata.mime_is=image/jpeg'
 			// ...without pdfs
-			+ '&objects.object.technicalMetadata.mime_not=application/pdf'
+			// + '&objects.object.technicalMetadata.mime_not=application/pdf'
 			+ '&rows=1'
 			+ '&q=speeches'
-			+ '&offset=' + 133;
+			+ '&offset=' + offset;
 
 	// testable url:
 	// https://catalog.archives.gov/api/v1?resultTypes=item&objects.object.technicalMetadata.mime_is=image/jpeg&objects.object.technicalMetadata.mime_not=application/pdf&rows=1&description.item.generalRecordsTypeArray.generalRecordsType.naId=10035676&offset=1&q=speeches
@@ -42,38 +42,31 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 			console.log( 'Request response', res );
 
 			let result = res.data.opaResponse.results.result[0];
-
-			console.log( "!RESULT", result );
-
 			let objects = result.objects.object;
-
-			console.log( "!OBJECTS", objects );
 
 			// ensure objects is an array
 			if ( ! Array.isArray( objects ) ) {
 				objects = [ objects ];
 			}
 
-			console.log( "!OBJECTS-AGAIN", objects );
+			// remove non-jpegs
+			for ( let i = 0; i < objects.length; i++ ) {
+				if ( objects[i].file['@mime'] !== 'image/jpeg' ) {
+					objects.splice( i, 1 );
+				}
+			}
+
+			if ( !objects.length ) {
+				console.error( 'Objects array is empty' );
+			}
 
 			// choose an array item at random
 			let objNum = Math.floor( Math.random() * objects.length );
-
-			console.log( "!OBJNUM", objNum );
-
 			let thisObject = objects[objNum];
-
-			console.log( "!THISOBJECT", thisObject );
 
 			let naId = result.description.item.naId;
 
-			console.log( "!NAID", naId );
-
 			let newTagRoundCount = tagRoundCount + 1;
-
-			console.log( "!NEWTAGROUNDCOUNT", newTagRoundCount );
-
-			console.log( '!ATTEMPTED TITLE', result.description.item.title + ':' );
 
 			// send title, with follow-up catalog object and answer prompt
 			sendApi.sendMessage( user, result.description.item.title + ':', [
