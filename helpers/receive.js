@@ -77,6 +77,8 @@ const receivePostback = ( user, postback ) => {
 
 		}
 
+		let parts, quickReplies;
+
 		switch( postback.payload ) {
 
 			/**
@@ -109,10 +111,10 @@ const receivePostback = ( user, postback ) => {
 			case 'switch.facts' :
 			case 'switch.ask' :
 
-				let parts = postback.payload.split( '.' );
+				parts = postback.payload.split( '.' );
 				let section = parts[1];
 				let sections = [ 'tag', 'photos', 'facts', 'ask' ];
-				let quickReplies = [];
+				quickReplies = [];
 
 				for( let i = 0; i < 4; i++ ) {
 					if ( section !== sections[i] ) {
@@ -248,7 +250,7 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.options.none' :
 			case 'tag.options.skip' :
 
-				let parts = postback.payload.split( '.' );
+				parts = postback.payload.split( '.' );
 				let choice = parts[2];
 
 				// default reply
@@ -277,7 +279,7 @@ const receivePostback = ( user, postback ) => {
 
 				}
 
-				let quickReplies = [
+				quickReplies = [
 					{
 						'content_type': 'text',
 						'title': reply.option_new,

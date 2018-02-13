@@ -77,7 +77,7 @@ const script = {
 		'option_stop': 'I need a break',
 		'followup_new': 'I like your attitude. Grabbing another document for you...',
 		'followup_stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
-	}
+	},
 	//
 	// Fun Facts
 	//
