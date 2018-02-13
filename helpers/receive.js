@@ -124,17 +124,17 @@ const receivePostback = ( user, postback ) => {
 					'quick_replies': [
 						{
 							'content_type': 'text',
-							'title': script.photos_switch.tag,
+							'title': script.photos_switch.options.tag,
 							'payload': 'menu.tag',
 						},
 						{
 							'content_type': 'text',
-							'title': script.photos_switch.ask,
+							'title': script.photos_switch.options.ask,
 							'payload': 'menu.ask',
 						},
 						{
 							'content_type': 'text',
-							'title': script.photos_switch.facts,
+							'title': script.photos_switch.options.facts,
 							'payload': 'menu.facts',
 						}
 					]
@@ -201,6 +201,11 @@ const receivePostback = ( user, postback ) => {
 									'content_type': 'text',
 									'title': script.facts_reply.options.continue,
 									'payload': 'menu.facts'
+								},
+								{
+									'content_type': 'text',
+									'title': script.facts_reply.options.stop,
+									'payload': 'switch.facts',
 								}
 							]
 						}
@@ -215,17 +220,17 @@ const receivePostback = ( user, postback ) => {
 					'quick_replies': [
 						{
 							'content_type': 'text',
-							'title': script.facts_switch.tag,
+							'title': script.facts_switch.options.tag,
 							'payload': 'menu.tag',
 						},
 						{
 							'content_type': 'text',
-							'title': script.facts_switch.ask,
+							'title': script.facts_switch.options.ask,
 							'payload': 'menu.ask',
 						},
 						{
 							'content_type': 'text',
-							'title': script.facts_switch.photos,
+							'title': script.facts_switch.options.photos,
 							'payload': 'menu.photos',
 						}
 					]
