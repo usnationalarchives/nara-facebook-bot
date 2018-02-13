@@ -314,7 +314,7 @@ const receivePostback = ( user, postback ) => {
 					'quick_replies': [
 						{
 							'content_type': 'text',
-							'title': payloadObj.new_message,
+							'title': script.tag_reply_first.options.new,
 							'payload': JSON.stringify( {
 								'name': 'menu.tag',
 								'type': 'JSON',
@@ -323,7 +323,7 @@ const receivePostback = ( user, postback ) => {
 						},
 						{
 							'content_type': 'text',
-							'title': payloadObj.stop_message,
+							'title': script.tag_reply_first.options.stop,
 							'payload': 'tag.stop'
 						}
 					]
