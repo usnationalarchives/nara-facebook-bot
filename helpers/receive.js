@@ -126,6 +126,13 @@ const receivePostback = ( user, postback ) => {
 					}
 				}
 
+				// option to stop for real
+				quickReplies.push( {
+					'content_type': 'text',
+					'title': script.menu.stop,
+					'payload': getRand( script.stop )
+				} );
+
 				if ( postback.payload === 'switch.tag' && payloadObj.stop_message !== script.switch_section ) {
 
 					// send a custom message before the switch_section prompt

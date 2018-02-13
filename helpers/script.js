@@ -17,13 +17,19 @@ const script = {
 		'ask': 'Ask a question',
 		'photos': 'Interesting photos',
 		'submenu': 'More fun stuff',
+		'stop': 'Stop'
 	},
 	'switch_section': 'Would you like to do something else?',
 	'ask_temp': 'Ask a question section placeholder.',
+	'stop': [
+		'Want to receive our twice-monthly newsletter? Sign up here: https://www.archives.gov/research/catalog/newsletter',
+		'Had a good time? Share with a friend!',
+		'Leaving us already? Join us again soon! Visit the National Archives Catalog to find more images: catalog.archives.gov'
+	],
 	//
 	// Tag a Document
 	//
-	'tag_start': 'Let\'s go! I’m retrieving a document from the virtual stacks...',
+	'tag_start': 'Let\'s go! I\'m retrieving a document from the virtual stacks...',
 	'tag_error': 'Something went wrong. Open the menu to try again or choose another option.',
 	'tag_image_options': {
 		'big': 'View larger size',
@@ -48,8 +54,8 @@ const script = {
 	},
 	'tag_reply': {
 		'message':[
-			'Good eye! Isn’t this fun? Want to tag another?',
-			'You’re on a roll! Only 38,999,999 more to go. (Just kidding!) Want to tag some more?',
+			'Good eye! Isn\'t this fun? Want to tag another?',
+			'You\'re on a roll! Only 38,999,999 more to go. (Just kidding!) Want to tag some more?',
 		],
 		'option_new':[
 			'Tag another document',
@@ -63,7 +69,8 @@ const script = {
 		],
 		'followup_stop':[
 			'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
-			'Every bit counts! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+			'Every bit counts! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
+			'Want to get more involved? Continue your Citizen Archivist work by by tagging and transcribing records. https://www.archives.gov/citizen-archivist'
 		]
 	},
 	// tag_reply_first and tag_reply_intermission are context-specific variations of
@@ -78,6 +85,7 @@ const script = {
 		'followup_new': 'I like your attitude. Grabbing another document for you...',
 		'followup_stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
 	},
+	'tag_idle': 'It seems like you\'ve zoned out. Do you want to stop tagging?',
 	//
 	// Fun Facts
 	//
@@ -109,12 +117,6 @@ const script = {
 			'continue': 'Yes',
 			'stop': 'No'
 		}
-	},
-	'quit': {
-		'stop': [
-			'Leaving us already? Join us again soon! Visit the Archives blog to find more images, and select an option from the menu to start up again.',
-		],
-		'break': 'Me too! Select an option from the menu to start up again.',
 	}
 };
 
