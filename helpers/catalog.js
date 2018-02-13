@@ -69,7 +69,7 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 			let newTagRoundCount = tagRoundCount + 1;
 
 			// send title, with follow-up catalog object and answer prompt
-			sendApi.sendMessage( user, result.description.item.title + ':', [
+			sendApi.sendMessage( user,
 				{
 					'attachment': {
 						'type': 'template',
@@ -159,7 +159,7 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 						}
 					]
 				}
-			] );
+			);
 
 		} )
 		.catch( function( error ) {
@@ -194,7 +194,7 @@ const getPhoto = ( user, naId ) => {
 			let thisObject = objects[0];
 
 			// send title, with follow-up catalog object and answer prompt
-			sendApi.sendMessage( user, result.description.item.title + ':', [
+			sendApi.sendMessage( user,
 				{
 					'attachment': {
 						'type': 'template',
@@ -244,7 +244,7 @@ const getPhoto = ( user, naId ) => {
 						}
 					]
 				}
-			] );
+			);
 
 		} )
 		.catch( function( error ) {
