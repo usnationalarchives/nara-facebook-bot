@@ -18,10 +18,7 @@ const script = {
 		'photos': 'Interesting photos',
 		'submenu': 'More fun stuff',
 	},
-	'quick_menu': {
-		'tag':    'Tag a document',
-		'ask':    'Ask a question',
-	},
+	'switch_section': 'Would you like to do something else?',
 	//
 	// tagging
 	//
@@ -95,11 +92,6 @@ const script = {
 		}
 	},
 	'tag_stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
-	'stop_prompts': {
-		'facts':  'Fun facts',
-		'ask':    'Ask a question',
-		'photos': 'Interesting photos'
-	},
 	//
 	// facts
 	//
@@ -120,14 +112,6 @@ const script = {
 			'stop': 'No'
 		}
 	},
-	'facts_switch': {
-		'message': 'Would you like to do something else?',
-		'options': {
-			'tag': 'Tag documents',
-			'ask': 'Ask a question',
-			'photos': 'Interesting photos',
-		}
-	},
 	//
 	// photos
 	//
@@ -138,14 +122,6 @@ const script = {
 		'options': {
 			'continue': 'Yes',
 			'stop': 'No'
-		}
-	},
-	'photos_switch': {
-		'message': 'Would you like to do something else?',
-		'options': {
-			'tag': 'Tag documents',
-			'ask': 'Ask a question',
-			'facts': 'Fun facts',
 		}
 	},
 	'ask': [

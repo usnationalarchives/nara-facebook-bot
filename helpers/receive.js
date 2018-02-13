@@ -56,16 +56,17 @@ const receivePostback = ( user, postback ) => {
 
 	if ( postback.payload ) {
 
-		let response;
-
-		// default config
+		/**
+		 * Check if the payload is a JSON string and retrieve arguments
+		 * if it is.
+		 */
 		let payloadObj = {
 			'tag_round_count': 0,
 			'new_message': script.tag_start,
-			'stop_message': script.tag_stop,
+			'stop_message': script.switch_section,
 		};
 
-		// check for json in payload
+		// all json strings should include 'type': 'JSON'
 		if ( postback.payload.includes( 'JSON' ) ) {
 
 			// merge passed object into payloadObj
@@ -78,36 +79,69 @@ const receivePostback = ( user, postback ) => {
 
 		switch( postback.payload ) {
 
+			/**
+			 * Trigger the welcome message & options.
+			 */
 			case 'get_started' :
 				sendApi.sendMessage( user, {
 					'text': script.get_started,
 					'quick_replies': [
 						{
 							'content_type': 'text',
-							'title': script.quick_menu.tag,
+							'title': script.menu.tag,
 							'payload': 'menu.tag'
 						},
 						{
 							'content_type': 'text',
-							'title': script.quick_menu.ask,
+							'title': script.menu.ask,
 							'payload': 'menu.ask'
 						}
 					]
 				} );
 				break;
 
-			//
-			// persistent menu
-			//
+			/**
+			 * Prompt the user to visit a new section. Triggered when the user indicates
+			 * they want to leave their current section.
+			 */
+			case 'switch.tag' :
+			case 'switch.photos' :
+			case 'switch.facts' :
+			case 'switch.ask' :
 
+				let parts = postback.payload.split( '.' );
+				let section = parts[1];
+				let sections = [ 'tag', 'photos', 'facts', 'ask' ];
+				let quickReplies = [];
+
+				for( let i = 0; i < 4; i++ ) {
+					if ( section !== sections[i] ) {
+						quickReplies.push( {
+							'content_type': 'text',
+							'title': script.menu[section],
+							'payload': 'menu.' + section
+						} );
+					}
+				}
+
+				sendApi.sendMessage( user, {
+					'text': payloadObj.stop_message,
+					'quick_replies': quickReplies
+				} );
+
+				break;
+
+
+			/**
+			 * Ask a Question section.
+			 */
 			case 'menu.ask' :
 				sendApi.sendMessage( user, script.ask_temp );
 				break;
 
-			//
-			// photos
-			//
-
+			/**
+			 * Interesting Photos section.
+			 */
 			case 'menu.photos' :
 
 				// get a random number
@@ -118,33 +152,9 @@ const receivePostback = ( user, postback ) => {
 
 				break;
 
-			case 'switch.photos' :
-				sendApi.sendMessage( user, {
-					'text': script.photos_switch.message,
-					'quick_replies': [
-						{
-							'content_type': 'text',
-							'title': script.photos_switch.options.tag,
-							'payload': 'menu.tag',
-						},
-						{
-							'content_type': 'text',
-							'title': script.photos_switch.options.ask,
-							'payload': 'menu.ask',
-						},
-						{
-							'content_type': 'text',
-							'title': script.photos_switch.options.facts,
-							'payload': 'menu.facts',
-						}
-					]
-				} );
-				break;
-
-			//
-			// fun facts
-			//
-
+			/**
+			 * Fun Facts section.
+			 */
 			case 'menu.facts' :
 
 				// get a random number
@@ -214,33 +224,9 @@ const receivePostback = ( user, postback ) => {
 
 				break;
 
-			case 'switch.facts':
-				sendApi.sendMessage( user, {
-					'text': script.facts_switch.message,
-					'quick_replies': [
-						{
-							'content_type': 'text',
-							'title': script.facts_switch.options.tag,
-							'payload': 'menu.tag',
-						},
-						{
-							'content_type': 'text',
-							'title': script.facts_switch.options.ask,
-							'payload': 'menu.ask',
-						},
-						{
-							'content_type': 'text',
-							'title': script.facts_switch.options.photos,
-							'payload': 'menu.photos',
-						}
-					]
-				} );
-				break;
-
-			//
-			// image tagging
-			//
-
+			/**
+			 * Tag a Document section.
+			 */
 			case 'menu.tag' :
 				catalogApi.getItem( user, payloadObj.tag_round_count, payloadObj.new_message );
 				break;
@@ -297,7 +283,7 @@ const receivePostback = ( user, postback ) => {
 							'content_type': 'text',
 							'title': replyObj.options.stop,
 							'payload': JSON.stringify( {
-								'name': 'tag.stop',
+								'name': 'switch.tag',
 								'type': 'JSON',
 								'stop_message': replyObj.followup.stop
 							} )
@@ -324,30 +310,11 @@ const receivePostback = ( user, postback ) => {
 						{
 							'content_type': 'text',
 							'title': script.tag_reply_first.options.stop,
-							'payload': 'tag.stop'
-						}
-					]
-				} );
-				break;
-
-			case 'tag.stop' :
-				sendApi.sendMessage( user, {
-					'text': payloadObj.stop_message,
-					'quick_replies': [
-						{
-							'content_type': 'text',
-							'title': script.stop_prompts.facts,
-							'payload': 'menu.facts'
-						},
-						{
-							'content_type': 'text',
-							'title': script.stop_prompts.ask,
-							'payload': 'menu.ask'
-						},
-						{
-							'content_type': 'text',
-							'title': script.stop_prompts.photos,
-							'payload': 'menu.photos'
+							'payload': JSON.stringify( {
+								'name': 'switch.tag',
+								'type': 'JSON',
+								'stop_message': script.tag_stop
+							} )
 						}
 					]
 				} );
@@ -359,43 +326,7 @@ const receivePostback = ( user, postback ) => {
 
 			default:
 
-				//
-				// check for conditional payload
-				//
-
-				let payloadParts = postback.payload.split( '.' );
-
-				// joke replies
-				if ( payloadParts[0] === 'joke_replies' ) {
-					let jokeNum = payloadParts[1];
-					let replyKey = payloadParts[2];
-					let answer = '';
-
-					if ( script.jokes[jokeNum][replyKey] ) {
-						answer = script.jokes[jokeNum][replyKey];
-					} else {
-						answer = script.jokes[jokeNum].a;
-					}
-
-					// send punchline and followup
-					sendApi.sendMessage( user, answer, {
-						'text': script.jokes_reply.message,
-						'quick_replies': [
-							{
-								'content_type': 'text',
-								'title': script.jokes_reply.options.continue,
-								'payload': 'menu.jokes'
-							}
-						]
-					} );
-
-				//
-				// if no conditionals discovered, return basic response
-				//
-
-				} else {
-					sendApi.sendMessage( user, 'I didn\'t understand this response: ' + postback.payload );
-				}
+				sendApi.sendMessage( user, 'I didn\'t understand this response: ' + postback.payload );
 
 				break;
 
