@@ -124,13 +124,24 @@ const receivePostback = ( user, postback ) => {
 					}
 				}
 
-				sendApi.sendMessage( user, {
-					'text': payloadObj.stop_message,
-					'quick_replies': quickReplies
-				} );
+				if ( postback.payload === 'switch.tag' && payloadObj.stop_message !== script.switch_section ) {
+
+					// send a custom message before the switch_section prompt
+					sendApi.sendMessage( user, payloadObj.stop_message, {
+						'text': script.switch_section,
+						'quick_replies': quickReplies
+					} );
+
+				} else {
+
+					sendApi.sendMessage( user, {
+						'text': payloadObj.stop_message,
+						'quick_replies': quickReplies
+					} );
+
+				}
 
 				break;
-
 
 			/**
 			 * Ask a Question section.
@@ -235,89 +246,76 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.options.handwritten' :
 			case 'tag.options.mixed' :
 			case 'tag.options.none' :
+			case 'tag.options.skip' :
 
 				let parts = postback.payload.split( '.' );
 				let choice = parts[2];
 
-				let roundLength = 5;
+				// default reply
+				let reply = {
+					'message': getRand( script.tag_reply.message ),
+					'option_new': getRand( script.tag_reply.option_new ),
+					'option_stop': script.tag_reply.option_stop,
+					'followup_new': getRand( script.tag_reply.followup_new ),
+					'followup_stop': getRand( script.tag_reply.followup_stop )
+				};
 
-				let replyObj;
+				if ( postback.payload !== 'tag.options.skip' ) {
 
-				if ( payloadObj.tag_round_count === 1 ) {
+					// first reply
+					if ( payloadObj.tag_round_count === 1 ) {
+						reply.message = script.tag_reply_first.message;
+					}
 
-					replyObj = script.tag_reply_first;
-
-				} else if ( payloadObj.tag_round_count === roundLength ) {
-
-					replyObj = script.tag_intermission;
-
-					// insert in the correct round length
-					replyObj.message = replyObj.message.replace( 'ROUND_COUNT', roundLength );
-
-					// reset tag count
-					payloadObj.tag_round_count = 0;
-
-				} else {
-
-					// get a random number based on number of reply options
-					let replyNum = Math.floor( Math.random() * script.tag_reply.length );
-
-					replyObj = script.tag_reply[replyNum];
+					// intermission reply
+					let roundLength = 5;
+					if ( payloadObj.tag_round_count === roundLength ) {
+						reply = Object.assign( reply, script.tag_reply_intermission );
+						reply.message = reply.message.replace( 'ROUND_COUNT', roundLength );
+						payloadObj.tag_round_count = 0;
+					}
 
 				}
 
-				sendApi.sendMessage( user, script.tag_acknowledgment[choice], {
-					'text': replyObj.message,
-					'quick_replies': [
-						{
-							'content_type': 'text',
-							'title': replyObj.options.new,
-							'payload': JSON.stringify( {
-								'name': 'menu.tag',
-								'type': 'JSON',
-								'tag_round_count': payloadObj.tag_round_count,
-								'new_message': replyObj.followup.new,
-							} )
-						},
-						{
-							'content_type': 'text',
-							'title': replyObj.options.stop,
-							'payload': JSON.stringify( {
-								'name': 'switch.tag',
-								'type': 'JSON',
-								'stop_message': replyObj.followup.stop
-							} )
-						}
-					]
-				} );
+				let quickReplies = [
+					{
+						'content_type': 'text',
+						'title': reply.option_new,
+						'payload': JSON.stringify( {
+							'name': 'menu.tag',
+							'type': 'JSON',
+							'tag_round_count': payloadObj.tag_round_count,
+							'new_message': reply.followup_new,
+						} )
+					},
+					{
+						'content_type': 'text',
+						'title': reply.option_stop,
+						'payload': JSON.stringify( {
+							'name': 'switch.tag',
+							'type': 'JSON',
+							'stop_message': reply.followup_stop
+						} )
+					}
+				];
 
-				break;
+				if ( postback.payload === 'tag.options.skip' ) {
 
-			// when skipping, we don't need to check tag count or pass along custom messages
-			case 'tag.options.skip' :
-				sendApi.sendMessage( user, {
-					'text': script.tag_acknowledgment.skip,
-					'quick_replies': [
-						{
-							'content_type': 'text',
-							'title': script.tag_reply_first.options.new,
-							'payload': JSON.stringify( {
-								'name': 'menu.tag',
-								'type': 'JSON',
-								'tag_round_count': payloadObj.tag_round_count
-							} )
-						},
-						{
-							'content_type': 'text',
-							'title': script.tag_reply_first.options.stop,
-							'payload': JSON.stringify( {
-								'name': 'switch.tag',
-								'type': 'JSON',
-								'stop_message': script.tag_stop
-							} )
-						}
-					]
-				} );
+					// when skipping, we don't need to pass a reply.message
+					sendApi.sendMessage( user, {
+						'text': script.tag_acknowledgment.skip,
+						'quick_replies': quickReplies
+					} );
+
+				} else {
+
+					sendApi.sendMessage( user, script.tag_acknowledgment[choice], {
+						'text': reply.message,
+						'quick_replies': quickReplies
+					} );
+
+				}
+
 				break;
 
 			//
@@ -325,9 +323,7 @@ const receivePostback = ( user, postback ) => {
 			//
 
 			default:
-
 				sendApi.sendMessage( user, 'I didn\'t understand this response: ' + postback.payload );
-
 				break;
 
 		}
@@ -335,6 +331,17 @@ const receivePostback = ( user, postback ) => {
 	}
 
 };
+
+/**
+ * Get a random number based on the size of the given array.
+ */
+const getRand = ( arr ) => {
+	if ( ! Array.isArray( arr ) ) {
+		return arr;
+	}
+	let num = Math.floor( Math.random() * arr.length );
+	return arr[num];
+}
 
 module.exports.receiveMessage = receiveMessage;
 module.exports.receivePostback = receivePostback;

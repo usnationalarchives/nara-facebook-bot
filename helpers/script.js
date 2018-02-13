@@ -6,38 +6,39 @@
 
 const script = {
 	//
-	// general
+	// General
 	//
 	'default': 'Sorry, I didn\'t understand that. For more info, tap the menu below for more options.',
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
 	'get_started': 'Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
 	'menu': {
-		'tag':    'Tag a document',
-		'facts':  'Fun facts',
-		'ask':    'Ask a question',
+		'tag': 'Tag a document',
+		'facts': 'Fun facts',
+		'ask': 'Ask a question',
 		'photos': 'Interesting photos',
 		'submenu': 'More fun stuff',
 	},
 	'switch_section': 'Would you like to do something else?',
+	'ask_temp': 'Ask a question section placeholder.',
 	//
-	// tagging
+	// Tag a Document
 	//
 	'tag_start': 'Let\'s go! I’m retrieving a document from the virtual stacks...',
+	'tag_error': 'Something went wrong. Open the menu to try again or choose another option.',
 	'tag_image_options': {
-		'big':   'View larger size',
+		'big': 'View larger size',
 		'learn': 'Learn more'
 	},
 	'tag_prompt': {
 		'message': 'Tag it! Select what kind of writing you see in the document.',
 		'options': {
 			'handwritten': 'Handwritten',
-			'typed':       'Typed',
-			'mixed':       'Both',
-			'none':        'No writing',
-			'skip':        'No idea'
+			'typed': 'Typed',
+			'mixed': 'Both',
+			'none': 'No writing',
+			'skip': 'No idea'
 		}
 	},
-	'tag_error': 'Something went wrong. Open the menu to try again or choose another option.',
 	'tag_acknowledgment': {
 		'handwritten': 'Tagged as handwritten.',
 		'typed': 'Tagged as typed.',
@@ -45,55 +46,40 @@ const script = {
 		'none': 'Tagged as containing no writing.',
 		'skip': 'No problem! Skipping this one.'
 	},
+	'tag_reply': {
+		'message':[
+			'Good eye! Isn’t this fun? Want to tag another?',
+			'You’re on a roll! Only 38,999,999 more to go. (Just kidding!) Want to tag some more?',
+		],
+		'option_new':[
+			'Tag another document',
+			'Let\'s keep moving',
+		],
+		'option_stop': 'Stop tagging',
+		'followup_new':[
+			'You got it! Heading back to the virtual stacks to retrieve the next document...',
+			'You got it! Let me find you a good one...',
+			'Grabbing another document for you...'
+		],
+		'followup_stop':[
+			'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
+			'Every bit counts! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+		]
+	},
+	// tag_reply_first and tag_reply_intermission are context-specific variations of
+	// the tag_reply object. Any property not included will use tag_reply as a default
 	'tag_reply_first': {
-		'message': 'Congrats on your first tag! Every tag you provide makes American history more accessible.',
-		'options': {
-			'new':   'Tag another document',
-			'stop':  'Stop tagging',
-		},
-		'followup': {
-			'new': 'You got it! Heading back to the virtual stacks to retrieve the next document...',
-			'stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
-		}
+		'message': 'Congrats on your first tag! Every tag you provide makes American history more accessible.'
 	},
-	'tag_reply': [
-		{
-			'message': 'Good eye! Isn’t this fun? Want to tag another?',
-			'options': {
-				'new':   'Tag another document',
-				'stop':  'Stop tagging'
-			},
-			'followup': {
-				'new': 'You got it! Let me find you a good one...',
-				'stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
-			}
-		},
-		{
-			'message': 'You’re on a roll! Only 38,999,999 more to go. (Just kidding!) Want to tag some more?',
-			'options': {
-				'new':   'Let\'s keep moving',
-				'stop':  'Stop tagging'
-			},
-			'followup': {
-				'new': 'Grabbing another document for you...',
-				'stop': 'Every bit counts! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
-			}
-		}
-	],
-	'tag_intermission': {
+	'tag_reply_intermission': {
 		'message': 'You just did ROUND_COUNT documents in a row. How are you feeling?',
-		'options': {
-			'new': 'Keep going',
-			'stop': 'I need a break'
-		},
-		'followup': {
-			'new': 'I like your attitude. Grabbing another document for you...',
-			'stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
-		}
-	},
-	'tag_stop': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
+		'option_new': 'Keep going',
+		'option_stop': 'I need a break',
+		'followup_new': 'I like your attitude. Grabbing another document for you...',
+		'followup_stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+	}
 	//
-	// facts
+	// Fun Facts
 	//
 	'facts': [
 		{
@@ -113,7 +99,7 @@ const script = {
 		}
 	},
 	//
-	// photos
+	// Interesting Photos
 	//
 	'get_photo': 'Grabbing a photo...',
 	'photos': [ 6011716, 1126974, 535579, 522880, 533758, 522888, 74249694, 532376, 6883309, 548550, 641627, 594412, 523373, 7387550, 2803422, 6816402, 75856835, 7348582, 16685274 ],
@@ -124,17 +110,6 @@ const script = {
 			'stop': 'No'
 		}
 	},
-	'ask': [
-		{
-			'q': 'What is The Archives',
-			'a': 'We are country\'s official record keeper. Along with making sure you have access to essential documents and preserving artifacts that tell the story of our history, we keep our nation\'s most precious documents safe from people like Nicolas Cage.',
-		},
-		{
-			'q': 'How do I reach The Archives?',
-			'a': 'Call us! (866) 272-6272',
-		}
-	],
-	'ask_temp': 'Ask a question section placeholder.',
 	'quit': {
 		'stop': [
 			'Leaving us already? Join us again soon! Visit the Archives blog to find more images, and select an option from the menu to start up again.',
