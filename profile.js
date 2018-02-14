@@ -49,29 +49,6 @@ const messengerProfileParams = {
 						'title':   script.menu.photos,
 						'type':    'postback',
 						'payload': 'menu.photos'
-					},
-					{
-						'type': 'element_share',
-						'share_contents': {
-							'attachment': {
-								'type': 'template',
-								'payload': {
-									'template_type': 'generic',
-									'elements': [
-										{
-											'title': script.share.message,
-											'buttons': [
-												{
-													'type': 'web_url',
-													'url': script.share.link,
-													'title': script.share.link_text
-												}
-											]
-										}
-									]
-								}
-							}
-						}
 					}
 				]
 			}
