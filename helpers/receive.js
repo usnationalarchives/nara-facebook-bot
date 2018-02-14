@@ -103,6 +103,71 @@ const receivePostback = ( user, postback ) => {
 				break;
 
 			/**
+			 * Trigger a goodbye.
+			 */
+			case 'stop' :
+
+				let stop = getRand( script.stop );
+				let message = {
+					'attachment': {
+						'type': 'template',
+						'payload': {}
+					}
+				};
+
+				// share links are complicated
+				if ( stop.share_link ) {
+					message.payload = {
+						'template_type': 'generic',
+						'elements': [
+							{
+								'title': stop.message,
+								'buttons': [
+									{
+										'type': 'element_share',
+										'share_contents': {
+											'attachment': {
+												'type': 'template',
+												'payload': {
+													'template_type': 'generic',
+													'elements': [
+														{
+															'title': stop.share_message,
+															'buttons': [
+																{
+																	'type': 'web_url',
+																	'url': stop.share_link,
+																	'title': stop.share_button
+																}
+															]
+														}
+													]
+												}
+											}
+										}
+									}
+								]
+							}
+						]
+					};
+				} else {
+					message.payload = {
+						'template_type': 'button',
+						'text': stop.message,
+						'buttons': [
+							{
+								'type': 'web_url',
+								'url': stop.link,
+								'title': stop.link_text
+							}
+						]
+					};
+				}
+
+				sendApi.sendMessage( user, message );
+				break;
+
+			/**
 			 * Prompt the user to visit a new section. Triggered when the user indicates
 			 * they want to leave their current section.
 			 */
@@ -130,7 +195,7 @@ const receivePostback = ( user, postback ) => {
 				quickReplies.push( {
 					'content_type': 'text',
 					'title': script.menu.stop,
-					'payload': getRand( script.stop )
+					'payload': 'stop'
 				} );
 
 				if ( postback.payload === 'switch.tag' && payloadObj.stop_message !== script.switch_section ) {

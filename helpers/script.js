@@ -22,9 +22,22 @@ const script = {
 	'switch_section': 'Would you like to do something else?',
 	'ask_temp': 'Ask a question section placeholder.',
 	'stop': [
-		'Want to receive our twice-monthly newsletter? Sign up here: https://www.archives.gov/research/catalog/newsletter',
-		'Had a good time? Share with a friend!',
-		'Leaving us already? Join us again soon! Visit the National Archives Catalog to find more images: catalog.archives.gov'
+		{
+			'message': 'Want to receive our twice-monthly newsletter? Sign up here:',
+			'link': 'https://www.archives.gov/research/catalog/newsletter',
+			'link_text': 'Newsletter'
+		},
+		{
+			'message': 'Leaving us already? Join us again soon! Visit the National Archives Catalog to find more images:',
+			'link': 'https://catalog.archives.gov/',
+			'link_text': 'Catalog'
+		},
+		{
+			'message': 'Had a good time? Share with a friend!',
+			'share_message': 'National Archives - Citizen Archivist Project',
+			'share_button': 'Try it out',
+			'share_link': 'http://m.me/ChiefMessengerLab',
+		},
 	],
 	//
 	// Tag a Document
@@ -85,7 +98,6 @@ const script = {
 		'followup_new': 'I like your attitude. Grabbing another document for you...',
 		'followup_stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
 	},
-	'tag_idle': 'It seems like you\'ve zoned out. Do you want to stop tagging?',
 	//
 	// Fun Facts
 	//
