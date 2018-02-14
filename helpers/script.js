@@ -21,6 +21,11 @@ const script = {
 	},
 	'switch_section': 'Would you like to do something else?',
 	'ask_temp': 'Ask a question section placeholder.',
+	'share': {
+		'message': 'National Archives - Citizen Archivist Project',
+		'link': 'http://m.me/ChiefMessengerLab',
+		'link_text': 'Try it out'
+	},
 	'stop': [
 		{
 			'message': 'Want to receive our twice-monthly newsletter? Sign up here:',
@@ -34,9 +39,7 @@ const script = {
 		},
 		{
 			'message': 'Had a good time? Share with a friend!',
-			'share_message': 'National Archives - Citizen Archivist Project',
-			'share_button': 'Try it out',
-			'share_link': 'http://m.me/ChiefMessengerLab',
+			'share': true,
 		},
 	],
 	//
@@ -81,9 +84,21 @@ const script = {
 			'Grabbing another document for you...'
 		],
 		'followup_stop':[
-			'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
-			'Every bit counts! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist',
-			'Want to get more involved? Continue your Citizen Archivist work by by tagging and transcribing records. https://www.archives.gov/citizen-archivist'
+			{
+				'message': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents.',
+				'link': 'https://www.archives.gov/citizen-archivist',
+				'link_text': 'Find out more'
+			},
+			{
+				'message': 'Every bit counts! FYI, our citizen archivist program invites you to tag and transcribe more documents.',
+				'link': 'https://www.archives.gov/citizen-archivist',
+				'link_text': 'Find out more'
+			},
+			{
+				'message': 'Want to get more involved? Continue your Citizen Archivist work by by tagging and transcribing records.',
+				'link': 'https://www.archives.gov/citizen-archivist',
+				'link_text': 'Learn more'
+			}
 		]
 	},
 	// tag_reply_first and tag_reply_intermission are context-specific variations of

@@ -222,6 +222,9 @@ const getPhoto = ( user, naId ) => {
 											'title': script.tag_image_options.learn,
 											'webview_height_ratio': 'tall',
 											'messenger_extensions': true
+										},
+										{
+											'type': 'element_share'
 										}
 									]
 								}

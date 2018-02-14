@@ -116,7 +116,7 @@ const receivePostback = ( user, postback ) => {
 				};
 
 				// share links are complicated
-				if ( stop.share_link ) {
+				if ( stop.share ) {
 					message.payload = {
 						'template_type': 'generic',
 						'elements': [
@@ -132,12 +132,12 @@ const receivePostback = ( user, postback ) => {
 													'template_type': 'generic',
 													'elements': [
 														{
-															'title': stop.share_message,
+															'title': script.share.message,
 															'buttons': [
 																{
 																	'type': 'web_url',
-																	'url': stop.share_link,
-																	'title': stop.share_button
+																	'url': script.share.link,
+																	'title': script.share.link_text
 																}
 															]
 														}
@@ -201,7 +201,22 @@ const receivePostback = ( user, postback ) => {
 				if ( postback.payload === 'switch.tag' && payloadObj.stop_message !== script.switch_section ) {
 
 					// send a custom message before the switch_section prompt
-					sendApi.sendMessage( user, payloadObj.stop_message, {
+					sendApi.sendMessage( user, {
+						'attachment': {
+							'type': 'template',
+							'payload': {
+								'template_type': 'button',
+								'text': payloadObj.stop_message.message,
+								'buttons': [
+									{
+										'type': 'web_url',
+										'url': payloadObj.stop_message.link,
+										'title': payloadObj.stop_message.link_text
+									}
+								]
+							}
+						}
+					}, {
 						'text': script.switch_section,
 						'quick_replies': quickReplies
 					} );
