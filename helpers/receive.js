@@ -433,15 +433,22 @@ const getRand = ( arr ) => {
  */
 const getRandSmart = ( arr, history ) => {
 
+	let tempArr = arr;
+
 	// remove indexes recorded in history from arr
 	if ( history.length ) {
 		for ( let i = 0; i < history.length; i++ ) {
-			arr.splice( history[i], 1 );
+			tempArr.splice( history[i], 1 );
 		}
 	}
 
 	// get a random item in arr
-	let index = Math.floor( Math.random() * arr.length );
+	let tempIndex = Math.floor( Math.random() * tempArr.length );
+
+	// get the original index in arr
+	let index = arr.findIndex( function( element ) {
+		return element === tempArr[tempIndex];
+	} );
 
 	// add this item to history
 	history.push( index );
