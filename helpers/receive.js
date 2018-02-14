@@ -64,6 +64,7 @@ const receivePostback = ( user, postback ) => {
 			'tag_round_count': 0,
 			'new_message': script.tag_start,
 			'stop_message': script.switch_section,
+			'history': []
 		};
 
 		// all json strings should include 'type': 'JSON'
@@ -244,11 +245,11 @@ const receivePostback = ( user, postback ) => {
 			 */
 			case 'menu.photos' :
 
-				// get a random number
-				let photoNum = Math.floor( Math.random() * script.photos.length );
+				// choose a photo
+				let photo = getRandSmart( script.photos, payloadObj.history );
 
-				// get a photo
-				catalogApi.getPhoto( user, script.photos[photoNum] );
+				// retrieve photo from catalog
+				catalogApi.getPhoto( user, photo, payloadObj.history );
 
 				break;
 
@@ -257,33 +258,39 @@ const receivePostback = ( user, postback ) => {
 			 */
 			case 'menu.facts' :
 
-				// get a random number
-				let factNum = Math.floor( Math.random() * script.facts.length );
+				// choose a fact
+				let fact = getRandSmart( script.facts, payloadObj.history );
+
+				let followupMessage = {
+					'text': script.facts_reply.message,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.facts_reply.options.continue,
+							'payload': JSON.stringify( {
+								'name': 'menu.facts',
+								'type': 'JSON',
+								'history': payloadObj.history
+							} )
+						},
+						{
+							'content_type': 'text',
+							'title': script.facts_reply.options.stop,
+							'payload': 'switch.facts',
+						}
+					]
+				}
 
 				// is string?
-				if ( typeof script.facts[factNum] === 'string' || script.facts[factNum] instanceof String ) {
+				if ( typeof fact === 'string' || fact instanceof String ) {
 
 					// show the fact & followup
-					sendApi.sendMessage( user, script.facts[factNum], {
-						'text': script.facts_reply.message,
-						'quick_replies': [
-							{
-								'content_type': 'text',
-								'title': script.facts_reply.options.continue,
-								'payload': 'menu.facts'
-							},
-							{
-								'content_type': 'text',
-								'title': script.facts_reply.options.stop,
-								'payload': 'switch.facts',
-							}
-						]
-					} );
+					sendApi.sendMessage( user, fact, followupMessage );
 
 				} else {
 
 					// show the fact, image, & followup
-					sendApi.sendMessage( user, script.facts[factNum].message, [
+					sendApi.sendMessage( user, fact.message, [
 						{
 							'attachment': {
 								'type': 'template',
@@ -294,31 +301,17 @@ const receivePostback = ( user, postback ) => {
 									'elements': [
 										{
 											'title': 'Image',
-											'image_url': script.facts[factNum].image,
+											'image_url': fact.image,
 											'default_action': {
 												'type': 'web_url',
-												'url': script.facts[factNum].image
+												'url': fact.image
 											}
 										}
 									]
 								}
 							}
 						},
-						{
-							'text': script.facts_reply.message,
-							'quick_replies': [
-								{
-									'content_type': 'text',
-									'title': script.facts_reply.options.continue,
-									'payload': 'menu.facts'
-								},
-								{
-									'content_type': 'text',
-									'title': script.facts_reply.options.stop,
-									'payload': 'switch.facts',
-								}
-							]
-						}
+						followupMessage
 					] );
 				}
 
@@ -422,14 +415,41 @@ const receivePostback = ( user, postback ) => {
 };
 
 /**
- * Get a random number based on the size of the given array.
+ * Get a random array item.
  */
 const getRand = ( arr ) => {
 	if ( ! Array.isArray( arr ) ) {
 		return arr;
 	}
-	let num = Math.floor( Math.random() * arr.length );
-	return arr[num];
+	let index = Math.floor( Math.random() * arr.length );
+	return arr[index];
+}
+
+/**
+ * Get a random array item, while ensuring the item hasn't been used recently.
+ */
+const getRandSmart = ( arr, history ) => {
+
+	// remove indexes recorded in history from arr
+	if ( history.length ) {
+		for ( let i = 0; i < history.length; i++ ) {
+			arr.splice( history[i], 1 );
+		}
+	}
+
+	// get a random item in arr
+	let index = Math.floor( Math.random() * arr.length );
+
+	// add this item to history
+	history.push( index );
+
+	// if history is full, wipe it out except for the current item
+	if ( history.length === arr.length ) {
+		history = [ index ];
+	}
+
+	return arr[index];
+
 }
 
 module.exports.receiveMessage = receiveMessage;

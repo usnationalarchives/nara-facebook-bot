@@ -172,7 +172,7 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 /**
  * Query NARA catalog and return an interesting photo.
  */
-const getPhoto = ( user, naId ) => {
+const getPhoto = ( user, naId, history ) => {
 
 	// friendly message
 	sendApi.sendMessage( user, script.get_photo, true );
@@ -238,7 +238,11 @@ const getPhoto = ( user, naId ) => {
 						{
 							'content_type': 'text',
 							'title': script.photos_reply.options.continue,
-							'payload': 'menu.photos'
+							'payload': JSON.stringify( {
+								'name': 'menu.photos',
+								'type': 'JSON',
+								'history': history
+							} )
 						},
 						{
 							'content_type': 'text',
