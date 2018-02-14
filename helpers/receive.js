@@ -258,13 +258,8 @@ const receivePostback = ( user, postback ) => {
 			 */
 			case 'menu.facts' :
 
-				console.log( 'HISTORY:', payloadObj.history );
-
 				// choose a fact
 				let fact = getRandSmart( script.facts, payloadObj.history );
-
-				console.log( 'FACT:', fact );
-				console.log( 'HISTORY:', payloadObj.history );
 
 				let followupMessage = {
 					'text': script.facts_reply.message,
@@ -435,7 +430,7 @@ const getRand = ( arr ) => {
  */
 const getRandSmart = ( arr, history ) => {
 
-	let tempArr = arr;
+	let tempArr = arr.slice();
 
 	// remove indexes recorded in history from arr
 	if ( history.length ) {
@@ -454,9 +449,6 @@ const getRandSmart = ( arr, history ) => {
 
 	// add this item to history
 	history.push( index );
-
-	console.log( 'HISTORY LENGTH', history.length );
-	console.log( 'ARR LENGTH', arr.length );
 
 	// if history is full, wipe it out except for the current item
 	if ( history.length === arr.length ) {
