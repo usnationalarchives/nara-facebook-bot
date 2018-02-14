@@ -261,6 +261,9 @@ const receivePostback = ( user, postback ) => {
 				// choose a fact
 				let fact = getRandSmart( script.facts, payloadObj.history );
 
+				console.log( 'FACT:', fact );
+				console.log( 'HISTORY:', payloadObj.history );
+
 				let followupMessage = {
 					'text': script.facts_reply.message,
 					'quick_replies': [
