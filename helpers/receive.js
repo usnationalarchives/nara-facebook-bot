@@ -254,6 +254,9 @@ const receivePostback = ( user, postback ) => {
 			 */
 			case 'menu.facts' :
 
+				// choose a fact
+				let fact = getRandSmart( script.facts, payloadObj.history );
+
 				// canned message & replies
 				let followupMessage = {
 					'text': script.facts_reply.message,
@@ -274,9 +277,6 @@ const receivePostback = ( user, postback ) => {
 						}
 					]
 				}
-
-				// choose a fact
-				let fact = getRandSmart( script.facts, payloadObj.history );
 
 				// is string?
 				if ( typeof fact === 'string' || fact instanceof String ) {
