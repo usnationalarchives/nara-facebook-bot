@@ -60,23 +60,19 @@ const receivePostback = ( user, postback ) => {
 		 * Check if the payload is a JSON string and retrieve arguments
 		 * if it is.
 		 */
-		const payloadObj = {
+		let defaults = {
 			'tag_round_count': 0,
 			'new_message': script.tag_start,
 			'stop_message': script.switch_section,
 			'history': []
 		};
-
-		// all json strings should include 'type': 'JSON'
+		let args = {};
 		if ( postback.payload.includes( 'JSON' ) ) {
-
-			// merge passed object into payloadObj
-			payloadObj = Object.assign( payloadObj, JSON.parse( postback.payload ) );
-
-			// set postback.payload back to a string
-			postback.payload = payloadObj.name;
-
+			args = JSON.parse( postback.payload );
+			postback.payload = args.name;
 		}
+
+		const payloadObj = Object.assign( defaults, args );
 
 		let parts, quickReplies;
 
