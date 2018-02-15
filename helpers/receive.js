@@ -60,7 +60,7 @@ const receivePostback = ( user, postback ) => {
 		 * Check if the payload is a JSON string and retrieve arguments
 		 * if it is.
 		 */
-		let payloadObj = {
+		const payloadObj = {
 			'tag_round_count': 0,
 			'new_message': script.tag_start,
 			'stop_message': script.switch_section,
