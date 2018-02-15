@@ -186,8 +186,8 @@ const receivePostback = ( user, postback ) => {
 					if ( section !== sections[i] ) {
 						quickReplies.push( {
 							'content_type': 'text',
-							'title': script.menu[section],
-							'payload': 'menu.' + section
+							'title': script.menu[sections[i]],
+							'payload': 'menu.' + sections[i]
 						} );
 					}
 				}
