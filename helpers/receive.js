@@ -431,31 +431,36 @@ const getRand = ( arr ) => {
 const getRandSmart = ( arr, history ) => {
 
 	let tempArr = arr.slice();
+	let index;
 
-	// remove indexes recorded in history from arr
+	// remove indexes recorded in history from tempArr
 	if ( history.length ) {
-		for ( let i = 0; i < history.length; i++ ) {
-			tempArr.splice( history[i], 1 );
-		}
+		tempArr = arr.filter( function( value, key ) {
+			return history.indexOf( key ) === -1;
+		} );
 	}
 
-	// get a random item in arr
-	let tempIndex = Math.floor( Math.random() * tempArr.length );
+	if ( tempArr.length ) {
 
-	// get the original index in arr
-	let index = arr.findIndex( function( element ) {
-		return element === tempArr[tempIndex];
-	} );
+		// get a random item in tempArr
+		let tempIndex = Math.floor( Math.random() * tempArr.length );
 
-	// add this item to history
-	history.push( index );
+		// get the original index in arr
+		index = arr.findIndex( function( element ) {
+			return element === tempArr[tempIndex];
+		} );
 
-	// if history is full, wipe it out except for the current item
-	if ( history.length === arr.length ) {
-		history = [ index ];
+		history.push( index ); // updates payloadObj
+
+	} else {
+
+		// if there's no temps left, return the first item in history
+		index = history[0];
+		history.splice( 0, history.length, index ); // updates payloadObj
+
 	}
 
-	return arr[index];
+	return index;
 
 }
 
