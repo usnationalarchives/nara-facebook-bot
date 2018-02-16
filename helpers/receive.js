@@ -155,7 +155,9 @@ const receivePostback = ( user, postback ) => {
 							{
 								'type': 'web_url',
 								'url': stop.link,
-								'title': stop.link_text
+								'title': stop.link_text,
+								'webview_height_ratio': 'tall',
+								'messenger_extensions': true
 							}
 						]
 					};
