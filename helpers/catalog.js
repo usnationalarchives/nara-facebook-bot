@@ -211,7 +211,7 @@ const getPhoto = ( user, naId, history ) => {
 									'image_url': thisObject.file['@url'],
 									'default_action': {
 										'type': 'web_url',
-										'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] )
+										'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
 										'webview_height_ratio': 'tall',
 										'messenger_extensions': true
 									},
