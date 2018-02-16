@@ -197,11 +197,8 @@ const getPhoto = ( user, naId, history ) => {
 			let thisObject = objects[0];
 
 			console.log( 'Seriously!' );
-			console.log( result.naId );
-			console.log( result.description.item.title );
-			console.log( thisObject.file['@url'] );
-			console.log( process.env.URL );
-			// console.log( process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIcomponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ) );
+			console.log( encodeURIComponent( thisObject.file['@url'] );
+			console.log( process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ) );
 
 			// send title, with follow-up catalog object and answer prompt
 			sendApi.sendMessage( user,
@@ -228,7 +225,7 @@ const getPhoto = ( user, naId, history ) => {
 										},
 										{
 											'type': 'web_url',
-											'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIcomponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
+											'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
 											'title': script.tag_image_options.learn,
 											'webview_height_ratio': 'tall',
 											'messenger_extensions': true
