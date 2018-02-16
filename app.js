@@ -19,6 +19,7 @@ const express = require( 'express' );
 // load route modules
 const index = require( './routes/index' );
 const webhook = require( './routes/webhook' );
+const media = require( './routes/media' );
 
 // set up server
 const app = express();
@@ -30,6 +31,7 @@ app.use( bodyParser.json() );
 // add routes
 app.use( '/', index );
 app.use( '/webhook', webhook );
+app.use( '/media', media );
 
 // send any other request to 404
 app.use( function( req, res, next ) {

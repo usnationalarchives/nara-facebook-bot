@@ -97,6 +97,9 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 											'title': script.tag_image_options.learn,
 											'webview_height_ratio': 'tall',
 											'messenger_extensions': true
+										},
+										{
+											'type': 'element_share'
 										}
 									]
 								}
@@ -218,7 +221,7 @@ const getPhoto = ( user, naId, history ) => {
 										},
 										{
 											'type': 'web_url',
-											'url': 'https://catalog.archives.gov/id/' + naId,
+											'url': process.env.URL + 'media/' + naId + '/?title=' + encodeURIcomponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
 											'title': script.tag_image_options.learn,
 											'webview_height_ratio': 'tall',
 											'messenger_extensions': true
