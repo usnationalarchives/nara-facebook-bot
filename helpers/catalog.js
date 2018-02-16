@@ -197,7 +197,7 @@ const getPhoto = ( user, naId, history ) => {
 			let thisObject = objects[0];
 
 			console.log( 'Seriously!' );
-			console.log( encodeURIComponent( thisObject.file['@url'] );
+			console.log( encodeURIComponent( thisObject.file['@url'] ) );
 			console.log( process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ) );
 
 			// send title, with follow-up catalog object and answer prompt
