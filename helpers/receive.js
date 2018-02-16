@@ -114,7 +114,7 @@ const receivePostback = ( user, postback ) => {
 
 				// share links are complicated
 				if ( stop.share ) {
-					message.payload = {
+					message.attachment.payload = {
 						'template_type': 'generic',
 						'elements': [
 							{
@@ -148,7 +148,7 @@ const receivePostback = ( user, postback ) => {
 						]
 					};
 				} else {
-					message.payload = {
+					message.attachment.payload = {
 						'template_type': 'button',
 						'text': stop.message,
 						'buttons': [
