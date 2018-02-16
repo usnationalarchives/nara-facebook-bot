@@ -197,7 +197,11 @@ const getPhoto = ( user, naId, history ) => {
 			let thisObject = objects[0];
 
 			console.log( 'Seriously!' );
-			console.log( process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIcomponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ) );
+			console.log( result.naId );
+			console.log( result.description.item.title );
+			console.log( thisObject.file['@url'] );
+			console.log( process.env.URL );
+			// console.log( process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIcomponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ) );
 
 			// send title, with follow-up catalog object and answer prompt
 			sendApi.sendMessage( user,
