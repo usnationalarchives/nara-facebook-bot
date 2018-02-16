@@ -186,6 +186,8 @@ const getPhoto = ( user, naId, history ) => {
 		.then( function( res ) {
 			console.log( 'Request response', res );
 
+			console.log( 'Seriously' );
+
 			let result = res.data.opaResponse.results.result[0];
 			let objects = result.objects.object;
 
