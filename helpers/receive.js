@@ -270,8 +270,8 @@ const sendStop = ( user ) => {
 						}
 					]
 				}
-			}, script.stop_hint
-		} );
+			}
+		}, script.stop_hint );
 	} else {
 		sendApi.sendMessage( user, stop, script.stop_hint );
 	}
