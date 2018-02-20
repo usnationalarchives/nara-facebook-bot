@@ -39,9 +39,10 @@ const script = {
 		},
 		{
 			'message': 'Had a good time? Share with a friend!',
-			'share': true,
+			'share': true, // need this to display share prompt
 		},
 	],
+	'stop_hint': 'If you\'d like to start again, type "start" or select an option from the menu anytime.'
 	//
 	// Tag a Document
 	//

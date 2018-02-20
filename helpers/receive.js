@@ -163,7 +163,7 @@ const receivePostback = ( user, postback ) => {
 					};
 				}
 
-				sendApi.sendMessage( user, message );
+				sendApi.sendMessage( user, message, script.stop_hint );
 				break;
 
 			/**
