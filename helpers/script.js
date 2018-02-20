@@ -11,7 +11,7 @@ const script = {
 	'default': [
 		{
 			'message': 'Sorry, I didn\'t understand that. Have you tried asking your question on the History Hub? This site is designed to assist researchers:',
-			'link': 'https://history.gov',
+			'link_url': 'https://history.gov',
 			'link_text': 'history.gov'
 		},
 		'I see what you\'re getting at, but no, you still cannot touch the Declaration of Independence.',
@@ -33,18 +33,18 @@ const script = {
 	'ask_temp': 'Ask a question section placeholder.',
 	'share': {
 		'message': 'National Archives - Citizen Archivist Project',
-		'link': 'http://m.me/ChiefMessengerLab',
+		'link_url': 'http://m.me/ChiefMessengerLab',
 		'link_text': 'Try it out'
 	},
 	'stop': [
 		{
 			'message': 'Want to receive our twice-monthly newsletter? Sign up here:',
-			'link': 'https://www.archives.gov/research/catalog/newsletter',
+			'link_url': 'https://www.archives.gov/research/catalog/newsletter',
 			'link_text': 'Newsletter'
 		},
 		{
 			'message': 'Leaving us already? Join us again soon! Visit the National Archives Catalog to find more images:',
-			'link': 'https://catalog.archives.gov/',
+			'link_url': 'https://catalog.archives.gov/',
 			'link_text': 'Catalog'
 		},
 		{
@@ -97,17 +97,17 @@ const script = {
 		'followup_stop':[
 			{
 				'message': 'That was fun! FYI, our citizen archivist program invites you to tag and transcribe more documents.',
-				'link': 'https://www.archives.gov/citizen-archivist',
+				'link_url': 'https://www.archives.gov/citizen-archivist',
 				'link_text': 'Find out more'
 			},
 			{
 				'message': 'Every bit counts! FYI, our citizen archivist program invites you to tag and transcribe more documents.',
-				'link': 'https://www.archives.gov/citizen-archivist',
+				'link_url': 'https://www.archives.gov/citizen-archivist',
 				'link_text': 'Find out more'
 			},
 			{
 				'message': 'Want to get more involved? Continue your Citizen Archivist work by by tagging and transcribing records.',
-				'link': 'https://www.archives.gov/citizen-archivist',
+				'link_url': 'https://www.archives.gov/citizen-archivist',
 				'link_text': 'Learn more'
 			}
 		]

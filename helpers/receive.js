@@ -59,19 +59,19 @@ const receiveMessage = ( user, message ) => {
 				break;
 
 			default :
-				let msg = getRand( script.default );
-				if ( msg.link ) {
+				let response = getRand( script.default );
+				if ( response.link_url ) {
 					sendApi.sendMessage( user, {
 						'attachment': {
 							'type': 'template',
 							'payload': {
 								'template_type': 'button',
-								'text': msg.message,
+								'text': response.message,
 								'buttons': [
 									{
 										'type': 'web_url',
-										'url': msg.link,
-										'title': msg.link_text,
+										'url': response.link_url,
+										'title': response.link_text,
 										'webview_height_ratio': 'tall',
 										'messenger_extensions': true
 									}
@@ -80,7 +80,7 @@ const receiveMessage = ( user, message ) => {
 						}
 					} );
 				} else {
-					sendApi.sendMessage( user, msg );
+					sendApi.sendMessage( user, response );
 				}
 				break;
 
@@ -175,7 +175,7 @@ const receivePostback = ( user, postback ) => {
 															'buttons': [
 																{
 																	'type': 'web_url',
-																	'url': script.share.link,
+																	'url': script.share.link_url,
 																	'title': script.share.link_text
 																}
 															]
@@ -196,7 +196,7 @@ const receivePostback = ( user, postback ) => {
 						'buttons': [
 							{
 								'type': 'web_url',
-								'url': stop.link,
+								'url': stop.link_url,
 								'title': stop.link_text,
 								'webview_height_ratio': 'tall',
 								'messenger_extensions': true
@@ -251,7 +251,7 @@ const receivePostback = ( user, postback ) => {
 								'buttons': [
 									{
 										'type': 'web_url',
-										'url': payloadObj.stop_message.link,
+										'url': payloadObj.stop_message.link_url,
 										'title': payloadObj.stop_message.link_text
 									}
 								]
@@ -278,7 +278,7 @@ const receivePostback = ( user, postback ) => {
 			 */
 			case 'menu.ask' :
 				sendApi.sendMessage( user, {
-					'text': script.ask_temp
+					'text': script.ask_temp,
 					'quick_replies': {
 						'content_type': 'text',
 						'title': 'Back',
