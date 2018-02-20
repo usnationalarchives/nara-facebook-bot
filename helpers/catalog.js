@@ -84,7 +84,7 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 									'default_action': {
 										'type': 'web_url',
 										'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
-										'webview_height_ratio': 'full',
+										'webview_height_ratio': 'tall',
 										'messenger_extensions': true
 									},
 									'buttons': [
@@ -92,7 +92,7 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 											'type': 'web_url',
 											'title': script.tag_image_options.big,
 											'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
-											'webview_height_ratio': 'full',
+											'webview_height_ratio': 'tall',
 											'messenger_extensions': true
 										},
 										{
@@ -216,7 +216,7 @@ const getPhoto = ( user, naId, history ) => {
 									'default_action': {
 										'type': 'web_url',
 										'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
-										'webview_height_ratio': 'full',
+										'webview_height_ratio': 'tall',
 										'messenger_extensions': true
 									},
 									'buttons': [
@@ -224,7 +224,7 @@ const getPhoto = ( user, naId, history ) => {
 											'type': 'web_url',
 											'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
 											'title': script.tag_image_options.big,
-											'webview_height_ratio': 'full',
+											'webview_height_ratio': 'tall',
 											'messenger_extensions': true
 										},
 										{
