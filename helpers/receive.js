@@ -336,11 +336,13 @@ const sendSwitchPrompt = ( user, payload ) => {
 const sendAsk = ( user ) => {
 	sendApi.sendMessage( user, {
 		'text': script.ask_temp,
-		'quick_replies': {
-			'content_type': 'text',
-			'title': 'Back',
-			'payload': 'switch.ask'
-		}
+		'quick_replies': [
+			{
+				'content_type': 'text',
+				'title': 'Back',
+				'payload': 'switch.ask'
+			}
+		]
 	} );
 }
 
