@@ -33,11 +33,7 @@ const script = {
 		'link_text': 'Try it out'
 	},
 	'stop': [
-		{
-			'message': 'Want to receive our twice-monthly newsletter? Sign up here:',
-			'link_url': 'https://www.archives.gov/research/catalog/newsletter',
-			'link_text': 'Newsletter'
-		},
+		'Want to receive our twice-monthly newsletter? Sign up here: https://www.archives.gov/research/catalog/newsletter',
 		{
 			'message': 'Leaving us already? Join us again soon! Visit the National Archives Catalog to find more images:',
 			'link_url': 'https://catalog.archives.gov/',

@@ -213,58 +213,68 @@ const sendStop = ( user ) => {
 		}
 	};
 
-	// share links are complicated
+	// ...share links are complicated
 	if ( stop.share ) {
-		message.attachment.payload = {
-			'template_type': 'generic',
-			'elements': [
-				{
-					'title': stop.message,
-					'buttons': [
+		sendApi.sendMessage( user, {
+			'attachment': {
+				'type': 'template',
+				'payload': {
+					'template_type': 'generic',
+					'elements': [
 						{
-							'type': 'element_share',
-							'share_contents': {
-								'attachment': {
-									'type': 'template',
-									'payload': {
-										'template_type': 'generic',
-										'elements': [
-											{
-												'title': script.share.message,
-												'buttons': [
+							'title': stop.message,
+							'buttons': [
+								{
+									'type': 'element_share',
+									'share_contents': {
+										'attachment': {
+											'type': 'template',
+											'payload': {
+												'template_type': 'generic',
+												'elements': [
 													{
-														'type': 'web_url',
-														'url': script.share.link_url,
-														'title': script.share.link_text
+														'title': script.share.message,
+														'buttons': [
+															{
+																'type': 'web_url',
+																'url': script.share.link_url,
+																'title': script.share.link_text
+															}
+														]
 													}
 												]
 											}
-										]
+										}
 									}
 								}
-							}
+							]
 						}
 					]
 				}
-			]
-		};
-	} else {
-		message.attachment.payload = {
-			'template_type': 'button',
-			'text': stop.message,
-			'buttons': [
-				{
-					'type': 'web_url',
-					'url': stop.link_url,
-					'title': stop.link_text,
-					'webview_height_ratio': 'tall',
-					'messenger_extensions': true
+			}
+		} );
+	} else if ( stop.link_url ) {
+		sendApi.sendMessage( user, {
+			'attachment': {
+				'type': 'template',
+				'payload': {
+					'template_type': 'button',
+					'text': stop.message,
+					'buttons': [
+						{
+							'type': 'web_url',
+							'url': stop.link_url,
+							'title': stop.link_text,
+							'webview_height_ratio': 'tall',
+							'messenger_extensions': true
+						}
+					]
 				}
-			]
-		};
+			}, script.stop_hint
+		} );
+	} else {
+		sendApi.sendMessage( user, stop, script.stop_hint );
 	}
-
-	sendApi.sendMessage( user, message, script.stop_hint );
 
 }
 
