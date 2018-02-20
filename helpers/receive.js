@@ -47,12 +47,12 @@ const receiveMessage = ( user, message ) => {
 			default :
 				let msg = getRand( script.default );
 				if ( msg.link ) {
-					sendApi.sendMessage( user, msg.message, {
+					sendApi.sendMessage( user, {
 						'attachment': {
 							'type': 'template',
 							'payload': {
 								'template_type': 'button',
-								'text': stop.message,
+								'text': msg.message,
 								'buttons': [
 									{
 										'type': 'web_url',
