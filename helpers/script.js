@@ -9,11 +9,7 @@ const script = {
 	// General
 	//
 	'default': [
-		{
-			'message': 'Sorry, I didn\'t understand that. Have you tried asking your question on the History Hub? This site is designed to assist researchers:',
-			'link_url': 'https://history.gov/welcome',
-			'link_text': 'history.gov'
-		},
+		'Sorry, I didn\'t understand that. Have you tried asking your question on the History Hub? This site is designed to assist researchers: http://history.gov',
 		'I see what you\'re getting at, but no, you still cannot touch the Declaration of Independence.',
 		'I didn\'t quite catch that, type "help" or try the menu below.',
 		'Sorry, I didn\'t understand that. For more info, type "help". You can also try the menu below for more options.'
