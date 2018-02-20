@@ -28,7 +28,21 @@ const receiveMessage = ( user, message ) => {
 			case 'start' :
 			case 'restart' :
 			case 'begin' :
-				sendApi.sendMessage( user, script.get_started );
+				sendApi.sendMessage( user, {
+					'text': script.get_started,
+					'quick_replies': [
+						{
+							'content_type': 'text',
+							'title': script.menu.tag,
+							'payload': 'menu.tag'
+						},
+						{
+							'content_type': 'text',
+							'title': script.menu.ask,
+							'payload': 'menu.ask'
+						}
+					]
+				} );
 				break;
 
 			case 'help' :
@@ -41,7 +55,7 @@ const receiveMessage = ( user, message ) => {
 			case 'exit' :
 			case 'quit' :
 			case 'q' :
-				sendApi.sendMessage( user, script.quit.stop );
+				sendApi.sendMessage( user, script.stop );
 				break;
 
 			default :
