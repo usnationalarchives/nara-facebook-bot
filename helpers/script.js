@@ -8,7 +8,16 @@ const script = {
 	//
 	// General
 	//
-	'default': 'Sorry, I didn\'t understand that. For more info, tap the menu below for more options.',
+	'default': [
+		{
+			'message': 'Sorry, I didn\'t understand that. Have you tried asking your question on the History Hub? This site is designed to assist researchers:',
+			'link': 'http://history.gov',
+			'link_text': 'history.gov'
+		},
+		'I see what you\'re getting at, but no, you still cannot touch the Declaration of Independence.',
+		'I didn\'t quite catch that, type "help" or try the menu below.',
+		'Sorry, I didn\'t understand that. For more info, type "help". You can also try the menu below for more options.'
+	],
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
 	'get_started': 'Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
 	'menu': {
@@ -19,6 +28,7 @@ const script = {
 		'submenu': 'More fun stuff',
 		'stop': 'Stop'
 	},
+	'help': 'You\'re talking to the National Archives Facebook page. Here you can help make history accessible by tagging the type of writing you see in our documents. You can also ask questions about the National Archives, see interesting photos, or find out more fun facts. Tap an option in the menu below to continue, or type "start".',
 	'switch_section': 'Would you like to do something else?',
 	'ask_temp': 'Ask a question section placeholder.',
 	'share': {
@@ -42,7 +52,7 @@ const script = {
 			'share': true, // need this to display share prompt
 		},
 	],
-	'stop_hint': 'If you\'d like to start again, type "start" or select an option from the menu anytime.'
+	'stop_hint': 'If you\'d like to start again, type "start" or select an option from the menu anytime.',
 	//
 	// Tag a Document
 	//

@@ -19,15 +19,21 @@ const receiveMessage = ( user, message ) => {
 		// clean up message
 		message.text = message.text.trim();
 		message.text = message.text.toLowerCase();
-		message.text = message.text.replace( /[^\w\s]/g, '' );
+		message.text = message.text.replace( /[^\w\s]/g, '' ); // remove punctuation
 
 		switch( message.text ) {
 
+			case 'hi' :
+			case 'hello' :
 			case 'start' :
+			case 'restart' :
 			case 'begin' :
+				sendApi.sendMessage( user, script.get_started );
+				break;
+
 			case 'help' :
 			case 'info' :
-				sendApi.sendMessage( user, script.get_started );
+				sendApi.sendMessage( user, script.help );
 				break;
 
 			case 'end' :
@@ -39,7 +45,29 @@ const receiveMessage = ( user, message ) => {
 				break;
 
 			default :
-				sendApi.sendMessage( user, script.default );
+				let msg = getRand( script.default );
+				if ( msg.link ) {
+					sendApi.sendMessage( user, msg.message, {
+						'attachment': {
+							'type': 'template',
+							'payload': {
+								'template_type': 'button',
+								'text': stop.message,
+								'buttons': [
+									{
+										'type': 'web_url',
+										'url': msg.link,
+										'title': msg.link_text,
+										'webview_height_ratio': 'tall',
+										'messenger_extensions': true
+									}
+								]
+							}
+						}
+					} );
+				} else {
+					sendApi.sendMessage( user, msg );
+				}
 				break;
 
 		}
