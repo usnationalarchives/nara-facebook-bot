@@ -263,10 +263,13 @@ const receivePostback = ( user, postback ) => {
 			 * Ask a Question section.
 			 */
 			case 'menu.ask' :
-				sendApi.sendMessage( user, script.ask_temp, {
-					'content_type': 'text',
-					'title': 'Back',
-					'payload': 'switch.ask'
+				sendApi.sendMessage( user, {
+					'text': script.ask_temp
+					'quick_replies': {
+						'content_type': 'text',
+						'title': 'Back',
+						'payload': 'switch.ask'
+					}
 				} );
 				break;
 
