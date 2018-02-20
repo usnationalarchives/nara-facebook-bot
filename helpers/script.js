@@ -11,7 +11,7 @@ const script = {
 	'default': [
 		{
 			'message': 'Sorry, I didn\'t understand that. Have you tried asking your question on the History Hub? This site is designed to assist researchers:',
-			'link_url': 'https://history.gov',
+			'link_url': 'https://history.gov/welcome',
 			'link_text': 'history.gov'
 		},
 		'I see what you\'re getting at, but no, you still cannot touch the Declaration of Independence.',
