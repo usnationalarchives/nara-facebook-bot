@@ -11,6 +11,60 @@ const catalogApi = require( './catalog' );
 
 /**
  * Receive a text message, interpret it, and return a response.
+ *
+ * Database: usertags
+ *    "uuid": "",             // auto-generated dynamodb primary key
+ *    "timestamp": "",        // current date / time
+ *    "userid": "",           // if available, ex. from Facebook
+ *    "objectid": "",         // NARA API Object id
+ *    "ipaddress": "",        // user's IP address for fraud detection, if available
+ *    "score": "",            // an integer representing scores
+ *
+ */
+const storeTag = ( response ) => {
+
+	// get current timestamp
+	var moment = require('moment');
+	var timestamp = moment();
+
+	console.log(timestamp);
+
+	// get current ipaddress of request (if possible)
+        var ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || (req.connection.socket ? req.connection.socket.remoteAddress : null);
+
+	var AWS = require("aws-sdk");
+
+	AWS.config.update({
+		region: "us-west-2",
+		endpoint: "http://localhost:8000"
+	});
+	
+	var docClient = new AWS.DynamoDB.DocumentClient();
+
+	var params = {
+        	TableName: "usertags",
+	        Item: {
+        		"uuid":  uuid,
+	            	"timestamp": timestamp,
+	            	"userid": userid,
+			"objectid": objectid,
+			"ipaddress": ipaddress,
+			"score": score,
+        	}
+	};
+
+	docClient.put(params, function(err, data) {
+	if (err) {
+           console.error("Unable to add user tag", ");
+       } else {
+           console.log("PutItem user tag succeeded:");
+       }
+    });
+
+};
+
+/**
+ * Receive a text message, interpret it, and return a response.
  */
 const receiveMessage = ( user, message ) => {
 
@@ -329,6 +383,8 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.options.mixed' :
 			case 'tag.options.none' :
 			case 'tag.options.skip' :
+
+				storeTag(tag.options);
 
 				parts = postback.payload.split( '.' );
 				let choice = parts[2];
