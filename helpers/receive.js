@@ -27,8 +27,8 @@ const storeTag = ( response ) => {
 	var moment = require('moment');
 	var timestamp = moment();
 
-	console.log("My timestamp: ".timestamp);
-	console.log("Response from app:".response);
+	#console.log("My timestamp: ".timestamp);
+	#console.log("Response from app:".response);
 
 	// get current ipaddress of request (if possible)
 	var ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || (req.connection.socket ? req.connection.socket.remoteAddress : null);
@@ -53,6 +53,8 @@ const storeTag = ( response ) => {
 				"score": score,
         	}
 	};
+
+	console.log(params);
 
 	docClient.put(params, function(err, data) {
 	if (err) {
