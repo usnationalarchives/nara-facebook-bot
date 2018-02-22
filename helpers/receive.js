@@ -45,17 +45,17 @@ const storeTag = ( response ) => {
         	TableName: "usertags",
 	        Item: {
         		"uuid":  uuid,
-	            	"timestamp": timestamp,
-	            	"userid": userid,
-			"objectid": objectid,
-			"ipaddress": ipaddress,
-			"score": score,
+	            "timestamp": timestamp,
+	            "userid": userid,
+				"objectid": objectid,
+				"ipaddress": ipaddress,
+				"score": score,
         	}
 	};
 
 	docClient.put(params, function(err, data) {
 	if (err) {
-           console.error("Unable to add user tag", ");
+           console.error("Unable to add user tag");
        } else {
            console.log("PutItem user tag succeeded:");
        }
