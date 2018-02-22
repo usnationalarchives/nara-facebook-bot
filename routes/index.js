@@ -25,7 +25,8 @@ router.get( '/', ( req, res ) => {
 	// testing sandbox
 
 	res.send('Hello World!');
-	store.tag("Response Test");	
+	store.tag("Response Test");
+	res.send("Done.");	
 
 } );
 

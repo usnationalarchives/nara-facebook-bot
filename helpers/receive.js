@@ -28,7 +28,7 @@ const storeTag = ( response ) => {
 	var timestamp = moment();
 
 	console.log("My timestamp: ".timestamp);
-	console.log("Response:".response);
+	console.log("Response from app:".response);
 
 	// get current ipaddress of request (if possible)
 	var ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || (req.connection.socket ? req.connection.socket.remoteAddress : null);
@@ -389,11 +389,7 @@ const receivePostback = ( user, postback ) => {
 				let choice = parts[2];
 
 				storeTag(parts);
-				console.log("Here is what I know from the Facebook app");
-				console.log(parts[2]);
-				console.log(parts);
-				console.log(tag.options);
-
+				
 				// default reply
 				let reply = {
 					'message': getRand( script.tag_reply.message ),
