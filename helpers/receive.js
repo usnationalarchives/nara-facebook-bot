@@ -27,10 +27,11 @@ const storeTag = ( response ) => {
 	var moment = require('moment');
 	var timestamp = moment();
 
-	console.log(timestamp);
+	console.log("My timestamp: ".timestamp);
+	console.log("Response:".response);
 
 	// get current ipaddress of request (if possible)
-        var ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || (req.connection.socket ? req.connection.socket.remoteAddress : null);
+	var ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || (req.connection.socket ? req.connection.socket.remoteAddress : null);
 
 	var AWS = require("aws-sdk");
 
@@ -384,10 +385,14 @@ const receivePostback = ( user, postback ) => {
 			case 'tag.options.none' :
 			case 'tag.options.skip' :
 
-				storeTag(tag.options);
-
 				parts = postback.payload.split( '.' );
 				let choice = parts[2];
+
+				storeTag(parts);
+				console.log("Here is what I know from the Facebook app");
+				console.log(parts[2]);
+				console.log(parts);
+				console.log(tag.options);
 
 				// default reply
 				let reply = {
