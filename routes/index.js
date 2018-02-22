@@ -24,7 +24,7 @@ router.get( '/', ( req, res ) => {
 
 	// testing sandbox
 
-	res.send('Hello World!'));
+	res.send('Hello World!');
 	console.log("Thanks Michael");
 
 } );
