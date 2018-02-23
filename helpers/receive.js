@@ -356,6 +356,9 @@ const sendAsk = ( user, payload ) => {
 		}
 	}
 
+	console.log( 'CATEGORY_PATH', payload.category_path );
+	console.log( 'CATEGORY: ', category );
+
 	let quickReplies = [];
 	let newPath = payload.category_path.slice();
 
