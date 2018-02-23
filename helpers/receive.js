@@ -362,20 +362,24 @@ const sendAsk = ( user, payload ) => {
 	let quickReplies = [];
 	let newPath = payload.category_path.slice();
 
-	// build quick replies from categories
-	for ( i = 0; i < category.categories.length; i++ ) {
+	if ( category.categories ) {
 
-		newPath.push( i );
+		// build quick replies from categories
+		for ( i = 0; i < category.categories.length; i++ ) {
 
-		quickReplies.push( {
-			'content_type': 'text',
-			'title': category.categories[i].category,
-			'payload': JSON.stringify( {
-				'name': 'menu.ask',
-				'type': 'JSON',
-				'category_path': newPath
-			} )
-		} );
+			newPath.push( i );
+
+			quickReplies.push( {
+				'content_type': 'text',
+				'title': category.categories[i].category,
+				'payload': JSON.stringify( {
+					'name': 'menu.ask',
+					'type': 'JSON',
+					'category_path': newPath
+				} )
+			} );
+
+		}
 
 	}
 
