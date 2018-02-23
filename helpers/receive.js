@@ -356,17 +356,15 @@ const sendAsk = ( user, payload ) => {
 		}
 	}
 
-	console.log( 'CATEGORY_PATH', payload.category_path );
-	console.log( 'CATEGORY: ', category );
-
 	let quickReplies = [];
-	let newPath = payload.category_path.slice();
+	let newPath = [];
 
 	if ( category.categories ) {
 
 		// build quick replies from categories
 		for ( i = 0; i < category.categories.length; i++ ) {
 
+			newPath = payload.category_path.slice();
 			newPath.push( i );
 
 			quickReplies.push( {
@@ -385,7 +383,10 @@ const sendAsk = ( user, payload ) => {
 
 	// build back button
 	if ( payload.category_path.length ) {
+
+		newPath = payload.category_path.slice();
 		newPath.pop();
+
 		quickReplies.push( {
 			'content_type': 'text',
 			'title': script.ask.back_text,
@@ -395,6 +396,7 @@ const sendAsk = ( user, payload ) => {
 				'category_path': newPath
 			} )
 		} );
+
 	}
 
 	sendApi.sendMessage( user, {
