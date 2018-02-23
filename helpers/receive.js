@@ -347,6 +347,7 @@ const sendSwitchPrompt = ( user, payload ) => {
 const sendAsk = ( user, payload ) => {
 
 	let category = script.ask;
+	let i = 0;
 
 	// drill down until you get the correct category object
 	if ( payload.category_path.length ) {
@@ -359,7 +360,7 @@ const sendAsk = ( user, payload ) => {
 	let newPath = payload.category_path.slice();
 
 	// build quick replies from categories
-	for ( let i = 0; i < category.categories.length; i++ ) {
+	for ( i = 0; i < category.categories.length; i++ ) {
 
 		newPath.push( i );
 
@@ -376,16 +377,18 @@ const sendAsk = ( user, payload ) => {
 	}
 
 	// build back button
-	newPath.pop();
-	quickReplies.push( {
-		'content_type': 'text',
-		'title': script.ask.back_text,
-		'payload': JSON.stringify( {
-			'name': 'menu.ask',
-			'type': 'JSON',
-			'category_path': newPath
-		} )
-	} );
+	if ( payload.category_path.length ) {
+		newPath.pop();
+		quickReplies.push( {
+			'content_type': 'text',
+			'title': script.ask.back_text,
+			'payload': JSON.stringify( {
+				'name': 'menu.ask',
+				'type': 'JSON',
+				'category_path': newPath
+			} )
+		} );
+	}
 
 	sendApi.sendMessage( user, {
 		'text': category.message,
