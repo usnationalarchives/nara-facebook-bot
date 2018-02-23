@@ -352,7 +352,7 @@ const sendAsk = ( user, payload ) => {
 	// drill down until you get the correct category object
 	if ( payload.category_path.length ) {
 		for( i = 0; i < payload.category_path.length; i++ ) {
-			category = category[payload.category_path[i]];
+			category = category.categories[payload.category_path[i]];
 		}
 	}
 
