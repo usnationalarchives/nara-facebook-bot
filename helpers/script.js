@@ -204,7 +204,7 @@ const script = {
 				]
 			}
 		]
-	}
+	},
 	//
 	// Fun Facts
 	//

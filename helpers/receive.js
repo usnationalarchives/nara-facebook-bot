@@ -369,8 +369,8 @@ const sendAsk = ( user, payload ) => {
 			'payload': JSON.stringify( {
 				'name': 'menu.ask',
 				'type': 'JSON',
-				'category_path': newPath;
-			} );
+				'category_path': newPath
+			} )
 		} );
 
 	}
@@ -383,8 +383,8 @@ const sendAsk = ( user, payload ) => {
 		'payload': JSON.stringify( {
 			'name': 'menu.ask',
 			'type': 'JSON',
-			'category_path': newPath;
-		} );
+			'category_path': newPath
+		} )
 	} );
 
 	sendApi.sendMessage( user, {
