@@ -117,6 +117,95 @@ const script = {
 		'followup_stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
 	},
 	//
+	// Q&A
+	//
+	'ask': {
+		'back_text': 'Back',
+		'message': 'Select a category below.',
+		'categories': [
+			{
+				'category': 'General Info',
+				'message': 'What would you like to know?',
+				'categories': [
+					{
+						'category': 'About the Archives',
+						'message': 'The National Archives and Records Administration is the nation\'s record keeper. Of all documents and materials created in the course of business conducted by the United States Federal government, only 1%-3% are so important for legal or historical reasons that they are kept by us forever. Learn more about archives and archivists: https://www.archives.gov/about'
+					},
+					{
+						'category': 'Use & Attribution',
+						'message': 'Most of the images in our digital catalog (https://catalog.archives.gov/) or YouTube channel (https://www.youtube.com/USNationalArchives) are not under copyright, but it is your responsibility to confirm that. Please credit us when you use them.'
+					}
+				]
+			},
+			{
+				'category': 'Visiting',
+				'message': 'Select an option to learn more.',
+				'categories': [
+					{
+						'category': 'Hours',
+						'message': 'The National Archives Museum (https://www.archives.gov/museum/visit/) in Washington, DC, is open seven days a week from 10 a.m. to 5:30 p.m. (closed Thanksgiving Day and Christmas Day). The Research Center (https://www.archives.gov/dc-metro/washington) in Washington, DC, and the Research Rooms (https://www.archives.gov/dc-metro/college-park) in College Park, MD, are open Monday through Friday from 8:45 a.m. to 5:45 p.m. If you\'re looking for Research Room hours at any of our other locations, you can start your search here: https://www.archives.gov/locations'
+					},
+					{
+						'category': 'Admission',
+						'message': 'The National Archives Museum is open seven days a week from 10 am. to 5:30 p.m. (closed Thanksgiving Day and Christmas Day). Admission is always free! You can find more information about visiting the Museum here: https://www.archives.gov/museum/visit/. You can also reserve a timed entry or a guided tour: https://www.archives.gov/museum/visit/reserved-visits.html'
+					},
+					{
+						'category': 'Photography Rules',
+						'message': 'Photography of any kind is prohibited in all exhibition areas of the National Archives. Photography can damage the documents. You can download a high-res image of most of our displayed documents from our online catalog: https://catalog.archives.gov/'
+					},
+					{
+						'category': 'What\'s on Display',
+						'message': 'We have several permanent displays in the National Archives Museum (learn more: https://www.archives.gov/museum/visit/index.html), but the exhibit in the Lawrence F. O\'Brien Gallery changes about every 18 months. We also have Featured Document displays that change every month or two. To learn more about what\'s currently on display, visit us here: https://www.archives.gov/exhibits'
+					}
+				]
+			},
+			{
+				'category': 'Contact',
+				'message': 'Want to get in touch? Let us know how we can help: https://www.archives.gov/contact',
+				'categories': [
+					{
+						'category': 'Problem with Order?',
+						'message': 'We\'re sorry to hear that there\'s a problem with your research order! Please send us an email at inquire@nara.gov and let us know how we can help.'
+					}
+				]
+			},
+			{
+				'category': 'Research',
+				'message': 'Select an option to learn more.',
+				'categories': [
+					{
+						'category': 'Get Research Help',
+						'message': 'We can\'t do your research for you, but we can help get you started: https://www.archives.gov/research/start/plan-visit-0 You can also post your question over at our History Hub (https://history.gov/welcome) for some help from our experts. And you can hire someone (https://www.archives.gov/research/hire-help) to do the research for you.'
+					},
+					{
+						'category': 'Where to Go',
+						'message': 'National Archives facilities are located across the country. Start here to find out which location may hold the documents you\'re looking for: https://www.archives.gov/research/start/step2-gather-information.html#locate'
+					},
+					{
+						'category': 'Online Research',
+						'message': 'You can search our online catalog here: https://catalog.archives.gov/'
+					},
+					{
+						'category': 'Family Records',
+						'message': 'The National Archives is a treasure trove for family research! Learn more about starting your genealogical research here: https://www.archives.gov/research/genealogy/start-research'
+					},
+					{
+						'category': 'Request DD-214',
+						'message': 'You can request military personnel records including DD-214s here: https://www.archives.gov/veterans/military-service-records'
+					},
+					{
+						'category': 'Military Records',
+						'message': 'You can request military records from the National Archives in St. Louis (https://www.archives.gov/veterans/military-service-records). If you have an urgent request (for upcoming surgery or burial), follow these instructions: https://www.archives.gov/veterans/military-service-records#emergency'
+					},
+					{
+						'category': 'Replacement Medals',
+						'message': 'The National Archives doesn\'t issue replacement medals, but you can learn more about how to make that request here: https://www.archives.gov/veterans/replace-medals'
+					}
+				]
+			}
+		]
+	}
+	//
 	// Fun Facts
 	//
 	'facts': [

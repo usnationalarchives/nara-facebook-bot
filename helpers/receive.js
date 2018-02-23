@@ -86,7 +86,7 @@ const receivePostback = ( user, postback ) => {
 
 			// start Ask a Question
 			case 'menu.ask' :
-				sendAsk( user );
+				sendAsk( user, payload );
 				break;
 
 			// start interesting photos
@@ -145,7 +145,8 @@ const setUpPayload = ( payload ) => {
 		'tag_round_count': 0,
 		'new_message': script.tag_start,
 		'stop_message': script.switch_section,
-		'history': []
+		'history': [],
+		'category_path': []
 	}, args );
 
 }
@@ -341,19 +342,56 @@ const sendSwitchPrompt = ( user, payload ) => {
 }
 
 /**
- * Ask a Question placeholder section.
+ * Ask a Question section.
  */
-const sendAsk = ( user ) => {
-	sendApi.sendMessage( user, {
-		'text': script.ask_temp,
-		'quick_replies': [
-			{
-				'content_type': 'text',
-				'title': 'Back',
-				'payload': 'switch.ask'
-			}
-		]
+const sendAsk = ( user, payload ) => {
+
+	let category = script.ask;
+
+	// drill down until you get the correct category object
+	if ( payload.category_path.length ) {
+		for( i = 0; i < payload.category_path.length; i++ ) {
+			category = category[payload.category_path[i]];
+		}
+	}
+
+	let quickReplies = [];
+	let newPath = payload.category_path.slice();
+
+	// build quick replies from categories
+	for ( let i = 0; i < category.categories.length; i++ ) {
+
+		newPath.push( i );
+
+		quickReplies.push( {
+			'content_type': 'text',
+			'title': category.categories[i].category,
+			'payload': JSON.stringify( {
+				'name': 'menu.ask',
+				'type': 'JSON',
+				'category_path': newPath;
+			} );
+		} );
+
+	}
+
+	// build back button
+	newPath.pop();
+	quickReplies.push( {
+		'content_type': 'text',
+		'title': script.ask.back_text,
+		'payload': JSON.stringify( {
+			'name': 'menu.ask',
+			'type': 'JSON',
+			'category_path': newPath;
+		} );
 	} );
+
+	sendApi.sendMessage( user, {
+		'text': category.message,
+		'quick_replies': quickReplies
+	} );
+
 }
 
 /**
