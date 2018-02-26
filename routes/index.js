@@ -10,8 +10,8 @@
 
 const express = require( 'express' );
 const router = express.Router();
-const axios = require( 'axios' );
-const sendApi = require( '../helpers/send' );
+// const axios = require( 'axios' );
+// const sendApi = require( '../helpers/send' );
 
 const receiveApi = require( '../helpers/receive' );
 

@@ -83,13 +83,17 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 									'image_url': thisObject.file['@url'],
 									'default_action': {
 										'type': 'web_url',
-										'url': thisObject.file['@url']
+										'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
+										'webview_height_ratio': 'tall',
+										'messenger_extensions': true
 									},
 									'buttons': [
 										{
 											'type': 'web_url',
-											'url': thisObject.file['@url'],
 											'title': script.tag_image_options.big,
+											'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
+											'webview_height_ratio': 'tall',
+											'messenger_extensions': true
 										},
 										{
 											'type': 'web_url',
@@ -97,6 +101,9 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 											'title': script.tag_image_options.learn,
 											'webview_height_ratio': 'tall',
 											'messenger_extensions': true
+										},
+										{
+											'type': 'element_share'
 										}
 									]
 								}
@@ -208,13 +215,17 @@ const getPhoto = ( user, naId, history ) => {
 									'image_url': thisObject.file['@url'],
 									'default_action': {
 										'type': 'web_url',
-										'url': thisObject.file['@url']
+										'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
+										'webview_height_ratio': 'tall',
+										'messenger_extensions': true
 									},
 									'buttons': [
 										{
 											'type': 'web_url',
-											'url': thisObject.file['@url'],
+											'url': process.env.URL + 'media/' + result.naId + '/?title=' + encodeURIComponent( result.description.item.title ) + '&url=' + encodeURIComponent( thisObject.file['@url'] ),
 											'title': script.tag_image_options.big,
+											'webview_height_ratio': 'tall',
+											'messenger_extensions': true
 										},
 										{
 											'type': 'web_url',
