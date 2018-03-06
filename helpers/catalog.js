@@ -212,6 +212,7 @@ const getPhoto = ( user, naId, history ) => {
 							'elements': [
 								{
 									'title': result.description.item.title,
+									'subtitle': result.description.item.title,
 									'image_url': thisObject.file['@url'],
 									'default_action': {
 										'type': 'web_url',
