@@ -15,7 +15,7 @@ const script = {
 		'Sorry, I didn\'t understand that. For more info, type "help". You can also try the menu below for more options.'
 	],
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
-	'get_started': 'Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
+	'get_started': 'Hello! Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
 	'menu': {
 		'tag': 'Tag a Document',
 		'facts': 'Archives Trivia',
@@ -238,7 +238,27 @@ const script = {
 	// Interesting Photos
 	//
 	'get_photo': 'Grabbing a photo...',
-	'photos': [ 6011716, 1126974, 535579, 522880, 533758, 522888, 74249694, 532376, 6883309, 548550, 641627, 594412, 523373, 7387550, 2803422, 6816402, 75856835, 7348582, 16685274 ],
+	'photos': [ // array of NaIds, can add any amount
+		6011716,
+		1126974,
+		535579,
+		522880,
+		533758,
+		522888,
+		74249694,
+		532376,
+		6883309,
+		548550,
+		641627,
+		594412,
+		523373,
+		7387550,
+		2803422,
+		6816402,
+		75856835,
+		7348582,
+		16685274
+	],
 	'photos_reply': {
 		'message': 'Want another?',
 		'options': {
