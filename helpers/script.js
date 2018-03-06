@@ -115,7 +115,7 @@ const script = {
 		'option_stop': 'I need a break',
 		'followup_new': 'I like your attitude. Grabbing another document for you...',
 		'followup_stop': {
-			'mesage': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents.',
+			'message': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents.',
 			'link_url': 'https://www.archives.gov/citizen-archivist',
 			'link_text': 'Find out more'
 		}
