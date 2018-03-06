@@ -397,6 +397,14 @@ const sendAsk = ( user, payload ) => {
 			} )
 		} );
 
+	} else {
+
+		quickReplies.push( {
+			'content_type': 'text',
+			'title': script.ask.back_text,
+			'payload': 'switch.ask'
+		} );
+
 	}
 
 	sendApi.sendMessage( user, {
