@@ -201,7 +201,7 @@ const getPhoto = ( user, naId, history ) => {
 			let thisObject = objects[0];
 
 			// send title, with follow-up catalog object and answer prompt
-			sendApi.sendMessage( user,
+			sendApi.sendMessage( user, result.description.item.title, [
 				{
 					'attachment': {
 						'type': 'template',
@@ -211,8 +211,7 @@ const getPhoto = ( user, naId, history ) => {
 							'image_aspect_ratio': 'square',
 							'elements': [
 								{
-									'title': result.description.item.title,
-									'subtitle': result.description.item.title,
+									'title': 'Click to view larger size',
 									'image_url': thisObject.file['@url'],
 									'default_action': {
 										'type': 'web_url',
@@ -263,7 +262,7 @@ const getPhoto = ( user, naId, history ) => {
 						}
 					]
 				}
-			);
+			] );
 
 		} )
 		.catch( function( error ) {
