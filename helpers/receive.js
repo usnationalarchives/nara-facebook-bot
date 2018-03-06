@@ -498,10 +498,8 @@ const sendTagResponse = ( user, payload ) => {
 		}
 
 		// intermission reply
-		let roundLength = 5;
-		if ( payload.tag_round_count === roundLength ) {
+		if ( payload.tag_round_count === script.tag_round_length ) {
 			reply = Object.assign( reply, script.tag_reply_intermission );
-			reply.message = reply.message.replace( 'ROUND_COUNT', roundLength );
 			payload.tag_round_count = 0;
 		}
 

@@ -211,7 +211,7 @@ const getPhoto = ( user, naId, history ) => {
 							'image_aspect_ratio': 'square',
 							'elements': [
 								{
-									'title': 'Click to view larger size',
+									'title': 'Click image to view larger size',
 									'image_url': thisObject.file['@url'],
 									'default_action': {
 										'type': 'web_url',

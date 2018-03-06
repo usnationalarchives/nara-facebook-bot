@@ -110,12 +110,17 @@ const script = {
 		'message': 'Congrats on your first tag! Every tag you provide makes American history more accessible.'
 	},
 	'tag_reply_intermission': {
-		'message': 'You just did ROUND_COUNT documents in a row. How are you feeling?',
+		'message': 'You just did 5 documents in a row. How are you feeling?',
 		'option_new': 'Keep going',
 		'option_stop': 'I need a break',
 		'followup_new': 'I like your attitude. Grabbing another document for you...',
-		'followup_stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+		'followup_stop': {
+			'mesage': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents.',
+			'link_url': 'https://www.archives.gov/citizen-archivist',
+			'link_text': 'Find out more'
+		}
 	},
+	'tag_round_length': 5, // the amount of tags to process before showing the intermission message. if this is changed, remember to also change the message
 	//
 	// Q&A
 	//
