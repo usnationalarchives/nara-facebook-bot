@@ -27,8 +27,8 @@ const storeTag = ( response ) => {
 	var moment = require('moment');
 	var timestamp = moment();
 
-	//console.log("My timestamp: ".timestamp);
-	//console.log("Response from app:".response);
+	console.log("My timestamp: ".timestamp);
+	console.log("Response from app:".response);
 
 	// get current ipaddress of request (if possible)
 	var ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || (req.connection.socket ? req.connection.socket.remoteAddress : null);
@@ -537,6 +537,8 @@ const sendTagResponse = ( user, payload ) => {
 
 	let parts = payload.name.split( '.' );
 	let choice = parts[2];
+
+	storeTag(parts);
 
 	// default reply
 	let reply = {
