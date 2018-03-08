@@ -67,7 +67,10 @@ const storeTag = ( payload ) => {
 		endpoint: "http://dynamodb.us-east-2.amazonaws.com"
 	});
 	
-	var docClient = new AWS.DynamoDB.DocumentClient();
+	var docClient = new AWS.DynamoDB.DocumentClient({
+		accessKeyId: process.env.AWS_ACCESS_KEY,
+		secretAccessKey: process.env.AWS_SECRET_KEY
+	});
 
 	// write it all to Dynamo and out.. 
 	
