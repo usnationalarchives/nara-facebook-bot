@@ -73,7 +73,7 @@ const storeTag = ( payload ) => {
 	
 	docClient.put(params, function(err, data) {
 	if (err) {
-           console.error("Unable to add user tag. Error JSON:". JSON.stringify(err,null,2));
+           console.error("Unable to add user tag. Error JSON:", JSON.stringify(err,null,2));
        } else {
            console.log("PutItem user tag succeeded:");
        }
