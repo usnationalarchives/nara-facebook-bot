@@ -21,13 +21,13 @@ const catalogApi = require( './catalog' );
  *    "score": "",            // an integer representing scores
  *
  */
-const storeTag = ( response ) => {
+const storeTag = ( payload ) => {
 
 	// get current timestamp
 	var moment = require('moment')
 	var timestamp = moment();
 
-	console.log(response);
+	console.log(payload);
 
 	let parts = payload.name.split( '.' );
 	let choice = parts[2];
