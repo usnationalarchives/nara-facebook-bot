@@ -23,29 +23,30 @@ const catalogApi = require( './catalog' );
  */
 const storeTag = ( payload ) => {
 
-	// get current timestamp
-	var moment = require('moment')
-	var timestamp = moment();
-
 	console.log(payload);
 
+	// get current timestamp
+	var moment = require('moment')
+	var timestamp = moment().format();
+
+	// get user score
 	let parts = payload.name.split( '.' );
 	let choice = parts[2];
 
-	var ipaddress = "127.0.0.1";    
-	var AWS = require("aws-sdk");
-
-	AWS.config.update({
-		region: "us-west-2",
-		endpoint: "http://localhost:8000"
-	});
-
-	var uuid = "123456";
+	// get naID
 	var objectid = payload.naId;
-	var userid = "greg schnippel";
-	var score = "my score";
 
-	var docClient = new AWS.DynamoDB.DocumentClient();
+	// get user ip address	
+	const http = require('http');
+	req = http.request();
+	console.log(req);
+	var ipaddress = "127.0.0.1";    
+
+	// get uuid
+	var uuid = "123456";
+	
+	// get userid
+	var userid = "greg schnippel";
 
 	var params = {
         	TableName: "usertags",
@@ -61,6 +62,19 @@ const storeTag = ( payload ) => {
 
 	console.log(params);
 
+	// setup aws connection
+	var AWS = require("aws-sdk");
+
+	AWS.config.update({
+		region: "us-west-2",
+		endpoint: "http://localhost:8000"
+	});
+	
+	var docClient = new AWS.DynamoDB.DocumentClient();
+
+	
+	// write it all to Dynamo and out.. 
+	
 	docClient.put(params, function(err, data) {
 	if (err) {
            console.error("Unable to add user tag");
