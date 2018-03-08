@@ -48,9 +48,9 @@ const storeTag = ( payload ) => {
 	var params = {
         	TableName: "usertags",
 	        Item: {
-        		"uuid":  uuid,
-	            "timestamp": timestamp,
-	            "userid": userid,
+				"uuid":  uuid,
+				"timestamp": timestamp,
+				"userid": userid,
 				"objectid": objectid,
 				"ipaddress": ipaddress,
 				"score": choice,
@@ -63,13 +63,12 @@ const storeTag = ( payload ) => {
 	var AWS = require("aws-sdk");
 
 	AWS.config.update({
-		region: "us-west-2",
-		endpoint: "http://localhost:8000"
+		region: "us-east-2",
+		endpoint: "http://dynamodb.us-east-2.amazonaws.com"
 	});
 	
 	var docClient = new AWS.DynamoDB.DocumentClient();
 
-	
 	// write it all to Dynamo and out.. 
 	
 	docClient.put(params, function(err, data) {
