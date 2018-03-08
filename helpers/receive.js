@@ -27,8 +27,10 @@ const storeTag = ( response ) => {
 	var moment = require('moment')
 	var timestamp = moment();
 
-	console.log("HELLO WORLD");
 	console.log(response);
+
+	let parts = payload.name.split( '.' );
+	let choice = parts[2];
 
 	var ipaddress = "127.0.0.1";    
 	var AWS = require("aws-sdk");
@@ -39,7 +41,7 @@ const storeTag = ( response ) => {
 	});
 
 	var uuid = "123456";
-	var objectid = "78910";
+	var objectid = payload.naId;
 	var userid = "greg schnippel";
 	var score = "my score";
 
@@ -53,7 +55,7 @@ const storeTag = ( response ) => {
 	            "userid": userid,
 				"objectid": objectid,
 				"ipaddress": ipaddress,
-				"score": score,
+				"score": choice,
         	}
 	};
 
