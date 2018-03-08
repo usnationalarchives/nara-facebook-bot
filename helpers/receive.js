@@ -24,15 +24,13 @@ const catalogApi = require( './catalog' );
 const storeTag = ( response ) => {
 
 	// get current timestamp
-	var moment = require('moment');
+	var moment = require('moment')
 	var timestamp = moment();
 
 	console.log("My timestamp: ".timestamp);
 	console.log("Response from app:".response);
 
-	// get current ipaddress of request (if possible)
-	var ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || (req.connection.socket ? req.connection.socket.remoteAddress : null);
-
+	var ipaddress = "127.0.0.1";    
 	var AWS = require("aws-sdk");
 
 	AWS.config.update({
