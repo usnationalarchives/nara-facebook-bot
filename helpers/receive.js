@@ -40,7 +40,9 @@ const storeTag = ( response ) => {
 
 	var uuid = "123456";
 	var objectid = "78910";
-	
+	var userid = "greg schnippel";
+	var score = "my score";
+
 	var docClient = new AWS.DynamoDB.DocumentClient();
 
 	var params = {
@@ -539,7 +541,7 @@ const sendTagResponse = ( user, payload ) => {
 	let parts = payload.name.split( '.' );
 	let choice = parts[2];
 
-	storeTag(parts);
+	storeTag(payload);
 
 	// default reply
 	let reply = {
