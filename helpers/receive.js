@@ -27,8 +27,8 @@ const storeTag = ( response ) => {
 	var moment = require('moment')
 	var timestamp = moment();
 
-	console.log("My timestamp: ".timestamp);
-	console.log("Response from app:".response);
+	console.log("HELLO WORLD");
+	console.log(response);
 
 	var ipaddress = "127.0.0.1";    
 	var AWS = require("aws-sdk");
@@ -37,6 +37,9 @@ const storeTag = ( response ) => {
 		region: "us-west-2",
 		endpoint: "http://localhost:8000"
 	});
+
+	var uuid = "123456";
+	var objectid = "78910";
 	
 	var docClient = new AWS.DynamoDB.DocumentClient();
 
