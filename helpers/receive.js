@@ -37,9 +37,6 @@ const storeTag = ( payload ) => {
 	var objectid = payload.naId;
 
 	// get user ip address	
-	const http = require('http');
-	req = http.request();
-	console.log(req);
 	var ipaddress = "127.0.0.1";    
 
 	// get uuid
