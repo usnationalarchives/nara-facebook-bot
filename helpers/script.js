@@ -15,7 +15,7 @@ const script = {
 		'Sorry, I didn\'t understand that. For more info, type "help". You can also try the menu below for more options.'
 	],
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
-	'get_started': 'Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
+	'get_started': 'Hello! Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
 	'menu': {
 		'tag': 'Tag a Document',
 		'facts': 'Archives Trivia',
@@ -110,12 +110,17 @@ const script = {
 		'message': 'Congrats on your first tag! Every tag you provide makes American history more accessible.'
 	},
 	'tag_reply_intermission': {
-		'message': 'You just did ROUND_COUNT documents in a row. How are you feeling?',
+		'message': 'You just did 5 documents in a row. How are you feeling?',
 		'option_new': 'Keep going',
 		'option_stop': 'I need a break',
 		'followup_new': 'I like your attitude. Grabbing another document for you...',
-		'followup_stop': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents. Find out more at https://www.archives.gov/citizen-archivist'
+		'followup_stop': {
+			'message': 'Me too! FYI, our citizen archivist program invites you to tag and transcribe more documents.',
+			'link_url': 'https://www.archives.gov/citizen-archivist',
+			'link_text': 'Find out more'
+		}
 	},
+	'tag_round_length': 5, // the amount of tags to process before showing the intermission message. if this is changed, remember to also change the message
 	//
 	// Q&A
 	//
@@ -238,7 +243,27 @@ const script = {
 	// Interesting Photos
 	//
 	'get_photo': 'Grabbing a photo...',
-	'photos': [ 6011716, 1126974, 535579, 522880, 533758, 522888, 74249694, 532376, 6883309, 548550, 641627, 594412, 523373, 7387550, 2803422, 6816402, 75856835, 7348582, 16685274 ],
+	'photos': [ // array of NaIds, can add any amount
+		6011716,
+		1126974,
+		535579,
+		522880,
+		533758,
+		522888,
+		74249694,
+		532376,
+		6883309,
+		548550,
+		641627,
+		594412,
+		523373,
+		7387550,
+		2803422,
+		6816402,
+		75856835,
+		7348582,
+		16685274
+	],
 	'photos_reply': {
 		'message': 'Want another?',
 		'options': {

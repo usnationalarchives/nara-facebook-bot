@@ -121,7 +121,8 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 								'name': 'tag.options.handwritten',
 								'type': 'JSON',
 								'tag_round_count': newTagRoundCount,
-								'naId':naId
+								'naId':naId,
+								'objectId':thisObject['@id']
 							} )
 						},
 						{
@@ -131,7 +132,8 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 								'name': 'tag.options.typed',
 								'type': 'JSON',
 								'tag_round_count': newTagRoundCount,
-								'naId':naId
+								'naId':naId,
+								'objectId':thisObject['@id']
 							} )
 						},
 						{
@@ -141,7 +143,8 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 								'name': 'tag.options.mixed',
 								'type': 'JSON',
 								'tag_round_count': newTagRoundCount,
-								'naId':naId
+								'naId':naId,
+								'objectId':thisObject['@id']
 							} )
 						},
 						{
@@ -151,7 +154,8 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 								'name': 'tag.options.none',
 								'type': 'JSON',
 								'tag_round_count': newTagRoundCount,
-								'naId':naId
+								'naId':naId,
+								'objectId':thisObject['@id']
 							} )
 						},
 						{
@@ -161,7 +165,8 @@ const getItem = ( user, tagRoundCount = 0, startMessage = '' ) => {
 								'name': 'tag.options.skip',
 								'type': 'JSON',
 								'tag_round_count': tagRoundCount, // don't increment skipped items
-								'naId':naId
+								'naId':naId,
+								'objectId':thisObject['@id']
 							} )
 						}
 					]
@@ -201,7 +206,7 @@ const getPhoto = ( user, naId, history ) => {
 			let thisObject = objects[0];
 
 			// send title, with follow-up catalog object and answer prompt
-			sendApi.sendMessage( user,
+			sendApi.sendMessage( user, result.description.item.title, [
 				{
 					'attachment': {
 						'type': 'template',
@@ -211,7 +216,7 @@ const getPhoto = ( user, naId, history ) => {
 							'image_aspect_ratio': 'square',
 							'elements': [
 								{
-									'title': result.description.item.title,
+									'title': 'Click image to view larger size',
 									'image_url': thisObject.file['@url'],
 									'default_action': {
 										'type': 'web_url',
@@ -262,7 +267,7 @@ const getPhoto = ( user, naId, history ) => {
 						}
 					]
 				}
-			);
+			] );
 
 		} )
 		.catch( function( error ) {
