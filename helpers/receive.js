@@ -24,7 +24,6 @@ const catalogApi = require( './catalog' );
 const storeTag = (user, payload ) => {
 
 	console.log(payload);
-	console.log(user);
 
 	// get current timestamp
 	var moment = require('moment')
@@ -38,7 +37,7 @@ const storeTag = (user, payload ) => {
 	var naid = payload.naId;
 
 	// get objectID
-	var objectid = payload.objectid;
+	var objectid = payload.objectId;
 
 	// get user ip address	
 	var ipaddress = "127.0.0.1";    
@@ -46,16 +45,13 @@ const storeTag = (user, payload ) => {
 	// get uuid
 	var uniqid = require('uniqid');
 	var uuid = uniqid();
-	
-	// get userid
-	var userid = "greg schnippel";
 
 	var params = {
         	TableName: "usertags",
 	        Item: {
 				"uuid":  uuid,
 				"timestamp": timestamp,
-				"userid": userid,
+				"userid": user,
 				"naid": naid,
 				"objectid": objectid,
 				"ipaddress": ipaddress,
