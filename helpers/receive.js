@@ -11,6 +11,83 @@ const catalogApi = require( './catalog' );
 
 /**
  * Receive a text message, interpret it, and return a response.
+ *
+ * Database: usertags
+ *    "uuid": "",             // auto-generated dynamodb primary key
+ *    "timestamp": "",        // current date / time
+ *    "userid": "",           // if available, ex. from Facebook
+ *    "objectid": "",         // NARA API Object id
+ *    "ipaddress": "",        // user's IP address for fraud detection, if available
+ *    "score": "",            // an integer representing scores
+ *
+ */
+const storeTag = (user, payload ) => {
+
+	console.log(payload);
+
+	// get current timestamp
+	var moment = require('moment')
+	var timestamp = moment().format();
+
+	// get user score
+	let parts = payload.name.split( '.' );
+	let choice = parts[2];
+
+	// get naID
+	var naid = payload.naId;
+
+	// get objectID
+	var objectid = payload.objectId;
+
+	// get user ip address	
+	var ipaddress = "127.0.0.1";    
+
+	// get uuid
+	var uniqid = require('uniqid');
+	var uuid = uniqid();
+
+	var params = {
+        	TableName: "usertags",
+	        Item: {
+				"uuid":  uuid,
+				"timestamp": timestamp,
+				"userid": user,
+				"naid": naid,
+				"objectid": objectid,
+				"ipaddress": ipaddress,
+				"score": choice,
+        	}
+	};
+
+	console.log(params);
+
+	// setup aws connection
+	var AWS = require("aws-sdk");
+
+	AWS.config.update({
+		region: "us-east-2",
+		endpoint: "http://dynamodb.us-east-2.amazonaws.com"
+	});
+	
+	var docClient = new AWS.DynamoDB.DocumentClient({
+		accessKeyId: process.env.AWS_ACCESS_KEY,
+		secretAccessKey: process.env.AWS_SECRET_KEY
+	});
+
+	// write it all to Dynamo and out.. 
+	
+	docClient.put(params, function(err, data) {
+	if (err) {
+           console.error("Unable to add user tag. Error JSON:", JSON.stringify(err,null,2));
+       } else {
+           console.log("PutItem user tag succeeded:");
+       }
+    });
+
+};
+
+/**
+ * Receive a text message, interpret it, and return a response.
  */
 const receiveMessage = ( user, message ) => {
 
@@ -488,6 +565,8 @@ const sendTagResponse = ( user, payload ) => {
 
 	let parts = payload.name.split( '.' );
 	let choice = parts[2];
+
+	storeTag(user, payload);
 
 	// default reply
 	let reply = {

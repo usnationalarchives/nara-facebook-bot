@@ -13,6 +13,9 @@ const router = express.Router();
 // const axios = require( 'axios' );
 // const sendApi = require( '../helpers/send' );
 
+const receiveApi = require( '../helpers/receive' );
+
+
 /**
  * Display a Forbidden error for anyone accessing the
  * root level of the webserver.
@@ -21,7 +24,9 @@ router.get( '/', ( req, res ) => {
 
 	// testing sandbox
 
-	res.sendStatus( 403 );
+	res.send('Hello World!');
+	store.tag("Response Test");
+	res.send("Done.");	
 
 } );
 
