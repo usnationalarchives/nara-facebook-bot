@@ -12,8 +12,7 @@ const express = require( 'express' );
 const router = express.Router();
 // const axios = require( 'axios' );
 // const sendApi = require( '../helpers/send' );
-
-const receiveApi = require( '../helpers/receive' );
+// const receiveApi = require( '../helpers/receive' );
 
 
 /**
@@ -23,10 +22,7 @@ const receiveApi = require( '../helpers/receive' );
 router.get( '/', ( req, res ) => {
 
 	// testing sandbox
-
-	res.send('Hello World!');
-	store.tag("Response Test");
-	res.send("Done.");	
+	res.sendStatus( 403 );
 
 } );
 
