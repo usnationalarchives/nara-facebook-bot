@@ -21,9 +21,10 @@ const catalogApi = require( './catalog' );
  *    "score": "",            // an integer representing scores
  *
  */
-const storeTag = ( payload ) => {
+const storeTag = (user, payload ) => {
 
 	console.log(payload);
+	console.log(user);
 
 	// get current timestamp
 	var moment = require('moment')
@@ -34,13 +35,17 @@ const storeTag = ( payload ) => {
 	let choice = parts[2];
 
 	// get naID
-	var objectid = payload.naId;
+	var naid = payload.naId;
+
+	// get objectID
+	var objectid = payload.objectid;
 
 	// get user ip address	
 	var ipaddress = "127.0.0.1";    
 
 	// get uuid
-	var uuid = "123456";
+	var uniqid = require('uniqid');
+	var uuid = uniqid();
 	
 	// get userid
 	var userid = "greg schnippel";
@@ -51,6 +56,7 @@ const storeTag = ( payload ) => {
 				"uuid":  uuid,
 				"timestamp": timestamp,
 				"userid": userid,
+				"naid": naid,
 				"objectid": objectid,
 				"ipaddress": ipaddress,
 				"score": choice,
@@ -556,7 +562,7 @@ const sendTagResponse = ( user, payload ) => {
 	let parts = payload.name.split( '.' );
 	let choice = parts[2];
 
-	storeTag(payload);
+	storeTag(user, payload);
 
 	// default reply
 	let reply = {
