@@ -22,7 +22,7 @@ Sign up at https://developers.facebook.com/.
 
 ### 3. Webhook
 
-Any time a user sends a message or takes any action with your bot, an event is sent to a particular URL called a webhook. That server is where the bot code should be stored. The code interprets the event and sends one or more messages back.
+Any time a user sends a message or takes any action with your bot, an event is sent to a particular URL called a webhook. That server is where the bot code (i.e. this repository) should be stored. The code interprets the event and sends one or more messages back.
 
 ### 4. Facebook App
 
