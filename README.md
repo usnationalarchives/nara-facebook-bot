@@ -1,5 +1,7 @@
 # NARA Facebook Bot
 
+Some notes on how to set up and test Facebook Messenger bots.
+
 ## Intro to Messenger Bots
 
 Bots exist on Facebook's Messenger platform.
@@ -38,7 +40,7 @@ These should be stored as node.js environment variables on the bot server.
 
 <dl>
 <dt>URL</dt>
-<dd>Full URL where app is location. Example: <code>https://md-facebook-bot-test.herokuapp.com/</code>.</dd>
+<dd>Full URL where app is located. Example: <code>https://md-facebook-bot-test.herokuapp.com/</code>.</dd>
 <dt>VERIFICATION_TOKEN</dt>
 <dd>Random string of your choice. Needed once to verify the webhook when first setting up the Facebook app.</dd>
 <dt>PAGE_ACCESS_TOKEN</dt>
@@ -55,6 +57,8 @@ Before a bot is publicly available (https://developers.facebook.com/docs/messeng
 
 - Must be an admin or tester within the app (https://developers.facebook.com > My Apps > select app > Roles).
 - Must be an admin of the Facebook page (e.g. https://www.facebook.com/ChiefMessengerLab/ > Settings > Page Roles).
+
+Once you have access, you can interact with the bot by going to https://m.me/ChiefMessengerLab.
 
 ## More Catches
 
