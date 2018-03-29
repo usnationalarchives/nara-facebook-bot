@@ -41,7 +41,7 @@ These should be stored as node.js environment variables on the bot server.
 <dl>
 <dt>URL</dt>
 <dd>Full URL where app is located. Example: <code>https://md-facebook-bot-test.herokuapp.com/</code>.</dd>
-<dt>VERIFICATION_TOKEN</dt>
+<dt>VERIFY_TOKEN</dt>
 <dd>Random string of your choice. Needed once to verify the webhook when first setting up the Facebook app.</dd>
 <dt>PAGE_ACCESS_TOKEN</dt>
 <dd>Get from Facebook after successfully creating Facebook app. Required to enable messaging.</dd>
