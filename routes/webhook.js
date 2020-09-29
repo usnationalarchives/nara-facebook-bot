@@ -56,7 +56,7 @@ router.post( '/', ( req, res ) => {
 
 		// send a success back asap to avoid timeouts
 		res.sendStatus( 200 );
-
+		console.log('----------------handdle post request-----------------');
 		// iterate over each entry (there may be multiple if batched)
 		req.body.entry.forEach( function( entry ) {
 

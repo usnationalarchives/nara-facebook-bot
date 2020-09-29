@@ -14,7 +14,7 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 
 	// error if we're out of retries
 	if ( retries < 0 ) {
-		console.error( 'No more retries left.', body );
+		console.error( 'No more retries left.', 'body' );
 		return;
 	}
 
@@ -23,7 +23,7 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 	// attempt to send response
 	axios.post( 'https://graph.facebook.com/v2.6/me/messages', params )
 		.then( function( res ) {
-			console.log( type );
+			//console.log( type );
 
 			switch( type ) {
 
@@ -73,8 +73,8 @@ const sendRequest = ( type = '', params, followUps = false, retries = 5 ) => {
 		} )
 		.catch( function( err ) {
 			// retry if the message failed
-			console.error( 'Unable to send message: ', err );
-			console.log( 'Retrying request: ' + retries + ' left' );
+			//console.error( 'Unable to send message: ', err );
+			//console.log( 'Retrying request: ' + retries + ' left' );
 			sendRequest( type, params, followUps, retries - 1 );
 		} );
 

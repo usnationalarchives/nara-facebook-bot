@@ -15,7 +15,7 @@ const script = {
 		'Sorry, I didn\'t understand that. For more info, type "help". You can also try the menu below for more options.'
 	],
 	'greeting': 'Hello {{user_first_name}}! Hit the "Get Started" button below.',
-	'get_started': 'Hello! Want to help make history accessible? Tag the type of writing you see in our documents. You can also ask questions about the National Archives.',
+	'get_started': 'Hello! Want to help make history accessible? Help us test our new chatbot by tagging  the type of writing you see in our documents. You can also ask questions about the National Archives by selecting an option in our menu. Let\'s get started!',
 	'menu': {
 		'tag': 'Tag a Document',
 		'facts': 'Archives Trivia',
@@ -24,7 +24,7 @@ const script = {
 		'submenu': 'More Fun Stuff',
 		'stop': 'Stop'
 	},
-	'help': 'You\'re talking to the National Archives Facebook page. Here you can help make history accessible by tagging the type of writing you see in our documents. You can also ask questions about the National Archives, see interesting photos, or learn Archives trivia. Tap an option in the menu below to continue, or type "start".',
+	'help': 'You\'re talking to the National Archives Facebook page as we test a new chatbot. You can help us make history accessible by tagging the type of writing you see in our documents. You can also ask questions about the National Archives, see interesting photos, or learn Archives trivia. Type start and tap/click on the buttons to get started.',
 	'switch_section': 'Would you like to do something else?',
 	'ask_temp': 'Ask a question section placeholder.',
 	'share': {

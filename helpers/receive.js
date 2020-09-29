@@ -23,7 +23,7 @@ const catalogApi = require( './catalog' );
  */
 const storeTag = (user, payload ) => {
 
-	console.log(payload);
+	//console.log(payload);
 
 	// get current timestamp
 	var moment = require('moment')
@@ -59,14 +59,14 @@ const storeTag = (user, payload ) => {
         	}
 	};
 
-	console.log(params);
+	//console.log(params);
 
 	// setup aws connection
 	var AWS = require("aws-sdk");
 
 	AWS.config.update({
-		region: "us-east-2",
-		endpoint: "http://dynamodb.us-east-2.amazonaws.com"
+		region: "us-east-1",
+		endpoint: "http://dynamodb.us-east-1.amazonaws.com"
 	});
 	
 	var docClient = new AWS.DynamoDB.DocumentClient({
@@ -90,7 +90,7 @@ const storeTag = (user, payload ) => {
  * Receive a text message, interpret it, and return a response.
  */
 const receiveMessage = ( user, message ) => {
-
+  console.log('----------------message-------------------');
 	if ( message.text ) {
 
 		// clean up message
@@ -105,6 +105,9 @@ const receiveMessage = ( user, message ) => {
 			case 'start' :
 			case 'restart' :
 			case 'begin' :
+      case 'get started':
+      case 'get_started':
+      case 'menu':
 				sendStart( user );
 				break;
 
@@ -122,7 +125,7 @@ const receiveMessage = ( user, message ) => {
 				break;
 
 			default :
-				sendDefault( user );
+				//sendDefault( user );
 				break;
 
 		}
@@ -136,11 +139,13 @@ const receiveMessage = ( user, message ) => {
  * return a response based on the payload.
  */
 const receivePostback = ( user, postback ) => {
-
+  console.log('----------------postback-------------------');
 	if ( postback.payload ) {
-
+  
 		const payload = setUpPayload( postback.payload );
-
+    //console.log('begin postback -----------');
+    //console.log(postback);
+    //console.log('end postback -----------');
 		switch( payload.name ) {
 
 			// welcome message & options
